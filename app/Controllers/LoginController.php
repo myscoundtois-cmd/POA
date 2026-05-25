@@ -2,9 +2,10 @@
 
 namespace App\Controllers;
 
-use App\Models\UserModel;
+use App\Models\UsersModel;
+use App\Models\DataUserModel;
 
-class Login extends BaseController
+class LoginController extends BaseController
 {
     public function index()
     {
@@ -13,38 +14,93 @@ class Login extends BaseController
 
     public function auth()
     {
-        $model = new UserModel();
+        $model = new UsersModel();
 
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
 
-        $user = $model->where('email', $email)
-            ->where('password', $password)
-            ->first();
+        // cari user berdasarkan email
+        $user = $model->where('email', $email)->first();
 
+        // cek user ditemukan
         if ($user) {
-            echo "Login Berhasil";
+
+            // cek password hash
+            if (password_verify($password, $user['password_hash'])) {
+
+                // cek role
+                if ($user['role'] == 'admin') {
+
+                    echo "Login Admin";
+                } elseif ($user['role'] == 'guru') {
+
+                    echo "Login Guru";
+                } elseif ($user['role'] == 'murid') {
+
+                    echo "Login Murid";
+                } elseif ($user['role'] == 'wali') {
+
+                    echo "Login Wali Murid";
+                } else {
+
+                    echo "Role tidak dikenali";
+                }
+            } else {
+
+                echo "Password salah";
+            }
         } else {
-            echo "email atau Password salah";
+
+            echo "Email tidak ditemukan";
         }
     }
 
     public function regist()
     {
-        $model = new UserModel();
+        $model = new UsersModel();
+        $modelData = new DataUserModel();
 
-        $data = [
-            'nama' => $this->request->getPost('nama'),
+        // upload foto
+        $foto = $this->request->getFile('foto');
+
+        $namaFoto = $foto->getRandomName();
+
+        $foto->move('uploads', $namaFoto);
+
+        // data tabel users
+        $data1 = [
+
             'email' => $this->request->getPost('email'),
+
             'password' => $this->request->getPost('password'),
             'password_hash' => password_hash(
                 $this->request->getPost('password'),
                 PASSWORD_DEFAULT
             ),
-            'role' => $this->request->getPost('role')
+
+            'role' => $this->request->getPost('role'),
         ];
 
-        $model->save($data);
+        // simpan ke users
+        $model->save($data1);
+
+        // ambil id user terakhir
+        $id_user = $model->getInsertID();
+
+        // data tabel data_users
+        $data2 = [
+
+            'nama' => $this->request->getPost('nama'),
+
+            'email' => $this->request->getPost('email'),
+
+            'foto' => $namaFoto,
+
+            'id_user' => $id_user
+        ];
+
+        // simpan data detail user
+        $modelData->save($data2);
 
         return redirect()->to('/');
     }

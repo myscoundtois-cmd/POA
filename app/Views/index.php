@@ -32,12 +32,12 @@
 
                 <div class="input-box">
                     <i class="fa-solid fa-at"></i>
-                    <input type="text" placeholder="e-mail">
+                    <input type="text" name="email" placeholder="e-mail">
                 </div>
 
                 <div class="input-box">
                     <i class="fa-solid fa-lock"></i>
-                    <input type="password" placeholder="Password">
+                    <input type="password" name="password" placeholder="Password">
                 </div>
 
                 <div class="d-grid gap-2">
@@ -59,6 +59,7 @@
             <!-- REGISTER -->
             <form action="<?= base_url('regist') ?>"
                 method="post"
+                enctype="multipart/form-data"
                 id="registerForm">
 
                 <div class="input-box">
@@ -76,23 +77,23 @@
                 <div class="input-box">
                     <i class="fa-solid fa-file-arrow-up"></i>
 
-                    <input type="file" class="form-control" id="inputGroupFile01" required>
+                    <input type="file" class="form-control" name="foto" id="inputGroupFile01" required>
                 </div>
 
                 <div class="input-box">
                     <i class="fa-regular fa-user"></i>
 
-                    <input type="text" placeholder="Nama" required>
+                    <input type="text" name="nama" placeholder="Nama" required>
                 </div>
 
                 <div class="input-box">
                     <i class="fa-solid fa-at"></i>
-                    <input type="text" placeholder="email" required>
+                    <input type="text" name="email" placeholder="email" required>
                 </div>
 
                 <div class="input-box">
                     <i class="fa-solid fa-lock"></i>
-                    <input type="password" placeholder="Password" required>
+                    <input type="password" name="password" placeholder="Password" required>
                 </div>
 
                 <div class="d-grid gap-2">
