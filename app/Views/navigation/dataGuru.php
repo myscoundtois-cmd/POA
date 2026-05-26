@@ -2,7 +2,7 @@
     <?= $this->include('content/navbar') ?>
     <div class="table-section">
 
-        <h5 class="mb-4">Data Siswa</h5>
+        <h5 class="mb-4">Data Guru</h5>
 
         <div class="table-responsive">
 

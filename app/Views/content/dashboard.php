@@ -43,9 +43,9 @@
             </li>
 
             <li>
-                <a href="#" onclick="showPage('absensi')">
+                <a href="#" onclick="showPage('nilai')">
                     <i class="fa-solid fa-clipboard-check"></i>
-                    Absensi
+                    nilai
                 </a>
             </li>
 
@@ -72,15 +72,15 @@
     </div>
 
     <div id="data_guru" class="content-page">
-        <h1>Data Guru</h1>
+        <?= $this->include('navigation/dataGuru') ?>
     </div>
 
     <div id="mapel" class="content-page">
-        <h1>Mata Pelajaran</h1>
+        <?= $this->include('navigation/Mapel') ?>
     </div>
 
-    <div id="absensi" class="content-page">
-        <h1>Absensi</h1>
+    <div id="nilai" class="content-page">
+        <?= $this->include('navigation/nilai') ?>
     </div>
 
 

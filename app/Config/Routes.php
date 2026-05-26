@@ -11,8 +11,8 @@ $routes->get('/logout', 'LoginController::logout');
 // ADMIN
 $routes->get('/admin/dashboard', 'AdminController::index');
 // GURU
-$routes->get('/guru/dashboard', 'Guru::dashboard');
+$routes->get('/guru/dashboard', 'GuruController::index');
 // MURID
-$routes->get('/murid/dashboard', 'Murid::dashboard');
+$routes->get('/murid/dashboard', 'MuridController::index');
 // WALI
-$routes->get('/wali/dashboard', 'Wali::dashboard');
+$routes->get('/wali/dashboard', 'WaliController::index');

@@ -1,8 +1,9 @@
 <div class="main-content">
     <?= $this->include('content/navbar') ?>
+
     <div class="table-section">
 
-        <h5 class="mb-4">Data Siswa</h5>
+        <h5 class="mb-4">Data Nilai Siswa</h5>
 
         <div class="table-responsive">
 
