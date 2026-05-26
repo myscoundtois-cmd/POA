@@ -1,0 +1,158 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background: #f4f7fe;
+}
+
+.sidebar {
+  width: 260px;
+  height: 100vh;
+  background: #1e3a8a;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: 20px;
+  overflow: auto;
+}
+
+.sidebar .logo {
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 10px 0;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 12px;
+  transition: 0.3s;
+}
+
+.sidebar ul li a:hover {
+  background: #2563eb;
+  transform: translateX(5px);
+}
+
+.main-content {
+  margin-left: 260px;
+  padding: 25px;
+}
+
+.navbar-custom {
+  background: white;
+  padding: 15px 25px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.dashboard-card {
+  border-radius: 20px;
+  padding: 25px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+}
+
+.dashboard-card i {
+  font-size: 45px;
+  opacity: 0.3;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
+
+.bg1 {
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+}
+
+.bg2 {
+  background: linear-gradient(135deg, #10b981, #047857);
+}
+
+.bg3 {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.bg4 {
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+}
+
+.table-section {
+  background: white;
+  margin-top: 30px;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  color: white;
+  font-size: 13px;
+}
+
+.aktif {
+  background: #10b981;
+}
+
+.nonaktif {
+  background: #ef4444;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+}
+.content-page {
+  display: none;
+}

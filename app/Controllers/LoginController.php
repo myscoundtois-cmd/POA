@@ -22,39 +22,54 @@ class LoginController extends BaseController
         // cari user berdasarkan email
         $user = $model->where('email', $email)->first();
 
-        // cek user ditemukan
+        // cek user
         if ($user) {
 
-            // cek password hash
+            // verifikasi password hash
             if (password_verify($password, $user['password_hash'])) {
 
-                // cek role
-                if ($user['role'] == 'admin') {
+                // simpan session
+                session()->set([
+                    'id_user'       => $user['id_user'],
+                    'email'    => $user['email'],
+                    'role'     => $user['role'],
+                    'logged_in' => true
+                ]);
 
-                    echo "Login Admin";
-                } elseif ($user['role'] == 'guru') {
+                // redirect berdasarkan role
+                switch ($user['role']) {
 
-                    echo "Login Guru";
-                } elseif ($user['role'] == 'murid') {
+                    case 'admin':
+                        return redirect()->to('/admin/dashboard');
 
-                    echo "Login Murid";
-                } elseif ($user['role'] == 'wali') {
+                    case 'guru':
+                        return redirect()->to('/guru/dashboard');
 
-                    echo "Login Wali Murid";
-                } else {
+                    case 'murid':
+                        return redirect()->to('/murid/dashboard');
 
-                    echo "Role tidak dikenali";
+                    case 'wali':
+                        return redirect()->to('/wali/dashboard');
+
+                    default:
+                        return redirect()->back()->with('error', 'Role tidak dikenali');
                 }
             } else {
 
-                echo "Password salah";
+                return redirect()->back()->with('error', 'Password salah');
             }
         } else {
 
-            echo "Email tidak ditemukan";
+            return redirect()->back()->with('error', 'Email tidak ditemukan');
         }
     }
 
+    public function logout()
+    {
+        session()->destroy();
+
+        return redirect()->to('/');
+    }
     public function regist()
     {
         $model = new UsersModel();
