@@ -21,7 +21,16 @@ class LoginController extends BaseController
 
         // join tabel users dan data_user
         $user = $model
-            ->select('users.*, data_user.nama, data_user.foto')
+            ->select('
+        users.*,
+        data_user.nama,
+        data_user.foto,
+        data_user.alamat,
+        data_user.nis,
+        data_user.tgl_lahir,
+        data_user.kelas,
+        data_user.jenis_kelamin,
+    ')
             ->join('data_user', 'data_user.id_user = users.id_user', 'left')
             ->where('users.email', $email)
             ->first();
@@ -39,6 +48,12 @@ class LoginController extends BaseController
                     'role'      => $user['role'],
                     'nama'      => $user['nama'],
                     'foto'      => $user['foto'],
+                    'alamat'      => $user['alamat'] ?? null,
+                    'nis'      => $user['nis'] ?? null,
+                    'tgl_lahir'      => $user['tgl_lahir'] ?? null,
+                    'kelas'      => $user['kelas'] ?? null,
+                    'jenis_kelamin'      => $user['jenis_kelamin'] ?? null,
+                    'password'      => $user['password'] ?? null,
                     'logged_in' => true
                 ]);
 

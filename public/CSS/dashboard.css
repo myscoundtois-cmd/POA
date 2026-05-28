@@ -7,7 +7,12 @@
 
 body {
   background: #f4f7fe;
+  overflow-x: hidden;
 }
+
+/* =========================
+   SIDEBAR
+========================= */
 
 .sidebar {
   width: 260px;
@@ -17,7 +22,8 @@ body {
   left: 0;
   top: 0;
   padding: 20px;
-  overflow: auto;
+  overflow-y: auto;
+  z-index: 1000;
 }
 
 .sidebar .logo {
@@ -30,7 +36,6 @@ body {
 
 .sidebar ul {
   list-style: none;
-  padding: 0;
 }
 
 .sidebar ul li {
@@ -45,7 +50,7 @@ body {
   gap: 10px;
   padding: 14px;
   border-radius: 12px;
-  transition: 0.3s;
+  transition: 0.3s ease;
 }
 
 .sidebar ul li a:hover {
@@ -53,10 +58,19 @@ body {
   transform: translateX(5px);
 }
 
+/* =========================
+   MAIN CONTENT
+========================= */
+
 .main-content {
   margin-left: 260px;
   padding: 25px;
+  min-height: 100vh;
 }
+
+/* =========================
+   NAVBAR
+========================= */
 
 .navbar-custom {
   background: white;
@@ -67,12 +81,13 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 15px;
 }
+
 .profile {
   display: flex;
   align-items: center;
   gap: 10px;
-
   text-decoration: none;
 }
 
@@ -81,24 +96,41 @@ body {
   height: 45px;
   border-radius: 50%;
   object-fit: cover;
-
   transition: 0.3s;
 }
 
 .profile img:hover {
   transform: scale(1.05);
 }
+
+/* =========================
+   PROFILE
+========================= */
+
 .profile-body {
-  padding: 20px 25px;
+  display: flex;
+  align-items: flex-start;
+  gap: 25px;
+  margin-top: 20px;
+}
+
+.profile-data {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 15px;
+
+  min-width: 240px;
 }
 
 .profile-img img {
-  width: 90px;
-  height: 90px;
+  width: 180px;
+  height: 180px;
 
   border-radius: 50%;
   object-fit: cover;
@@ -110,20 +142,95 @@ body {
   transform: scale(1.05);
 }
 
-.profile-data {
+.profile-action {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.profile-data span {
-  font-size: 15px;
-  color: #333;
+.profile-list {
+  width: 100%;
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
-.profile-data strong {
-  color: #111;
+.profile-row {
+  display: flex;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid #eee;
+  gap: 10px;
 }
+
+.profile-row:last-child {
+  border-bottom: none;
+}
+
+.label {
+  width: 170px;
+  font-weight: 600;
+  color: #444;
+}
+
+.separator {
+  width: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.value {
+  flex: 1;
+  color: #222;
+  word-break: break-word;
+}
+
+/* =========================
+   INPUT
+========================= */
+
+.form-control {
+  width: 100%;
+}
+
+.password-box {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.password-input {
+  width: 100%;
+  padding-right: 45px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #666;
+}
+
+.toggle-password:focus {
+  outline: none;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.color-button {
+  color: white !important;
+}
+
+/* =========================
+   DASHBOARD CARD
+========================= */
 
 .dashboard-card {
   border-radius: 20px;
@@ -162,6 +269,10 @@ body {
   background: linear-gradient(135deg, #ef4444, #b91c1c);
 }
 
+/* =========================
+   TABLE SECTION
+========================= */
+
 .table-section {
   background: white;
   margin-top: 30px;
@@ -169,6 +280,10 @@ body {
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
+
+/* =========================
+   STATUS
+========================= */
 
 .status {
   padding: 6px 12px;
@@ -185,17 +300,180 @@ body {
   background: #ef4444;
 }
 
+/* =========================
+   CONTENT PAGE
+========================= */
+
+.content-page {
+  display: none;
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 992px) {
+  .sidebar {
+    width: 220px;
+  }
+
+  .main-content {
+    margin-left: 220px;
+    padding: 20px;
+  }
+
+  .profile-body {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-data {
+    width: 100%;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
 @media (max-width: 768px) {
+  /* SIDEBAR */
   .sidebar {
     width: 100%;
     height: auto;
     position: relative;
+    padding: 15px;
   }
 
+  .sidebar .logo {
+    margin-bottom: 20px;
+    font-size: 22px;
+  }
+
+  .sidebar ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .sidebar ul li {
+    margin: 0;
+  }
+
+  .sidebar ul li a {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+
+  /* MAIN */
   .main-content {
     margin-left: 0;
+    padding: 15px;
+  }
+
+  /* NAVBAR */
+  .navbar-custom {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+  }
+
+  .profile {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  /* PROFILE */
+  .profile-body {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .profile-data {
+    width: 100%;
+  }
+
+  .profile-img img {
+    width: 140px;
+    height: 140px;
+  }
+
+  .profile-action {
+    width: 100%;
+  }
+
+  .profile-action button {
+    flex: 1;
+  }
+
+  .profile-list {
+    padding: 15px;
+  }
+
+  /* PROFILE ROW */
+  .profile-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .label,
+  .separator,
+  .value {
+    width: 100%;
+  }
+
+  .separator {
+    display: none;
+  }
+
+  /* CARD */
+  .dashboard-card {
+    padding: 20px;
+  }
+
+  .dashboard-card i {
+    font-size: 35px;
   }
 }
-.content-page {
-  display: none;
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 10px;
+  }
+
+  .navbar-custom {
+    padding: 12px;
+  }
+
+  .table-section {
+    padding: 15px;
+  }
+
+  .profile-img img {
+    width: 110px;
+    height: 110px;
+  }
+
+  .profile-row {
+    padding: 12px 0;
+  }
+
+  .label,
+  .value {
+    font-size: 14px;
+  }
+
+  .profile-action {
+    flex-direction: column;
+  }
+
+  .profile-action button {
+    width: 100%;
+  }
 }

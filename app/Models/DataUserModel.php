@@ -12,6 +12,11 @@ class DataUserModel extends Model
 
     protected $allowedFields = [
         'nama',
+        'nis',
+        'jenis_kelamin',
+        'alamat',
+        'tgl_lahir',
+        'kelas',
         'foto',
         'email',
         'id_user'
