@@ -17,3 +17,7 @@ $routes->get('/guru/dashboard', 'GuruController::index');
 $routes->get('/murid/dashboard', 'MuridController::index');
 // WALI
 $routes->get('/wali/dashboard', 'WaliController::index');
+
+//CRUD
+$routes->post('/edit', 'ProfileController::edit');
+$routes->post('/editpas', 'ProfileController::editpas');
