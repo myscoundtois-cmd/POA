@@ -6,9 +6,7 @@
     <div class="sidebar">
 
         <div class="logo">
-            <img src="<?= base_url('image/unpam logo.png') ?>"
-                alt=""
-                style="width: 50px; height: auto;">
+            <img src="<?= base_url('image/unpam logo.png') ?>" alt="" style="width: 50px; height: auto;">
             SMPN 2
         </div>
 
@@ -81,6 +79,10 @@
 
     <div id="nilai" class="content-page">
         <?= $this->include('navigation/nilai') ?>
+    </div>
+
+    <div id="profile" class="content-page">
+        <?= $this->include('navigation/profile') ?>
     </div>
 
 

@@ -4,8 +4,7 @@
         <h4>Dashboard <?= session()->get('role') ?></h4>
     </div>
 
-    <div class="profile">
-        <img src="https://i.pravatar.cc/100" alt="">
-    </div>
-
+    <a href="#" onclick="showPage('profile')" class="profile">
+        <img src="<?= base_url('uploads/' . session('foto')); ?>" alt="">
+    </a>
 </div>

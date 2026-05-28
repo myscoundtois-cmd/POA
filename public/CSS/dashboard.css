@@ -68,11 +68,12 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-
 .profile {
   display: flex;
   align-items: center;
   gap: 10px;
+
+  text-decoration: none;
 }
 
 .profile img {
@@ -80,6 +81,48 @@ body {
   height: 45px;
   border-radius: 50%;
   object-fit: cover;
+
+  transition: 0.3s;
+}
+
+.profile img:hover {
+  transform: scale(1.05);
+}
+.profile-body {
+  padding: 20px 25px;
+
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.profile-img img {
+  width: 90px;
+  height: 90px;
+
+  border-radius: 50%;
+  object-fit: cover;
+
+  transition: 0.3s;
+}
+
+.profile-img img:hover {
+  transform: scale(1.05);
+}
+
+.profile-data {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.profile-data span {
+  font-size: 15px;
+  color: #333;
+}
+
+.profile-data strong {
+  color: #111;
 }
 
 .dashboard-card {

@@ -19,24 +19,30 @@ class LoginController extends BaseController
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
 
-        // cari user berdasarkan email
-        $user = $model->where('email', $email)->first();
+        // join tabel users dan data_user
+        $user = $model
+            ->select('users.*, data_user.nama, data_user.foto')
+            ->join('data_user', 'data_user.id_user = users.id_user', 'left')
+            ->where('users.email', $email)
+            ->first();
 
         // cek user
         if ($user) {
 
-            // verifikasi password hash
+            // cek password
             if (password_verify($password, $user['password_hash'])) {
 
                 // simpan session
                 session()->set([
-                    'id_user'       => $user['id_user'],
-                    'email'    => $user['email'],
-                    'role'     => $user['role'],
+                    'id_user'   => $user['id_user'],
+                    'email'     => $user['email'],
+                    'role'      => $user['role'],
+                    'nama'      => $user['nama'],
+                    'foto'      => $user['foto'],
                     'logged_in' => true
                 ]);
 
-                // redirect berdasarkan role
+                // redirect role
                 switch ($user['role']) {
 
                     case 'admin':
