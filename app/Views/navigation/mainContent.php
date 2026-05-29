@@ -9,6 +9,7 @@
 
         <div class="col-md-3">
             <div class="dashboard-card bg1">
+    <div class="card-wave"></div>
 
                 <h5>Total Siswa</h5>
                 <h2>1.250</h2>
@@ -20,6 +21,7 @@
 
         <div class="col-md-3">
             <div class="dashboard-card bg2">
+    <div class="card-wave"></div>
 
                 <h5>Total Guru</h5>
                 <h2>85</h2>
@@ -31,7 +33,7 @@
 
         <div class="col-md-3">
             <div class="dashboard-card bg3">
-
+            <div class="card-wave"></div>
                 <h5>Total Kelas</h5>
                 <h2>35</h2>
 
@@ -42,6 +44,7 @@
 
         <div class="col-md-3">
             <div class="dashboard-card bg4">
+                <div class="card-wave"></div>
 
                 <h5>Tugas Aktif</h5>
                 <h2>120</h2>
@@ -53,6 +56,28 @@
 
     </div>
 
+
+<!-- quick action -->
+   <div class="quick-action">
+
+    <a href="#" class="action-btn action-primary">
+        <i class="fa-solid fa-user-plus"></i>
+        Tambah Siswa
+    </a>
+
+    <a href="#" class="action-btn action-success">
+        <i class="fa-solid fa-plus"></i>
+        Tambah Guru
+    </a>
+
+    <a href="#" class="action-btn action-warning">
+        <i class="fa-solid fa-book"></i>
+        Tambah Mapel
+    </a>
+
+</div>
+
+    
     <!-- Table -->
     <div class="table-section">
 

@@ -29,7 +29,7 @@ class LoginController extends BaseController
         data_user.nis,
         data_user.tgl_lahir,
         data_user.kelas,
-        data_user.jenis_kelamin,
+        data_user.jenis_kelamin
     ')
             ->join('data_user', 'data_user.id_user = users.id_user', 'left')
             ->where('users.email', $email)

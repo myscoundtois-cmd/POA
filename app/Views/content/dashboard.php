@@ -2,64 +2,128 @@
 
 <body>
 
-    <!-- Sidebar -->
+    <!-- =========================
+        SIDEBAR
+    ========================== -->
+
     <div class="sidebar">
 
+        <!-- LOGO -->
         <div class="logo">
-            <img src="<?= base_url('image/unpam logo.png') ?>" alt="" style="width: 50px; height: auto;">
-            SMPN 2
+
+            <img
+                src="<?= base_url('image/unpam logo.png') ?>"
+                alt="Logo Sekolah">
+
+            <div class="logo-text">
+                <h4>SMPN 2</h4>
+                <span>Pesisir Utara</span>
+            </div>
+
         </div>
 
-        <ul>
+        <!-- MENU -->
+        <ul class="menu-list">
 
             <li>
-                <a href="#" onclick="showPage('dashboard')">
+                <a href="#"
+                    class="menu-link active"
+                    onclick="showPage('dashboard', this)">
+
                     <i class="fa-solid fa-house"></i>
-                    Dashboard
+                    <span>Dashboard</span>
+
                 </a>
             </li>
 
             <li>
-                <a href="#" onclick="showPage('data_siswa')">
+                <a href="#"
+                    class="menu-link"
+                    onclick="showPage('data_siswa', this)">
+
                     <i class="fa-solid fa-users"></i>
-                    Data Siswa
+                    <span>Data Siswa</span>
+
                 </a>
             </li>
 
             <li>
-                <a href="#" onclick="showPage('data_guru')">
+                <a href="#"
+                    class="menu-link"
+                    onclick="showPage('data_guru', this)">
+
                     <i class="fa-solid fa-chalkboard-user"></i>
-                    Data Guru
+                    <span>Data Guru</span>
+
                 </a>
             </li>
 
             <li>
-                <a href="#" onclick="showPage('mapel')">
+                <a href="#"
+                    class="menu-link"
+                    onclick="showPage('mapel', this)">
+
                     <i class="fa-solid fa-book"></i>
-                    Mata Pelajaran
+                    <span>Mata Pelajaran</span>
+
                 </a>
             </li>
 
             <li>
-                <a href="#" onclick="showPage('nilai')">
+                <a href="#"
+                    class="menu-link"
+                    onclick="showPage('nilai', this)">
+
                     <i class="fa-solid fa-clipboard-check"></i>
-                    nilai
+                    <span>Data Nilai</span>
+
                 </a>
             </li>
 
             <li>
-                <a href="<?= base_url('/logout') ?>">
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                    Logout
+                <a href="#"
+                    class="menu-link"
+                    onclick="showPage('profile', this)">
+
+                    <i class="fa-solid fa-user"></i>
+                    <span>Profile</span>
+
                 </a>
+            </li>
+
+            <li class="logout-menu">
+                
+
+<a href="#"
+   class="logout-btn"
+   onclick="confirmLogout()">
+
+   <i class="fa-solid fa-right-from-bracket"></i>
+   Logout
+
+</a>
+
+            
+
             </li>
 
         </ul>
 
+        <!-- FOOTER -->
+        <div class="sidebar-footer">
+
+            <small>
+                © 2026 SMPN 2
+            </small>
+
+        </div>
+
     </div>
 
 
-    <!-- CONTENT -->
+    <!-- =========================
+        CONTENT
+    ========================== -->
 
     <div id="dashboard" class="content-page">
         <?= $this->include('navigation/mainContent') ?>
@@ -86,24 +150,64 @@
     </div>
 
 
-    <!-- JAVASCRIPT -->
+    <!-- =========================
+        JAVASCRIPT
+    ========================== -->
+
     <script>
-        function showPage(pageId) {
 
-            // Ambil semua halaman
-            const pages = document.querySelectorAll('.content-page');
+        function showPage(pageId, element) {
 
-            // Sembunyikan semua halaman
+            // semua halaman
+            const pages =
+                document.querySelectorAll('.content-page');
+
             pages.forEach(page => {
+
                 page.style.display = 'none';
+
             });
 
-            // Tampilkan halaman yang dipilih
-            document.getElementById(pageId).style.display = 'block';
+            // tampilkan halaman aktif
+            document.getElementById(pageId)
+                .style.display = 'block';
+
+            // reset active menu
+            const menus =
+                document.querySelectorAll('.menu-link');
+
+            menus.forEach(menu => {
+
+                menu.classList.remove('active');
+
+            });
+
+            // tambahkan active
+            if (element) {
+
+                element.classList.add('active');
+
+            }
+
         }
 
-        // Halaman pertama yang tampil
-        showPage('dashboard');
+        // default page
+        showPage(
+            'dashboard',
+            document.querySelector('.menu-link')
+        );
+
+        //logout
+        function confirmLogout() {
+
+    if(confirm('Yakin ingin keluar dari sistem?')) {
+
+        window.location.href =
+        "<?= base_url('/logout') ?>";
+
+    }
+
+}
     </script>
 
 </body>
