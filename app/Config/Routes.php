@@ -21,3 +21,6 @@ $routes->get('/wali/dashboard', 'WaliController::index');
 //CRUD
 $routes->post('/edit', 'ProfileController::edit');
 $routes->post('/editpas', 'ProfileController::editpas');
+
+//MAPEL
+$routes->post('/mapel', 'MapelController::create');

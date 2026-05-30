@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\UsersModel;
 use App\Models\DataUserModel;
+use App\Models\MapelModel;
 
 class AdminController extends BaseController
 {
@@ -21,6 +22,16 @@ class AdminController extends BaseController
             return redirect()->to('/');
         }
 
-        return view('content/dashboard');
+        $model = new MapelModel();
+        $data['mapel'] = $model->findAll();
+        $userModel = new UsersModel();
+
+        $data['guru'] = $userModel
+            ->select('users.id_user, data_user.nama')
+            ->join('data_user', 'data_user.id_user = users.id_user')
+            ->where('users.role', 'guru')
+            ->findAll();
+
+        return view('content/dashboard', $data);
     }
 }
