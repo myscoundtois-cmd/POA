@@ -36,4 +36,15 @@ class AdminController extends BaseController
 
         return view('content/dashboard', $data);
     }
+
+    public function lihatMateri($folder, $file)
+    {
+        $path = WRITEPATH . 'uploads/' . $folder . '/' . $file;
+
+        if (!file_exists($path)) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        return $this->response->download($path, null);
+    }
 }

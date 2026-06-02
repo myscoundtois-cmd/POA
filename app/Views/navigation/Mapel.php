@@ -47,15 +47,6 @@
             <!-- FORM TAMBAH MAPEL -->
             <form action="<?= base_url('mapel') ?>" method="post">
 
-
-                <div class="profile-row">
-                    <span class="label">ID Mapel</span>
-                    <span class="separator">:</span>
-                    <span class="value">
-                        <input type="text" name="id_mapel" class="form-control" required>
-                    </span>
-                </div>
-
                 <div class="profile-row">
                     <span class="label">Nama Mapel</span>
                     <span class="separator">:</span>
@@ -130,42 +121,59 @@
             </div>
 
             <div id="con-pertemuan">
-                //bagian ini hanya tampil saat user klik tombol "Lihat Pertemuan"
-                <div class="pertemuan-list">
+
+                <div class="accordion" id="accordionPertemuan">
 
                     <?php if (!empty($materi)): ?>
-                        <?php foreach ($materi as $m): ?>
+                        <?php foreach ($materi as $key => $m): ?>
 
-                            <div class="card mb-3">
-                                <div class="card-body">
+                            <div class="accordion-item materi-card"
+                                data-id-mapel="<?= $m['id_mapel'] ?>">
 
-                                    <h5><?= esc($m['nama_mapel']) ?></h5>
+                                <h2 class="accordion-header" id="heading<?= $key ?>">
+                                    <button class="accordion-button collapsed"
+                                        type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#collapse<?= $key ?>"
+                                        aria-expanded="false">
 
-                                    <p>
-                                        <strong>Pertemuan:</strong>
-                                        <?= esc($m['pertemuan']) ?>
-                                    </p>
+                                        <?= 'Pertemuan ke-' . esc($m['pertemuan']) ?>
+                                    </button>
+                                </h2>
 
-                                    <p>
-                                        <strong>Guru:</strong>
-                                        <?= esc($m['created_by']) ?>
-                                    </p>
+                                <div id="collapse<?= $key ?>"
+                                    class="accordion-collapse collapse"
+                                    data-bs-parent="#accordionPertemuan">
 
-                                    <p>
-                                        <strong>Kelas:</strong>
-                                        <?= esc($m['kelas']) ?>
-                                    </p>
+                                    <div class="accordion-body">
 
-                                    <a href="<?= base_url('writable/uploads/' . $m['file_mapel']) ?>"
-                                        target="_blank"
-                                        class="btn btn-primary btn-sm">
-                                        Lihat Materi
-                                    </a>
+                                        <h5><?= esc($m['nama_mapel']) ?></h5>
+
+                                        <p>
+                                            <strong>Guru:</strong>
+                                            <?= esc($m['created_by']) ?>
+                                        </p>
+
+                                        <p>
+                                            <strong>Kelas:</strong>
+                                            <?= esc($m['kelas']) ?>
+                                        </p>
+
+                                        <a href="<?= site_url('materi/' . $m['file_mapel']) ?>"
+                                            target="_blank"
+                                            class="btn btn-primary btn-sm">
+                                            <i class="fa-solid fa-file-arrow-down"></i>
+                                            Download Materi
+                                        </a>
+
+                                    </div>
 
                                 </div>
+
                             </div>
 
                         <?php endforeach; ?>
+
                     <?php else: ?>
 
                         <p>Tidak ada pertemuan untuk mata pelajaran ini.</p>
@@ -255,32 +263,28 @@
 
     </div>
 </div>
-
 <script>
-    const btnTambah = document.getElementById('btn-tambah');
-    const btnLihat = document.getElementById('btn-lihat');
+    document.addEventListener('DOMContentLoaded', function() {
 
-    const conPertemuan = document.getElementById('con-pertemuan');
-    const conTambahPertemuan = document.getElementById('con-tambah-pertemuan');
+        const btnTambah = document.getElementById('btn-tambah');
+        const btnLihat = document.getElementById('btn-lihat');
 
-    btnTambah.addEventListener('click', function() {
+        const conPertemuan = document.getElementById('con-pertemuan');
+        const conTambahPertemuan = document.getElementById('con-tambah-pertemuan');
 
+        // default tampil form tambah
         conPertemuan.style.display = 'none';
         conTambahPertemuan.style.display = 'block';
 
-    });
+        btnTambah.addEventListener('click', function() {
+            conPertemuan.style.display = 'none';
+            conTambahPertemuan.style.display = 'block';
+        });
 
-    btnLihat.addEventListener('click', function() {
-
-        conPertemuan.style.display = 'block';
-        conTambahPertemuan.style.display = 'none';
-
-    });
-
-    document.getElementById('con-pertemuan').style.display = 'none';
-    document.getElementById('con-tambah-pertemuan').style.display = 'blcok';
-
-    document.addEventListener('DOMContentLoaded', function() {
+        btnLihat.addEventListener('click', function() {
+            conPertemuan.style.display = 'block';
+            conTambahPertemuan.style.display = 'none';
+        });
 
         const cards = document.querySelectorAll('.mapel-card');
 
@@ -293,10 +297,22 @@
                 const kelas = this.dataset.kelas;
                 const guru = this.dataset.guru;
 
+                // isi form
                 document.getElementById('detail_id_mapel').value = idMapel;
                 document.getElementById('detail_mapel').value = namaMapel;
                 document.getElementById('detail_kelas').value = kelas;
                 document.getElementById('detail_guru').value = guru;
+
+                // filter materi berdasarkan id_mapel
+                document.querySelectorAll('.materi-card').forEach(item => {
+
+                    if (item.dataset.idMapel == idMapel) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+
+                });
 
                 document.getElementById('mapel-container').style.display = 'none';
                 document.getElementById('mapel-detail').style.display = 'block';
