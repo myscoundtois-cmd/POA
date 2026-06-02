@@ -181,7 +181,7 @@
                     method="post"
                     enctype="multipart/form-data">
 
-                    <input type="text"
+                    <input type="hidden"
                         name="id_mapel"
                         id="detail_id_mapel">
 
