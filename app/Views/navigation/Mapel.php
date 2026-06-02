@@ -47,6 +47,15 @@
             <!-- FORM TAMBAH MAPEL -->
             <form action="<?= base_url('mapel') ?>" method="post">
 
+
+                <div class="profile-row">
+                    <span class="label">ID Mapel</span>
+                    <span class="separator">:</span>
+                    <span class="value">
+                        <input type="text" name="id_mapel" class="form-control" required>
+                    </span>
+                </div>
+
                 <div class="profile-row">
                     <span class="label">Nama Mapel</span>
                     <span class="separator">:</span>
@@ -108,31 +117,71 @@
                     Kembali
                 </button>
 
-                <button class="btn action-btn action-success mb-4">
-                    <i class="fa-solid fa-book"></i>
-                    Lihat Pertemuan
-                </button>
 
-                <button class="btn action-btn action-success mb-4">
+                <button class="btn action-btn action-success mb-4" id="btn-tambah">
                     <i class="fa-solid fa-plus"></i>
                     Tambah Pertemuan
+                </button>
+
+                <button class="btn action-btn action-success mb-4" id="btn-lihat">
+                    <i class="fa-solid fa-book"></i>
+                    Lihat Pertemuan
                 </button>
             </div>
 
             <div id="con-pertemuan">
-                // Pertemuan akan ditampilkan disini setelah klik salah satu mapel
-                <div class="pertemuan">
+                //bagian ini hanya tampil saat user klik tombol "Lihat Pertemuan"
+                <div class="pertemuan-list">
+
+                    <?php if (!empty($materi)): ?>
+                        <?php foreach ($materi as $m): ?>
+
+                            <div class="card mb-3">
+                                <div class="card-body">
+
+                                    <h5><?= esc($m['nama_mapel']) ?></h5>
+
+                                    <p>
+                                        <strong>Pertemuan:</strong>
+                                        <?= esc($m['pertemuan']) ?>
+                                    </p>
+
+                                    <p>
+                                        <strong>Guru:</strong>
+                                        <?= esc($m['created_by']) ?>
+                                    </p>
+
+                                    <p>
+                                        <strong>Kelas:</strong>
+                                        <?= esc($m['kelas']) ?>
+                                    </p>
+
+                                    <a href="<?= base_url('writable/uploads/' . $m['file_mapel']) ?>"
+                                        target="_blank"
+                                        class="btn btn-primary btn-sm">
+                                        Lihat Materi
+                                    </a>
+
+                                </div>
+                            </div>
+
+                        <?php endforeach; ?>
+                    <?php else: ?>
+
+                        <p>Tidak ada pertemuan untuk mata pelajaran ini.</p>
+
+                    <?php endif; ?>
 
                 </div>
             </div>
 
             <div id="con-tambah-pertemuan">
-                // bagian ini tidak di tampilkan lebih dulu, akan muncul setelah klik tombol tambah pertemuan
+
                 <form action="<?= base_url('materi') ?>"
                     method="post"
                     enctype="multipart/form-data">
 
-                    <input type="hidden"
+                    <input type="text"
                         name="id_mapel"
                         id="detail_id_mapel">
 
@@ -208,6 +257,29 @@
 </div>
 
 <script>
+    const btnTambah = document.getElementById('btn-tambah');
+    const btnLihat = document.getElementById('btn-lihat');
+
+    const conPertemuan = document.getElementById('con-pertemuan');
+    const conTambahPertemuan = document.getElementById('con-tambah-pertemuan');
+
+    btnTambah.addEventListener('click', function() {
+
+        conPertemuan.style.display = 'none';
+        conTambahPertemuan.style.display = 'block';
+
+    });
+
+    btnLihat.addEventListener('click', function() {
+
+        conPertemuan.style.display = 'block';
+        conTambahPertemuan.style.display = 'none';
+
+    });
+
+    document.getElementById('con-pertemuan').style.display = 'none';
+    document.getElementById('con-tambah-pertemuan').style.display = 'blcok';
+
     document.addEventListener('DOMContentLoaded', function() {
 
         const cards = document.querySelectorAll('.mapel-card');

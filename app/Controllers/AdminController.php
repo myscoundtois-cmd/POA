@@ -5,26 +5,28 @@ namespace App\Controllers;
 use App\Models\UsersModel;
 use App\Models\DataUserModel;
 use App\Models\MapelModel;
+use App\Models\MateriModel;
 
 class AdminController extends BaseController
 {
+
     public function index()
     {
-        // cek login
         if (!session()->get('logged_in')) {
-
             return redirect()->to('/');
         }
 
-        // cek role
         if (session()->get('role') != 'admin') {
-
             return redirect()->to('/');
         }
 
-        $model = new MapelModel();
-        $data['mapel'] = $model->findAll();
+        $mapelModel = new MapelModel();
+        $materiModel = new MateriModel();
         $userModel = new UsersModel();
+
+        $data['mapel'] = $mapelModel->findAll();
+
+        $data['materi'] = $materiModel->findAll();
 
         $data['guru'] = $userModel
             ->select('users.id_user, data_user.nama')

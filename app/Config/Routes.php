@@ -24,3 +24,4 @@ $routes->post('/editpas', 'ProfileController::editpas');
 
 //MAPEL
 $routes->post('/mapel', 'MapelController::create');
+$routes->post('/materi', 'MapelController::c_materi');

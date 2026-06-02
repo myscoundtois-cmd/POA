@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\MapelModel;
+use App\Models\MateriModel;
 
 class MapelController extends BaseController
 {
@@ -11,10 +12,26 @@ class MapelController extends BaseController
     {
         $model = new MapelModel();
         $data = [
-            'nama_mapel' => $this->request->getPost('nampel'),
+            'nama_mapel' => $this->request->getPost('nama_mapel'),
             'kelas' => $this->request->getPost('kelas'),
             'created_by' => $this->request->getPost('guru'),
         ];
+        $model->insert($data);
+        return redirect()->to('/admin/dashboard');
+    }
+
+    public function c_materi()
+    {
+        $model = new MateriModel();
+        $data = [
+            'id_mapel' => $this->request->getPost('id_mapel'),
+            'nama_mapel' => $this->request->getPost('nama_mapel'),
+            'kelas' => $this->request->getPost('kelas'),
+            'pertemuan' => $this->request->getPost('pertemuan'),
+            'created_by' => $this->request->getPost('guru'),
+            'file_mapel' => $this->request->getFile('file_mapel')->store()
+        ];
+
         $model->insert($data);
         return redirect()->to('/admin/dashboard');
     }
