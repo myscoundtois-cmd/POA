@@ -1,17 +1,15 @@
 <div class="navbar-custom">
 
-    <div>
-        <h4>
-            Dashboard <?= ucfirst(session()->get('role')) ?>
-        </h4>
+   <h4 class="navbar-title">
+    Dashboard <?= ucfirst(session()->get('role')) ?>
+</h4>
 
-        <small class="text-muted">
-            Selamat datang kembali di sistem akademik
-        </small>
-    </div>
+<small class="text-muted navbar-subtitle">
+    Selamat datang kembali di sistem akademik
+</small>
 
     <a href="#"
-        onclick="showPage('profile')"
+        onclick="showPage('profile', document.querySelector('[onclick*=profile]'))"
         class="profile navbar-profile">
 
         <div class="profile-info">

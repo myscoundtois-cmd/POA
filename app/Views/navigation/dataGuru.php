@@ -6,9 +6,11 @@
 
         <div class="table-toolbar">
 
-            <div class="toolbar-left">
-                <h5 class="mb-0">Data Guru</h5>
-            </div>
+<div class="toolbar-left">
+    <small class="text-muted">
+        Daftar guru yang terdaftar di sistem
+    </small>
+</div>
 
             <div class="toolbar-right">
                 <input

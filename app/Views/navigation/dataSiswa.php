@@ -6,10 +6,11 @@
 
         <div class="table-toolbar">
 
-            <div class="toolbar-left">
-                <h5 class="mb-0">Data Siswa</h5>
-            </div>
-
+<div class="toolbar-left">
+    <small class="text-muted">
+        Daftar siswa yang terdaftar di sistem
+    </small>
+</div>
             <div class="toolbar-right">
                 <input
                     type="text"

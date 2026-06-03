@@ -216,6 +216,8 @@ function showPage(pageId, element = null) {
             navbarProfile.style.display = 'flex';
         }
     });
+
+    updateNavbarTitle(pageId);
 }
 
 // default page
@@ -235,6 +237,8 @@ function confirmLogout() {
     }
 
 }
+
+
 
         //logout
         function confirmLogout() {
@@ -274,6 +278,51 @@ function confirmDelete(type) {
     if (confirm(message)) {
         alert('Fitur hapus belum disambungkan ke backend.');
     }
+}
+
+function updateNavbarTitle(pageId) {
+
+    const titles = {
+        dashboard: {
+            title: 'Dashboard <?= ucfirst(session()->get('role')) ?>',
+            subtitle: 'Selamat datang kembali di sistem akademik'
+        },
+        data_siswa: {
+            title: 'Data Siswa',
+            subtitle: 'Kelola informasi siswa yang terdaftar di sistem'
+        },
+        data_guru: {
+            title: 'Data Guru',
+            subtitle: 'Kelola informasi guru dan tenaga pengajar'
+        },
+        mapel: {
+            title: 'Mata Pelajaran',
+            subtitle: 'Kelola mata pelajaran, materi, dan soal pembelajaran'
+        },
+        data_soal: {
+            title: 'Data Soal',
+            subtitle: 'Kelola soal dan ujian yang sudah dibuat'
+        },
+        nilai: {
+            title: 'Data Nilai',
+            subtitle: 'Kelola dan pantau nilai siswa'
+        },
+        profile: {
+            title: 'Profile Pengguna',
+            subtitle: 'Kelola informasi akun dan keamanan pengguna'
+        }
+    };
+
+    const navbarTitles = document.querySelectorAll('.navbar-title');
+    const navbarSubtitles = document.querySelectorAll('.navbar-subtitle');
+
+    navbarTitles.forEach(title => {
+        title.innerText = titles[pageId]?.title || 'Dashboard';
+    });
+
+    navbarSubtitles.forEach(subtitle => {
+        subtitle.innerText = titles[pageId]?.subtitle || 'Selamat datang kembali di sistem akademik';
+    });
 }
     </script>
 

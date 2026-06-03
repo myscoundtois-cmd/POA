@@ -42,6 +42,38 @@ class AdminController extends BaseController
         ->where('users.role', 'murid')
         ->findAll();
 
+$db = db_connect();
+
+$data['tugasUji'] = $db->table('tugasuji')
+    ->select('
+        tugasuji.id_tugas,
+        tugasuji.id_mapel,
+        tugasuji.judul,
+        tugasuji.pertemuan,
+        tugasuji.tipe_soal,
+        tugasuji.durasi,
+        mapel.nama_mapel,
+        mapel.kelas,
+        mapel.created_by,
+        COUNT(soal.id_soal) as jumlah_soal
+    ')
+    ->join('mapel', 'mapel.id_mapel = tugasuji.id_mapel', 'left')
+    ->join('soal', 'soal.id_ujian = tugasuji.id_tugas', 'left')
+    ->groupBy('
+        tugasuji.id_tugas,
+        tugasuji.id_mapel,
+        tugasuji.judul,
+        tugasuji.pertemuan,
+        tugasuji.tipe_soal,
+        tugasuji.durasi,
+        mapel.nama_mapel,
+        mapel.kelas,
+        mapel.created_by
+    ')
+    ->orderBy('tugasuji.id_tugas', 'DESC')
+    ->get()
+    ->getResultArray();
+
     return view('content/dashboard', $data);
 }
     public function lihatMateri($folder, $file)

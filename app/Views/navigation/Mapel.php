@@ -3,10 +3,12 @@
 
     <div class="table-section">
 
-        <h5 class="mb-4">Data Mata Pelajaran</h5>
+        <small class="text-muted d-block mb-4">
+            Daftar mata pelajaran, materi, pertemuan, dan soal pembelajaran
+        </small>
 
         <?php
-        $bgColors = ['bg1', 'bg2', 'bg3', 'bg4', 'bg5'];
+        $bgColors = ['bg1', 'bg2', 'bg3', 'bg4', 'bg1'];
         ?>
 
         <!-- LIST MAPEL -->
@@ -20,7 +22,7 @@
                         <div class="col-md-3">
 
                             <div class="dashboard-card <?= $bgColors[$index % count($bgColors)] ?> mapel-card"
-                                data-id="<?= $m['id_mapel'] ?>"
+                                data-id="<?= esc($m['id_mapel']) ?>"
                                 data-mapel="<?= esc($m['nama_mapel']) ?>"
                                 data-kelas="<?= esc($m['kelas']) ?>"
                                 data-guru="<?= esc($m['created_by']) ?>"
@@ -38,6 +40,15 @@
                         </div>
 
                     <?php endforeach; ?>
+                <?php else: ?>
+
+                    <div class="col-12">
+                        <div class="empty-state">
+                            <i class="fa-solid fa-book"></i>
+                            <p>Belum ada mata pelajaran.</p>
+                        </div>
+                    </div>
+
                 <?php endif; ?>
 
             </div>
@@ -73,16 +84,13 @@
                     <span class="separator">:</span>
                     <span class="value">
                         <select name="guru" class="form-control" required>
-
                             <option value="">-- Pilih Guru --</option>
 
                             <?php if (!empty($guru)): ?>
                                 <?php foreach ($guru as $g): ?>
-
-                                    <option value="<?= $g['nama']; ?>">
+                                    <option value="<?= esc($g['nama']); ?>">
                                         <?= esc($g['nama']); ?>
                                     </option>
-
                                 <?php endforeach; ?>
                             <?php endif; ?>
 
@@ -91,6 +99,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary mt-3">
+                    <i class="fa-solid fa-plus"></i>
                     Tambah Mapel
                 </button>
 
@@ -101,29 +110,32 @@
         <!-- DETAIL MAPEL -->
         <div id="mapel-detail" style="display:none;">
 
-            <div class="navbar-pertemuan">
+            <!-- NAVIGASI DETAIL -->
+            <div class="navbar-pertemuan mb-4">
 
-                <button class="btn action-btn action-success mb-4" id="btn-back">
+                <button class="btn action-btn action-success mb-2" id="btn-back">
                     <i class="fa-solid fa-arrow-left"></i>
                     Kembali
                 </button>
 
-                <button class="btn action-btn action-success mb-4" id="btn-tambah">
+                <button class="btn action-btn action-success mb-2" id="btn-tambah">
                     <i class="fa-solid fa-plus"></i>
                     Tambah Pertemuan
                 </button>
 
-                <button class="btn action-btn action-success mb-4" id="btn-buat-soal">
+                <button class="btn action-btn action-success mb-2" id="btn-buat-soal">
                     <i class="fa-solid fa-clipboard-question"></i>
                     Buat Soal
                 </button>
 
-                <button class="btn action-btn action-success mb-4" id="btn-lihat">
+                <button class="btn action-btn action-success mb-2" id="btn-lihat">
                     <i class="fa-solid fa-book"></i>
                     Lihat Pertemuan
                 </button>
+
             </div>
 
+            <!-- CONTAINER PERTEMUAN -->
             <div id="con-pertemuan">
 
                 <div class="accordion" id="accordionPertemuan">
@@ -132,7 +144,7 @@
                         <?php foreach ($materi as $key => $m): ?>
 
                             <div class="accordion-item materi-card"
-                                data-id-mapel="<?= $m['id_mapel'] ?>">
+                                data-id-mapel="<?= esc($m['id_mapel']) ?>">
 
                                 <h2 class="accordion-header" id="heading<?= $key ?>">
                                     <button class="accordion-button collapsed"
@@ -142,6 +154,7 @@
                                         aria-expanded="false">
 
                                         <?= 'Pertemuan ke-' . esc($m['pertemuan']) ?>
+
                                     </button>
                                 </h2>
 
@@ -163,18 +176,30 @@
                                             <?= esc($m['kelas']) ?>
                                         </p>
 
-                                        <a href="<?= site_url('materi/' . $m['file_mapel']) ?>"
-                                            target="_blank"
-                                            class="btn btn-primary btn-sm">
-                                            <i class="fa-solid fa-file-arrow-down"></i>
-                                            Download Materi
-                                        </a>
+                                        <div class="d-flex gap-2 flex-wrap">
 
-                                        <a href="#" class="menu-link btn btn-success btn-sm"
-                                            onclick="showPage('data_soal', this)">
-                                            <i class="fa-solid fa-list-check"></i>
-                                            Lihat Soal
-                                        </a>
+                                            <a href="<?= site_url('materi/' . $m['file_mapel']) ?>"
+                                                target="_blank"
+                                                class="btn btn-primary btn-sm">
+
+                                                <i class="fa-solid fa-file-arrow-down"></i>
+                                                Download Materi
+
+                                            </a>
+
+                                            <button type="button"
+                                                class="btn btn-success btn-sm btn-lihat-soal"
+                                                data-id-mapel="<?= esc($m['id_mapel']) ?>"
+                                                data-mapel="<?= esc($m['nama_mapel']) ?>"
+                                                data-kelas="<?= esc($m['kelas']) ?>"
+                                                data-pertemuan="<?= esc($m['pertemuan']) ?>">
+
+                                                <i class="fa-solid fa-list-check"></i>
+                                                Lihat Soal
+
+                                            </button>
+
+                                        </div>
 
                                     </div>
 
@@ -186,13 +211,192 @@
 
                     <?php else: ?>
 
-                        <p>Tidak ada pertemuan untuk mata pelajaran ini.</p>
+                        <div class="empty-state">
+                            <i class="fa-solid fa-book-open"></i>
+                            <p>Tidak ada pertemuan untuk mata pelajaran ini.</p>
+                        </div>
 
                     <?php endif; ?>
 
                 </div>
+
             </div>
 
+            <!-- CONTAINER LIHAT SOAL -->
+            <div id="con-lihat-soal" style="display:none;">
+
+                <div class="table-toolbar mb-4">
+
+                    <div class="toolbar-left">
+                        <small class="text-muted" id="info-soal-pertemuan">
+                            Daftar soal yang harus dikerjakan siswa
+                        </small>
+                    </div>
+
+                    <div class="toolbar-right">
+                        <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Cari soal..."
+                            onkeyup="searchTable(this, 'table-soal-pertemuan')"
+                            style="max-width: 220px;">
+
+                        <button class="btn btn-secondary" id="btn-kembali-pertemuan">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            Kembali
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="row mt-4 g-4">
+
+                    <div class="col-md-4">
+                        <div class="dashboard-card bg1">
+                            <div class="card-wave"></div>
+                            <h5>Mata Pelajaran</h5>
+                            <h2 id="soal-mapel-card">-</h2>
+                            <i class="fa-solid fa-book"></i>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="dashboard-card bg2">
+                            <div class="card-wave"></div>
+                            <h5>Pertemuan</h5>
+                            <h2 id="soal-pertemuan-card">-</h2>
+                            <i class="fa-solid fa-calendar-check"></i>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="dashboard-card bg3">
+                            <div class="card-wave"></div>
+                            <h5>Total Soal</h5>
+                            <h2 id="soal-total-card">0</h2>
+                            <i class="fa-solid fa-list-check"></i>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="table-responsive mt-4">
+
+                    <table class="table table-hover" id="table-soal-pertemuan">
+
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Judul Ujian</th>
+                                <th>Mapel</th>
+                                <th>Kelas</th>
+                                <th>Pertemuan</th>
+                                <th>Tipe Soal</th>
+                                <th>Durasi</th>
+                                <th>Jumlah Soal</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <?php if (!empty($tugasUji)): ?>
+                                <?php $no = 1; ?>
+
+                                <?php foreach ($tugasUji as $t): ?>
+
+                                    <tr class="row-tugas-soal"
+                                        data-id-mapel="<?= esc($t['id_mapel']) ?>"
+                                        data-pertemuan="<?= esc($t['pertemuan']) ?>"
+                                        data-jumlah-soal="<?= esc($t['jumlah_soal'] ?? 0) ?>">
+
+                                        <td><?= $no++; ?></td>
+
+                                        <td>
+                                            <strong>
+                                                <?= !empty($t['judul']) ? esc($t['judul']) : 'Tanpa Judul'; ?>
+                                            </strong>
+                                        </td>
+
+                                        <td>
+                                            <?= !empty($t['nama_mapel']) ? esc($t['nama_mapel']) : '<span class="text-muted">-</span>'; ?>
+                                        </td>
+
+                                        <td>
+                                            <?= !empty($t['kelas']) ? esc($t['kelas']) : '<span class="text-muted">-</span>'; ?>
+                                        </td>
+
+                                        <td>
+                                            Pertemuan <?= !empty($t['pertemuan']) ? esc($t['pertemuan']) : '-'; ?>
+                                        </td>
+
+                                        <td>
+                                            <?php if (($t['tipe_soal'] ?? '') == 'pg'): ?>
+                                                <span class="badge-soft primary">Pilihan Ganda</span>
+                                            <?php elseif (($t['tipe_soal'] ?? '') == 'esai'): ?>
+                                                <span class="badge-soft warning">Esai</span>
+                                            <?php else: ?>
+                                                <span class="badge-soft danger">Belum jelas</span>
+                                            <?php endif; ?>
+                                        </td>
+
+                                        <td>
+                                            <?= !empty($t['durasi']) ? esc($t['durasi']) . ' menit' : '<span class="text-muted">-</span>'; ?>
+                                        </td>
+
+                                        <td>
+                                            <span class="badge-soft success">
+                                                <?= esc($t['jumlah_soal'] ?? 0); ?> soal
+                                            </span>
+                                        </td>
+
+                                        <td>
+                                            <div class="action-table">
+
+                                                <button class="btn btn-sm btn-primary" title="Detail Soal">
+                                                    <i class="fa-solid fa-eye"></i>
+                                                </button>
+
+                                                <button class="btn btn-sm btn-warning" title="Edit Soal">
+                                                    <i class="fa-solid fa-pen"></i>
+                                                </button>
+
+                                                <button
+                                                    class="btn btn-sm btn-danger"
+                                                    title="Hapus Soal"
+                                                    onclick="confirmDelete('soal')">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+
+                                            </div>
+                                        </td>
+
+                                    </tr>
+
+                                <?php endforeach; ?>
+
+                            <?php else: ?>
+
+                                <tr>
+                                    <td colspan="9">
+                                        <div class="empty-state">
+                                            <i class="fa-solid fa-clipboard-question"></i>
+                                            <p>Belum ada soal yang dibuat.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            <?php endif; ?>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+            <!-- CONTAINER TAMBAH PERTEMUAN -->
             <div id="con-tambah-pertemuan">
 
                 <form action="<?= base_url('materi') ?>"
@@ -264,8 +468,10 @@
                     </button>
 
                 </form>
+
             </div>
 
+            <!-- CONTAINER BUAT SOAL -->
             <div id="con-buat-soal">
 
                 <form id="formUjian">
@@ -338,8 +544,10 @@
                     </button>
 
                 </form>
+
             </div>
 
+            <!-- CONTAINER INPUT SOAL -->
             <div id="container-soal" style="display:none;">
 
                 <hr>
@@ -355,6 +563,7 @@
                     onclick="tambahSoal()">
 
                     Tambah Soal
+
                 </button>
 
                 <button type="button"
@@ -362,6 +571,7 @@
                     onclick="simpanSoal()">
 
                     Simpan Semua Soal
+
                 </button>
 
             </div>
@@ -370,119 +580,108 @@
 
     </div>
 </div>
+
 <script>
     let nomorSoal = 0;
     let tipeSoalAktif = '';
 
-    document.getElementById('formUjian').addEventListener('submit', function(e) {
+    const formUjian = document.getElementById('formUjian');
 
-        e.preventDefault();
+    if (formUjian) {
+        formUjian.addEventListener('submit', function(e) {
 
-        const formData = new FormData(this);
+            e.preventDefault();
 
-        fetch("<?= base_url('soaluji/simpan') ?>", {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(result => {
+            const formData = new FormData(this);
 
-                console.log(result);
+            fetch("<?= base_url('soaluji/simpan') ?>", {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(result => {
 
-                if (result.status) {
+                    if (result.status) {
 
-                    // simpan id mapel
-                    document.getElementById('id_mapel').value =
-                        formData.get('id_mapel');
+                        document.getElementById('id_mapel').value =
+                            formData.get('id_mapel');
 
-                    // simpan tipe soal
-                    tipeSoalAktif =
-                        formData.get('tipe_soal');
+                        tipeSoalAktif =
+                            formData.get('tipe_soal');
 
-                    // sembunyikan form ujian
-                    document.getElementById('formUjian')
-                        .style.display = 'none';
+                        document.getElementById('formUjian')
+                            .style.display = 'none';
 
-                    // tampilkan container soal
-                    document.getElementById('container-soal')
-                        .style.display = 'block';
+                        document.getElementById('container-soal')
+                            .style.display = 'block';
 
-                    // kosongkan soal lama
-                    document.getElementById('list-soal')
-                        .innerHTML = '';
+                        document.getElementById('list-soal')
+                            .innerHTML = '';
 
-                    nomorSoal = 0;
+                        nomorSoal = 0;
 
-                    // buat soal pertama
-                    if (tipeSoalAktif === 'pg') {
-
-                        tambahSoalPG();
+                        if (tipeSoalAktif === 'pg') {
+                            tambahSoalPG();
+                        } else {
+                            tambahSoalEssay();
+                        }
 
                     } else {
-
-                        tambahSoalEssay();
-
+                        alert('Gagal membuat ujian');
                     }
 
-                } else {
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert('Terjadi kesalahan saat membuat ujian');
+                });
 
-                    alert('Gagal membuat ujian');
-
-                }
-
-            })
-            .catch(error => {
-
-                console.error(error);
-                alert('Terjadi kesalahan saat membuat ujian');
-
-            });
-
-    });
+        });
+    }
 
     function tambahSoalPG() {
 
         nomorSoal++;
 
         let html = `
-        <div class="card p-3 mb-3 soal-item">
+            <div class="card p-3 mb-3 soal-item">
 
-            <h5>Soal PG ${nomorSoal}</h5>
+                <h5>Soal PG ${nomorSoal}</h5>
 
-            <textarea
-                class="form-control mb-2 soal"
-                placeholder="Masukkan pertanyaan"
-                rows="3"></textarea>
+                <textarea
+                    class="form-control mb-2 soal"
+                    placeholder="Masukkan pertanyaan"
+                    rows="3"></textarea>
 
-            <input
-                type="text"
-                class="form-control mb-2 a"
-                placeholder="Jawaban A">
+                <input
+                    type="text"
+                    class="form-control mb-2 a"
+                    placeholder="Jawaban A">
 
-            <input
-                type="text"
-                class="form-control mb-2 b"
-                placeholder="Jawaban B">
+                <input
+                    type="text"
+                    class="form-control mb-2 b"
+                    placeholder="Jawaban B">
 
-            <input
-                type="text"
-                class="form-control mb-2 c"
-                placeholder="Jawaban C">
+                <input
+                    type="text"
+                    class="form-control mb-2 c"
+                    placeholder="Jawaban C">
 
-            <input
-                type="text"
-                class="form-control mb-2 d"
-                placeholder="Jawaban D">
+                <input
+                    type="text"
+                    class="form-control mb-2 d"
+                    placeholder="Jawaban D">
 
-            <select class="form-control kunci">
-                <option value="">Pilih Kunci Jawaban</option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-                <option value="D">D</option>
-            </select>
+                <select class="form-control kunci">
+                    <option value="">Pilih Kunci Jawaban</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                </select>
 
-        </div>
+            </div>
         `;
 
         document.getElementById('list-soal')
@@ -495,16 +694,16 @@
         nomorSoal++;
 
         let html = `
-        <div class="card p-3 mb-3 soal-item">
+            <div class="card p-3 mb-3 soal-item">
 
-            <h5>Soal Essay ${nomorSoal}</h5>
+                <h5>Soal Essay ${nomorSoal}</h5>
 
-            <textarea
-                class="form-control mb-2 soal"
-                placeholder="Masukkan pertanyaan essay"
-                rows="4"></textarea>
+                <textarea
+                    class="form-control mb-2 soal"
+                    placeholder="Masukkan pertanyaan essay"
+                    rows="4"></textarea>
 
-        </div>
+            </div>
         `;
 
         document.getElementById('list-soal')
@@ -515,17 +714,11 @@
     function tambahSoal() {
 
         if (tipeSoalAktif === 'pg') {
-
             tambahSoalPG();
-
         } else if (tipeSoalAktif === 'esai') {
-
             tambahSoalEssay();
-
         } else {
-
             alert('Tipe soal belum dipilih');
-
         }
 
     }
@@ -584,73 +777,66 @@
                     nomorSoal = 0;
 
                 } else {
-
                     alert('Gagal menyimpan soal');
-
                 }
 
             })
             .catch(error => {
-
                 console.error(error);
                 alert('Terjadi kesalahan saat menyimpan soal');
-
             });
 
     }
 
     document.addEventListener('DOMContentLoaded', function() {
 
-        const btnTambah =
-            document.getElementById('btn-tambah');
+        const btnTambah = document.getElementById('btn-tambah');
+        const btnLihat = document.getElementById('btn-lihat');
+        const btnBuatSoal = document.getElementById('btn-buat-soal');
+        const btnBack = document.getElementById('btn-back');
+        const btnKembaliPertemuan = document.getElementById('btn-kembali-pertemuan');
 
-        const btnLihat =
-            document.getElementById('btn-lihat');
+        const conPertemuan = document.getElementById('con-pertemuan');
+        const conTambahPertemuan = document.getElementById('con-tambah-pertemuan');
+        const conBuatSoal = document.getElementById('con-buat-soal');
+        const conLihatSoal = document.getElementById('con-lihat-soal');
+        const containerSoal = document.getElementById('container-soal');
 
-        const btnBuatSoal =
-            document.getElementById('btn-buat-soal');
-
-        const conPertemuan =
-            document.getElementById('con-pertemuan');
-
-        const conTambahPertemuan =
-            document.getElementById('con-tambah-pertemuan');
-
-        const conBuatSoal =
-            document.getElementById('con-buat-soal');
+        function hideAllDetailContent() {
+            conPertemuan.style.display = 'none';
+            conTambahPertemuan.style.display = 'none';
+            conBuatSoal.style.display = 'none';
+            conLihatSoal.style.display = 'none';
+            containerSoal.style.display = 'none';
+        }
 
         conPertemuan.style.display = 'block';
         conTambahPertemuan.style.display = 'none';
         conBuatSoal.style.display = 'none';
+        conLihatSoal.style.display = 'none';
+        containerSoal.style.display = 'none';
 
         btnTambah.addEventListener('click', function() {
-
-            conPertemuan.style.display = 'none';
-            conBuatSoal.style.display = 'none';
+            hideAllDetailContent();
             conTambahPertemuan.style.display = 'block';
-
         });
 
         btnLihat.addEventListener('click', function() {
-
+            hideAllDetailContent();
             conPertemuan.style.display = 'block';
-            conBuatSoal.style.display = 'none';
-            conTambahPertemuan.style.display = 'none';
-
         });
 
         btnBuatSoal.addEventListener('click', function() {
+            hideAllDetailContent();
 
-            conPertemuan.style.display = 'none';
-            conTambahPertemuan.style.display = 'none';
+            if (formUjian) {
+                formUjian.style.display = 'block';
+            }
+
             conBuatSoal.style.display = 'block';
-
         });
 
-        const cards =
-            document.querySelectorAll('.mapel-card');
-
-        cards.forEach(card => {
+        document.querySelectorAll('.mapel-card').forEach(card => {
 
             card.addEventListener('click', function() {
 
@@ -683,13 +869,9 @@
                     .forEach(item => {
 
                         if (item.dataset.idMapel == idMapel) {
-
                             item.style.display = 'block';
-
                         } else {
-
                             item.style.display = 'none';
-
                         }
 
                     });
@@ -700,20 +882,76 @@
                 document.getElementById('mapel-detail')
                     .style.display = 'block';
 
+                hideAllDetailContent();
+                conPertemuan.style.display = 'block';
+
             });
 
         });
 
-        document.getElementById('btn-back')
-            .addEventListener('click', function() {
+        document.querySelectorAll('.btn-lihat-soal').forEach(button => {
 
-                document.getElementById('mapel-detail')
-                    .style.display = 'none';
+            button.addEventListener('click', function() {
 
-                document.getElementById('mapel-container')
-                    .style.display = 'block';
+                const idMapel = this.dataset.idMapel;
+                const namaMapel = this.dataset.mapel;
+                const kelas = this.dataset.kelas;
+                const pertemuan = this.dataset.pertemuan;
+
+                let totalSoal = 0;
+                let totalUjian = 0;
+
+                document.querySelectorAll('.row-tugas-soal').forEach(row => {
+
+                    if (
+                        row.dataset.idMapel == idMapel &&
+                        row.dataset.pertemuan == pertemuan
+                    ) {
+                        row.style.display = '';
+                        totalUjian++;
+                        totalSoal += Number(row.dataset.jumlahSoal || 0);
+                    } else {
+                        row.style.display = 'none';
+                    }
+
+                });
+
+                document.getElementById('soal-mapel-card').innerText =
+                    namaMapel;
+
+                document.getElementById('soal-pertemuan-card').innerText =
+                    pertemuan;
+
+                document.getElementById('soal-total-card').innerText =
+                    totalSoal;
+
+                document.getElementById('info-soal-pertemuan').innerText =
+                    'Daftar soal ' + namaMapel + ' kelas ' + kelas + ' untuk pertemuan ke-' + pertemuan;
+
+                hideAllDetailContent();
+                conLihatSoal.style.display = 'block';
 
             });
+
+        });
+
+        btnKembaliPertemuan.addEventListener('click', function() {
+            hideAllDetailContent();
+            conPertemuan.style.display = 'block';
+        });
+
+        btnBack.addEventListener('click', function() {
+
+            document.getElementById('mapel-detail')
+                .style.display = 'none';
+
+            document.getElementById('mapel-container')
+                .style.display = 'block';
+
+            hideAllDetailContent();
+            conPertemuan.style.display = 'block';
+
+        });
 
     });
 </script>
