@@ -180,46 +180,61 @@
     ========================== -->
 
     <script>
-        function showPage(pageId, element) {
+function showPage(pageId, element = null) {
 
-            // semua halaman
-            const pages =
-                document.querySelectorAll('.content-page');
+    const pages = document.querySelectorAll('.content-page');
 
-            pages.forEach(page => {
+    pages.forEach(page => {
+        page.style.display = 'none';
+    });
 
-                page.style.display = 'none';
+    const activePage = document.getElementById(pageId);
 
-            });
+    if (!activePage) {
+        console.error('Halaman tidak ditemukan:', pageId);
+        return;
+    }
 
-            // tampilkan halaman aktif
-            document.getElementById(pageId)
-                .style.display = 'block';
+    activePage.style.display = 'block';
 
-            // reset active menu
-            const menus =
-                document.querySelectorAll('.menu-link');
+    const menus = document.querySelectorAll('.menu-link');
 
-            menus.forEach(menu => {
+    menus.forEach(menu => {
+        menu.classList.remove('active');
+    });
 
-                menu.classList.remove('active');
+    if (element) {
+        element.classList.add('active');
+    }
 
-            });
+    const navbarProfiles = document.querySelectorAll('.navbar-profile');
 
-            // tambahkan active
-            if (element) {
-
-                element.classList.add('active');
-
-            }
-
+    navbarProfiles.forEach(navbarProfile => {
+        if (pageId === 'profile') {
+            navbarProfile.style.display = 'none';
+        } else {
+            navbarProfile.style.display = 'flex';
         }
+    });
+}
 
-        // default page
-        showPage(
-            'dashboard',
-            document.querySelector('.menu-link')
-        );
+// default page
+showPage(
+    'dashboard',
+    document.querySelector('.menu-link')
+);
+
+// logout
+function confirmLogout() {
+
+    if (confirm('Yakin ingin keluar dari sistem?')) {
+
+        window.location.href =
+            "<?= base_url('/logout') ?>";
+
+    }
+
+}
 
         //logout
         function confirmLogout() {
@@ -232,6 +247,34 @@
             }
 
         }
+
+        function searchTable(input, tableId) {
+
+    const keyword = input.value.toLowerCase();
+    const table = document.getElementById(tableId);
+    const rows = table.querySelectorAll('tbody tr');
+
+    rows.forEach(row => {
+
+        const text = row.innerText.toLowerCase();
+
+        if (text.includes(keyword)) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+
+    });
+}
+
+function confirmDelete(type) {
+
+    const message = 'Yakin ingin menghapus data ' + type + '?';
+
+    if (confirm(message)) {
+        alert('Fitur hapus belum disambungkan ke backend.');
+    }
+}
     </script>
 
 </body>

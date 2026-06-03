@@ -7,7 +7,6 @@ use CodeIgniter\Model;
 class DataUserModel extends Model
 {
     protected $table = 'data_user';
-
     protected $primaryKey = 'id_dataUser';
 
     protected $allowedFields = [

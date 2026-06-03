@@ -8,7 +8,157 @@
 
         <div class="profile-body">
 
-            <!-- PROFILE IMAGE & BUTTON -->
+            <!-- PROFILE IMAGE & BUTTO<div class="main-content">
+    <?= $this->include('content/navbar') ?>
+
+    <div class="table-section">
+
+        <h5 class="mb-4">Profile Pengguna</h5>
+
+        <?php if (session()->getFlashdata('success')): ?>
+            <div class="alert alert-success">
+                <?= session()->getFlashdata('success') ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if (session()->getFlashdata('error')): ?>
+            <div class="alert alert-danger">
+                <?= session()->getFlashdata('error') ?>
+            </div>
+        <?php endif; ?>
+
+        <div class="profile-body">
+
+            <div class="profile-data">
+                <div class="profile-img">
+                    <img src="<?= base_url('uploads/' . session()->get('foto')) ?>" alt="Foto Profile">
+                </div>
+
+                <div class="profile-action">
+                    <span class="status aktif">
+                        <?= ucfirst(session()->get('role')) ?>
+                    </span>
+                </div>
+            </div>
+
+            <div class="profile-list">
+
+                <form action="<?= base_url('profile/edit') ?>" method="post" enctype="multipart/form-data">
+
+                    <div class="profile-row">
+                        <span class="label">Nama</span>
+                        <span class="separator">:</span>
+                        <span class="value">
+                            <input type="text" name="nama" class="form-control" value="<?= session()->get('nama') ?>">
+                        </span>
+                    </div>
+
+                    <div class="profile-row">
+                        <span class="label">Email</span>
+                        <span class="separator">:</span>
+                        <span class="value">
+                            <input type="email" name="email" class="form-control" value="<?= session()->get('email') ?>">
+                        </span>
+                    </div>
+
+                    <div class="profile-row">
+                        <span class="label">NIS</span>
+                        <span class="separator">:</span>
+                        <span class="value">
+                            <input type="text" name="nis" class="form-control" value="<?= session()->get('nis') ?>">
+                        </span>
+                    </div>
+
+                    <div class="profile-row">
+                        <span class="label">Kelas</span>
+                        <span class="separator">:</span>
+                        <span class="value">
+                            <input type="text" name="kelas" class="form-control" value="<?= session()->get('kelas') ?>">
+                        </span>
+                    </div>
+
+                    <div class="profile-row">
+                        <span class="label">Jenis Kelamin</span>
+                        <span class="separator">:</span>
+                        <span class="value">
+                            <select name="jenis_kelamin" class="form-control">
+                                <option value="">-- Pilih Jenis Kelamin --</option>
+                                <option value="Laki-laki" <?= session()->get('jenis_kelamin') == 'Laki-laki' ? 'selected' : '' ?>>
+                                    Laki-laki
+                                </option>
+                                <option value="Perempuan" <?= session()->get('jenis_kelamin') == 'Perempuan' ? 'selected' : '' ?>>
+                                    Perempuan
+                                </option>
+                            </select>
+                        </span>
+                    </div>
+
+                    <div class="profile-row">
+                        <span class="label">Tanggal Lahir</span>
+                        <span class="separator">:</span>
+                        <span class="value">
+                            <input type="date" name="tgl_lahir" class="form-control" value="<?= session()->get('tgl_lahir') ?>">
+                        </span>
+                    </div>
+
+                    <div class="profile-row">
+                        <span class="label">Alamat</span>
+                        <span class="separator">:</span>
+                        <span class="value">
+                            <textarea name="alamat" class="form-control" rows="3"><?= session()->get('alamat') ?></textarea>
+                        </span>
+                    </div>
+
+                    <div class="profile-row">
+                        <span class="label">Foto</span>
+                        <span class="separator">:</span>
+                        <span class="value">
+                            <input type="file" name="foto" class="form-control">
+                        </span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mt-3">
+                        Simpan Perubahan
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="table-section">
+
+        <h5 class="mb-4">Ubah Password</h5>
+
+        <form action="<?= base_url('profile/password') ?>" method="post">
+
+            <div class="profile-row">
+                <span class="label">Password Baru</span>
+                <span class="separator">:</span>
+                <span class="value">
+                    <input type="password" name="new_password" class="form-control" required>
+                </span>
+            </div>
+
+            <div class="profile-row">
+                <span class="label">Konfirmasi Password</span>
+                <span class="separator">:</span>
+                <span class="value">
+                    <input type="password" name="confirm_password" class="form-control" required>
+                </span>
+            </div>
+
+            <button type="submit" class="btn btn-success mt-3">
+                Ubah Password
+            </button>
+
+        </form>
+
+    </div>
+</div>N -->
             <div class="profile-data">
 
                 <div class="profile-img">

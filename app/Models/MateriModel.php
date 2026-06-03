@@ -8,5 +8,13 @@ class MateriModel extends Model
 {
     protected $table = 'materi';
     protected $primaryKey = 'id_materi';
-    protected $allowedFields = ['id_materi', 'id_mapel', 'nama_mapel', 'created_by', 'file_mapel', 'kelas', 'pertemuan', 'create_at'];
+
+    protected $allowedFields = [
+        'id_mapel',
+        'nama_mapel',
+        'created_by',
+        'file_mapel',
+        'kelas',
+        'pertemuan'
+    ];
 }

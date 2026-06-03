@@ -682,3 +682,59 @@ a:active {
   box-shadow: none;
 }
 
+
+.table-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.toolbar-left,
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.table-img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e5e7eb;
+}
+
+.action-table {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.action-table .btn {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 35px 20px;
+  color: #64748b;
+}
+
+.empty-state i {
+  font-size: 42px;
+  color: #94a3b8;
+  margin-bottom: 10px;
+}
+
+.empty-state p {
+  margin-bottom: 0;
+}
+
