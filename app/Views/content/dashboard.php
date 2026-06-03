@@ -1,3 +1,21 @@
+<?php if (session()->getFlashdata('show_pgessay')): ?>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            document.getElementById('mapel-container').style.display = 'none';
+            document.getElementById('mapel-detail').style.display = 'block';
+
+            document.getElementById('con-pertemuan').style.display = 'none';
+            document.getElementById('con-tambah-pertemuan').style.display = 'none';
+            document.getElementById('con-buat-soal').style.display = 'block';
+
+            document.getElementById('pgessay').style.display = 'block';
+
+        });
+    </script>
+
+<?php endif; ?>
 <?= $this->include('content/headstyle') ?>
 
 <body>
@@ -92,18 +110,18 @@
             </li>
 
             <li class="logout-menu">
-                
 
-<a href="#"
-   class="logout-btn"
-   onclick="confirmLogout()">
 
-   <i class="fa-solid fa-right-from-bracket"></i>
-   Logout
+                <a href="#"
+                    class="logout-btn"
+                    onclick="confirmLogout()">
 
-</a>
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout
 
-            
+                </a>
+
+
 
             </li>
 
@@ -155,7 +173,6 @@
     ========================== -->
 
     <script>
-
         function showPage(pageId, element) {
 
             // semua halaman
@@ -200,14 +217,14 @@
         //logout
         function confirmLogout() {
 
-    if(confirm('Yakin ingin keluar dari sistem?')) {
+            if (confirm('Yakin ingin keluar dari sistem?')) {
 
-        window.location.href =
-        "<?= base_url('/logout') ?>";
+                window.location.href =
+                    "<?= base_url('/logout') ?>";
 
-    }
+            }
 
-}
+        }
     </script>
 
 </body>

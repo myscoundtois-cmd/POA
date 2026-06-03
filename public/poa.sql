@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 29, 2026 at 10:00 PM
+-- Generation Time: Jun 03, 2026 at 05:45 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -53,6 +53,99 @@ INSERT INTO `data_user` (`id_dataUser`, `nama`, `nis`, `jenis_kelamin`, `alamat`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `mapel`
+--
+
+CREATE TABLE `mapel` (
+  `id_mapel` int NOT NULL,
+  `nama_mapel` varchar(30) NOT NULL,
+  `kelas` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `mapel`
+--
+
+INSERT INTO `mapel` (`id_mapel`, `nama_mapel`, `kelas`, `created_by`, `created_at`) VALUES
+(1, 'Bahasa Inggris', 'VIII', 'Ivana Mayada', '2026-06-02 08:01:55'),
+(2, 'Bahasa Indonesia', 'VIII', 'Ivana Mayada', '2026-06-02 09:29:04'),
+(3, 'Matematika', 'VII', 'Ivana Mayada', '2026-06-02 09:46:13');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `materi`
+--
+
+CREATE TABLE `materi` (
+  `id_materi` int NOT NULL,
+  `id_mapel` int NOT NULL,
+  `nama_mapel` varchar(50) NOT NULL,
+  `created_by` varchar(30) NOT NULL,
+  `file_mapel` varchar(255) NOT NULL,
+  `kelas` varchar(30) NOT NULL,
+  `pertemuan` varchar(30) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `materi`
+--
+
+INSERT INTO `materi` (`id_materi`, `id_mapel`, `nama_mapel`, `created_by`, `file_mapel`, `kelas`, `pertemuan`, `created_at`) VALUES
+(1, 1, 'Bahasa Inggris', 'Ivana Mayada', '20260602/1780387527_bd3e882604e95d9badab.pdf', 'VIII', '1', '2026-06-02 08:05:27'),
+(2, 1, 'Bahasa Inggris', 'Ivana Mayada', '20260602/1780393228_693362be7d388a9b75ad.pdf', 'VIII', '2', '2026-06-02 09:40:28'),
+(3, 2, 'Bahasa Indonesia', 'Ivana Mayada', '20260603/1780503997_2e40cb6321a980f98382.pdf', 'VIII', '1', '2026-06-03 16:26:37');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `soal`
+--
+
+CREATE TABLE `soal` (
+  `id_soal` int NOT NULL,
+  `id_ujian` int DEFAULT NULL,
+  `pertanyaan` text,
+  `opsi_a` text,
+  `opsi_b` text,
+  `opsi_c` text,
+  `opsi_d` text,
+  `jawaban_benar` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tugasuji`
+--
+
+CREATE TABLE `tugasuji` (
+  `id_tugas` int NOT NULL,
+  `id_mapel` int DEFAULT NULL,
+  `judul` varchar(255) DEFAULT NULL,
+  `pertemuan` int DEFAULT NULL,
+  `tipe_soal` varchar(20) DEFAULT NULL,
+  `durasi` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `tugasuji`
+--
+
+INSERT INTO `tugasuji` (`id_tugas`, `id_mapel`, `judul`, `pertemuan`, `tipe_soal`, `durasi`) VALUES
+(1, 2, 'SURAT IZIN KERAMAYAN', 1, 'pg', 30),
+(2, 2, 'Perancangan sistem Judi Online pada Era Ddigital', 1, 'pg', 28),
+(3, 1, 'SURAT KETERANGAN TIDAK MAMPU', 1, 'pg', 19),
+(4, 2, 'Perancangan sistem Judi Online pada Era Ddigital', 1, 'pg', 2),
+(5, 1, 'SURAT IZIN KERAMAYAN', 1, 'pg', 32),
+(6, 0, 'SURAT PENGANTAR IZIN KERAMAIAN', 3, 'pg', 23);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -85,6 +178,30 @@ ALTER TABLE `data_user`
   ADD PRIMARY KEY (`id_dataUser`);
 
 --
+-- Indexes for table `mapel`
+--
+ALTER TABLE `mapel`
+  ADD PRIMARY KEY (`id_mapel`);
+
+--
+-- Indexes for table `materi`
+--
+ALTER TABLE `materi`
+  ADD PRIMARY KEY (`id_materi`);
+
+--
+-- Indexes for table `soal`
+--
+ALTER TABLE `soal`
+  ADD PRIMARY KEY (`id_soal`);
+
+--
+-- Indexes for table `tugasuji`
+--
+ALTER TABLE `tugasuji`
+  ADD PRIMARY KEY (`id_tugas`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -99,6 +216,30 @@ ALTER TABLE `users`
 --
 ALTER TABLE `data_user`
   MODIFY `id_dataUser` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `mapel`
+--
+ALTER TABLE `mapel`
+  MODIFY `id_mapel` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `materi`
+--
+ALTER TABLE `materi`
+  MODIFY `id_materi` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `soal`
+--
+ALTER TABLE `soal`
+  MODIFY `id_soal` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tugasuji`
+--
+ALTER TABLE `tugasuji`
+  MODIFY `id_tugas` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`

@@ -108,10 +108,14 @@
                     Kembali
                 </button>
 
-
                 <button class="btn action-btn action-success mb-4" id="btn-tambah">
                     <i class="fa-solid fa-plus"></i>
                     Tambah Pertemuan
+                </button>
+
+                <button class="btn action-btn action-success mb-4" id="btn-buat-soal">
+                    <i class="fa-solid fa-clipboard-question"></i>
+                    Buat Soal
                 </button>
 
                 <button class="btn action-btn action-success mb-4" id="btn-lihat">
@@ -191,7 +195,7 @@
 
                     <input type="hidden"
                         name="id_mapel"
-                        id="detail_id_mapel">
+                        class="detail_id_mapel">
 
                     <div class="profile-row">
                         <span class="label">Nama Mapel</span>
@@ -199,8 +203,7 @@
                         <span class="value">
                             <input type="text"
                                 name="nama_mapel"
-                                id="detail_mapel"
-                                class="form-control"
+                                class="form-control detail_mapel"
                                 readonly>
                         </span>
                     </div>
@@ -211,8 +214,7 @@
                         <span class="value">
                             <input type="text"
                                 name="guru"
-                                id="detail_guru"
-                                class="form-control"
+                                class="form-control detail_guru"
                                 readonly>
                         </span>
                     </div>
@@ -223,8 +225,7 @@
                         <span class="value">
                             <input type="text"
                                 name="kelas"
-                                id="detail_kelas"
-                                class="form-control"
+                                class="form-control detail_kelas"
                                 readonly>
                         </span>
                     </div>
@@ -259,6 +260,86 @@
                 </form>
             </div>
 
+            <div id="con-buat-soal" style="display:none;">
+
+                <form action="<?= base_url('soaluji/simpan') ?>" method="post">
+
+                    <input type="hidden"
+                        name="id_mapel"
+                        class="detail_id_mapel">
+
+                    <div class="profile-row">
+                        <span class="label">Judul Ujian</span>
+                        <span class="separator">:</span>
+                        <span class="value">
+                            <input type="text"
+                                name="judul"
+                                class="form-control"
+                                placeholder="Contoh: Quiz HTML Dasar"
+                                required>
+                        </span>
+                    </div>
+
+                    <div class="profile-row">
+                        <span class="label">Tipe Soal</span>
+                        <span class="separator">:</span>
+                        <span class="value">
+                            <select name="tipe_soal"
+                                class="form-control"
+                                required>
+
+                                <option value="">-- Pilih Tipe Soal --</option>
+                                <option value="pg">Pilihan Ganda</option>
+                                <option value="esai">Esai</option>
+
+                            </select>
+                        </span>
+                    </div>
+
+                    <div class="profile-row">
+                        <span class="label">Pertemuan</span>
+                        <span class="separator">:</span>
+                        <span class="value">
+                            <select name="pertemuan"
+                                class="form-control"
+                                required>
+
+                                <option value="">-- Pilih Pertemuan --</option>
+
+                                <?php for ($i = 1; $i <= 23; $i++): ?>
+                                    <option value="<?= $i ?>">
+                                        Pertemuan <?= $i ?>
+                                    </option>
+                                <?php endfor; ?>
+
+                            </select>
+                        </span>
+                    </div>
+
+                    <div class="profile-row">
+                        <span class="label">Durasi</span>
+                        <span class="separator">:</span>
+                        <span class="value">
+                            <input type="number"
+                                name="durasi"
+                                class="form-control"
+                                placeholder="Menit"
+                                min="1"
+                                required>
+                        </span>
+                    </div>
+
+                    <div class="mt-4">
+                        <button type="submit"
+                            class="btn btn-primary">
+                            Buat Ujian
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+
         </div>
 
     </div>
@@ -266,24 +347,58 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
 
+        const tipeSoal = document.getElementById('tipe_soal');
+
+        if (tipeSoal) {
+
+            tipeSoal.addEventListener('change', function() {
+
+                let tipe = this.value;
+
+                if (tipe === 'pg') {
+                    document.getElementById('pg-section').style.display = 'block';
+                    document.getElementById('esai-section').style.display = 'none';
+                } else if (tipe === 'esai') {
+                    document.getElementById('pg-section').style.display = 'none';
+                    document.getElementById('esai-section').style.display = 'block';
+                } else {
+                    document.getElementById('pg-section').style.display = 'none';
+                    document.getElementById('esai-section').style.display = 'none';
+                }
+
+            });
+
+        }
+
         const btnTambah = document.getElementById('btn-tambah');
         const btnLihat = document.getElementById('btn-lihat');
+        const btnBuatSoal = document.getElementById('btn-buat-soal');
 
         const conPertemuan = document.getElementById('con-pertemuan');
         const conTambahPertemuan = document.getElementById('con-tambah-pertemuan');
+        const conBuatSoal = document.getElementById('con-buat-soal');
 
         // default tampil form tambah
-        conPertemuan.style.display = 'none';
-        conTambahPertemuan.style.display = 'block';
+        conPertemuan.style.display = 'block';
+        conTambahPertemuan.style.display = 'none';
+        conBuatSoal.style.display = 'none';
 
         btnTambah.addEventListener('click', function() {
             conPertemuan.style.display = 'none';
+            conBuatSoal.style.display = 'none';
             conTambahPertemuan.style.display = 'block';
         });
 
         btnLihat.addEventListener('click', function() {
             conPertemuan.style.display = 'block';
+            conBuatSoal.style.display = 'none';
             conTambahPertemuan.style.display = 'none';
+        });
+
+        btnBuatSoal.addEventListener('click', function() {
+            conPertemuan.style.display = 'none';
+            conTambahPertemuan.style.display = 'none';
+            conBuatSoal.style.display = 'block';
         });
 
         const cards = document.querySelectorAll('.mapel-card');
@@ -298,10 +413,21 @@
                 const guru = this.dataset.guru;
 
                 // isi form
-                document.getElementById('detail_id_mapel').value = idMapel;
-                document.getElementById('detail_mapel').value = namaMapel;
-                document.getElementById('detail_kelas').value = kelas;
-                document.getElementById('detail_guru').value = guru;
+                document.querySelectorAll('.detail_id_mapel').forEach(el => {
+                    el.value = idMapel;
+                });
+
+                document.querySelectorAll('.detail_mapel').forEach(el => {
+                    el.value = namaMapel;
+                });
+
+                document.querySelectorAll('.detail_kelas').forEach(el => {
+                    el.value = kelas;
+                });
+
+                document.querySelectorAll('.detail_guru').forEach(el => {
+                    el.value = guru;
+                });
 
                 // filter materi berdasarkan id_mapel
                 document.querySelectorAll('.materi-card').forEach(item => {
