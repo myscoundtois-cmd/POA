@@ -29,4 +29,5 @@ $routes->get(
     'materi/(:segment)/(:segment)',
     'AdminController::lihatMateri/$1/$2'
 );
-$routes->post('soaluji/simpan', 'MapelController::simpanSoal');
+$routes->post('soaluji/simpan', 'MapelController::simpan');
+$routes->post('soaluji/simpanSoal', 'MapelController::simpanSoal');

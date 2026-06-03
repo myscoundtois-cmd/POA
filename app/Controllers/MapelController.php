@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\MapelModel;
 use App\Models\MateriModel;
+use App\Models\PgEssayModel;
 use App\Models\TugasUjiModel;
 
 class MapelController extends BaseController
@@ -37,23 +38,50 @@ class MapelController extends BaseController
         return redirect()->to('/admin/dashboard');
     }
 
-    public function simpanSoal()
+    public function simpan()
     {
-        $ujianModel = new TugasUjiModel();
-
         $data = [
-            'id_mapel'  => $this->request->getPost('id_mapel'),
-            'judul'     => $this->request->getPost('judul'),
-            'pertemuan' => $this->request->getPost('pertemuan'),
-            'tipe_soal' => $this->request->getPost('tipe_soal'),
-            'durasi'    => $this->request->getPost('durasi'),
+
+            'id_mapel'   => $this->request->getPost('id_mapel'),
+            'judul'      => $this->request->getPost('judul'),
+            'tipe_soal'  => $this->request->getPost('tipe_soal'),
+            'pertemuan'  => $this->request->getPost('pertemuan'),
+            'durasi'     => $this->request->getPost('durasi')
+
         ];
 
-        $ujianModel->insert($data);
+        $modelTugas = new TugasUjiModel();
 
-        session()->setFlashdata('id_mapel', $data['id_mapel']);
-        session()->setFlashdata('show_pgessay', true);
+        $modelTugas->insert($data);
 
-        return redirect()->to('/admin/dashboard');
+        return $this->response->setJSON([
+            'status' => true,
+            'id_mapel' => $modelTugas->getInsertID()
+        ]);
+    }
+    public function simpanSoal()
+    {
+        $pgessay = new PgEssayModel();
+
+        $json = $this->request->getJSON(true);
+
+        foreach ($json['soal'] as $row) {
+
+            $pgessay->insert([
+
+                'id_mapel' => $json['id_mapel'],
+                'pertanyaan'     => $row['soal'],
+                'opsi_a'        => $row['a'],
+                'opsi_b'        => $row['b'],
+                'opsi_c'        => $row['c'],
+                'opsi_d'        => $row['d'],
+                'kunci'    => $row['kunci']
+
+            ]);
+        }
+
+        return $this->response->setJSON([
+            'status' => true
+        ]);
     }
 }

@@ -1,16 +1,19 @@
-<?php if (session()->getFlashdata('show_pgessay')): ?>
+<?php if (session()->getFlashdata('open_mapel')) : ?>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
+            // buka halaman mapel
+            showPage('mapel');
+
+            // tampilkan detail mapel
             document.getElementById('mapel-container').style.display = 'none';
             document.getElementById('mapel-detail').style.display = 'block';
 
+            // tampilkan form soal
             document.getElementById('con-pertemuan').style.display = 'none';
             document.getElementById('con-tambah-pertemuan').style.display = 'none';
             document.getElementById('con-buat-soal').style.display = 'block';
-
-            document.getElementById('pgessay').style.display = 'block';
 
         });
     </script>
@@ -165,6 +168,10 @@
 
     <div id="profile" class="content-page">
         <?= $this->include('navigation/profile') ?>
+    </div>
+
+    <div id="data_soal" class="content-page">
+        <?= $this->include('navigation/dataSoal') ?>
     </div>
 
 

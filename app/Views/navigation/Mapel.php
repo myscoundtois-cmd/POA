@@ -170,6 +170,12 @@
                                             Download Materi
                                         </a>
 
+                                        <a href="#" class="menu-link btn btn-success btn-sm"
+                                            onclick="showPage('data_soal', this)">
+                                            <i class="fa-solid fa-list-check"></i>
+                                            Lihat Soal
+                                        </a>
+
                                     </div>
 
                                 </div>
@@ -260,9 +266,9 @@
                 </form>
             </div>
 
-            <div id="con-buat-soal" style="display:none;">
+            <div id="con-buat-soal">
 
-                <form action="<?= base_url('soaluji/simpan') ?>" method="post">
+                <form id="formUjian">
 
                     <input type="hidden"
                         name="id_mapel"
@@ -275,7 +281,6 @@
                             <input type="text"
                                 name="judul"
                                 class="form-control"
-                                placeholder="Contoh: Quiz HTML Dasar"
                                 required>
                         </span>
                     </div>
@@ -323,20 +328,41 @@
                             <input type="number"
                                 name="durasi"
                                 class="form-control"
-                                placeholder="Menit"
                                 min="1"
                                 required>
                         </span>
                     </div>
 
-                    <div class="mt-4">
-                        <button type="submit"
-                            class="btn btn-primary">
-                            Buat Ujian
-                        </button>
-                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">
+                        Buat Ujian
+                    </button>
 
                 </form>
+            </div>
+
+            <div id="container-soal" style="display:none;">
+
+                <hr>
+
+                <h4>Daftar Soal</h4>
+
+                <input type="hidden" id="id_mapel">
+
+                <div id="list-soal"></div>
+
+                <button type="button"
+                    class="btn btn-success"
+                    onclick="tambahSoal()">
+
+                    Tambah Soal
+                </button>
+
+                <button type="button"
+                    class="btn btn-primary"
+                    onclick="simpanSoal()">
+
+                    Simpan Semua Soal
+                </button>
 
             </div>
 
@@ -345,63 +371,284 @@
     </div>
 </div>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    let nomorSoal = 0;
+    let tipeSoalAktif = '';
 
-        const tipeSoal = document.getElementById('tipe_soal');
+    document.getElementById('formUjian').addEventListener('submit', function(e) {
 
-        if (tipeSoal) {
+        e.preventDefault();
 
-            tipeSoal.addEventListener('change', function() {
+        const formData = new FormData(this);
 
-                let tipe = this.value;
+        fetch("<?= base_url('soaluji/simpan') ?>", {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(result => {
 
-                if (tipe === 'pg') {
-                    document.getElementById('pg-section').style.display = 'block';
-                    document.getElementById('esai-section').style.display = 'none';
-                } else if (tipe === 'esai') {
-                    document.getElementById('pg-section').style.display = 'none';
-                    document.getElementById('esai-section').style.display = 'block';
+                console.log(result);
+
+                if (result.status) {
+
+                    // simpan id mapel
+                    document.getElementById('id_mapel').value =
+                        formData.get('id_mapel');
+
+                    // simpan tipe soal
+                    tipeSoalAktif =
+                        formData.get('tipe_soal');
+
+                    // sembunyikan form ujian
+                    document.getElementById('formUjian')
+                        .style.display = 'none';
+
+                    // tampilkan container soal
+                    document.getElementById('container-soal')
+                        .style.display = 'block';
+
+                    // kosongkan soal lama
+                    document.getElementById('list-soal')
+                        .innerHTML = '';
+
+                    nomorSoal = 0;
+
+                    // buat soal pertama
+                    if (tipeSoalAktif === 'pg') {
+
+                        tambahSoalPG();
+
+                    } else {
+
+                        tambahSoalEssay();
+
+                    }
+
                 } else {
-                    document.getElementById('pg-section').style.display = 'none';
-                    document.getElementById('esai-section').style.display = 'none';
+
+                    alert('Gagal membuat ujian');
+
                 }
+
+            })
+            .catch(error => {
+
+                console.error(error);
+                alert('Terjadi kesalahan saat membuat ujian');
 
             });
 
+    });
+
+    function tambahSoalPG() {
+
+        nomorSoal++;
+
+        let html = `
+        <div class="card p-3 mb-3 soal-item">
+
+            <h5>Soal PG ${nomorSoal}</h5>
+
+            <textarea
+                class="form-control mb-2 soal"
+                placeholder="Masukkan pertanyaan"
+                rows="3"></textarea>
+
+            <input
+                type="text"
+                class="form-control mb-2 a"
+                placeholder="Jawaban A">
+
+            <input
+                type="text"
+                class="form-control mb-2 b"
+                placeholder="Jawaban B">
+
+            <input
+                type="text"
+                class="form-control mb-2 c"
+                placeholder="Jawaban C">
+
+            <input
+                type="text"
+                class="form-control mb-2 d"
+                placeholder="Jawaban D">
+
+            <select class="form-control kunci">
+                <option value="">Pilih Kunci Jawaban</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+            </select>
+
+        </div>
+        `;
+
+        document.getElementById('list-soal')
+            .insertAdjacentHTML('beforeend', html);
+
+    }
+
+    function tambahSoalEssay() {
+
+        nomorSoal++;
+
+        let html = `
+        <div class="card p-3 mb-3 soal-item">
+
+            <h5>Soal Essay ${nomorSoal}</h5>
+
+            <textarea
+                class="form-control mb-2 soal"
+                placeholder="Masukkan pertanyaan essay"
+                rows="4"></textarea>
+
+        </div>
+        `;
+
+        document.getElementById('list-soal')
+            .insertAdjacentHTML('beforeend', html);
+
+    }
+
+    function tambahSoal() {
+
+        if (tipeSoalAktif === 'pg') {
+
+            tambahSoalPG();
+
+        } else if (tipeSoalAktif === 'esai') {
+
+            tambahSoalEssay();
+
+        } else {
+
+            alert('Tipe soal belum dipilih');
+
         }
 
-        const btnTambah = document.getElementById('btn-tambah');
-        const btnLihat = document.getElementById('btn-lihat');
-        const btnBuatSoal = document.getElementById('btn-buat-soal');
+    }
 
-        const conPertemuan = document.getElementById('con-pertemuan');
-        const conTambahPertemuan = document.getElementById('con-tambah-pertemuan');
-        const conBuatSoal = document.getElementById('con-buat-soal');
+    function simpanSoal() {
 
-        // default tampil form tambah
+        const idMapel =
+            document.getElementById('id_mapel').value;
+
+        let dataSoal = [];
+
+        document.querySelectorAll('.soal-item')
+            .forEach(item => {
+
+                dataSoal.push({
+
+                    soal: item.querySelector('.soal')?.value || '',
+
+                    a: item.querySelector('.a')?.value || '',
+                    b: item.querySelector('.b')?.value || '',
+                    c: item.querySelector('.c')?.value || '',
+                    d: item.querySelector('.d')?.value || '',
+
+                    kunci: item.querySelector('.kunci')?.value || ''
+
+                });
+
+            });
+
+        fetch("<?= base_url('soaluji/simpanSoal') ?>", {
+
+                method: 'POST',
+
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+
+                body: JSON.stringify({
+
+                    id_mapel: idMapel,
+                    soal: dataSoal
+
+                })
+
+            })
+            .then(res => res.json())
+            .then(result => {
+
+                if (result.status) {
+
+                    alert('Semua soal berhasil disimpan');
+
+                    document.getElementById('list-soal')
+                        .innerHTML = '';
+
+                    nomorSoal = 0;
+
+                } else {
+
+                    alert('Gagal menyimpan soal');
+
+                }
+
+            })
+            .catch(error => {
+
+                console.error(error);
+                alert('Terjadi kesalahan saat menyimpan soal');
+
+            });
+
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+        const btnTambah =
+            document.getElementById('btn-tambah');
+
+        const btnLihat =
+            document.getElementById('btn-lihat');
+
+        const btnBuatSoal =
+            document.getElementById('btn-buat-soal');
+
+        const conPertemuan =
+            document.getElementById('con-pertemuan');
+
+        const conTambahPertemuan =
+            document.getElementById('con-tambah-pertemuan');
+
+        const conBuatSoal =
+            document.getElementById('con-buat-soal');
+
         conPertemuan.style.display = 'block';
         conTambahPertemuan.style.display = 'none';
         conBuatSoal.style.display = 'none';
 
         btnTambah.addEventListener('click', function() {
+
             conPertemuan.style.display = 'none';
             conBuatSoal.style.display = 'none';
             conTambahPertemuan.style.display = 'block';
+
         });
 
         btnLihat.addEventListener('click', function() {
+
             conPertemuan.style.display = 'block';
             conBuatSoal.style.display = 'none';
             conTambahPertemuan.style.display = 'none';
+
         });
 
         btnBuatSoal.addEventListener('click', function() {
+
             conPertemuan.style.display = 'none';
             conTambahPertemuan.style.display = 'none';
             conBuatSoal.style.display = 'block';
+
         });
 
-        const cards = document.querySelectorAll('.mapel-card');
+        const cards =
+            document.querySelectorAll('.mapel-card');
 
         cards.forEach(card => {
 
@@ -412,47 +659,61 @@
                 const kelas = this.dataset.kelas;
                 const guru = this.dataset.guru;
 
-                // isi form
-                document.querySelectorAll('.detail_id_mapel').forEach(el => {
-                    el.value = idMapel;
-                });
+                document.querySelectorAll('.detail_id_mapel')
+                    .forEach(el => {
+                        el.value = idMapel;
+                    });
 
-                document.querySelectorAll('.detail_mapel').forEach(el => {
-                    el.value = namaMapel;
-                });
+                document.querySelectorAll('.detail_mapel')
+                    .forEach(el => {
+                        el.value = namaMapel;
+                    });
 
-                document.querySelectorAll('.detail_kelas').forEach(el => {
-                    el.value = kelas;
-                });
+                document.querySelectorAll('.detail_kelas')
+                    .forEach(el => {
+                        el.value = kelas;
+                    });
 
-                document.querySelectorAll('.detail_guru').forEach(el => {
-                    el.value = guru;
-                });
+                document.querySelectorAll('.detail_guru')
+                    .forEach(el => {
+                        el.value = guru;
+                    });
 
-                // filter materi berdasarkan id_mapel
-                document.querySelectorAll('.materi-card').forEach(item => {
+                document.querySelectorAll('.materi-card')
+                    .forEach(item => {
 
-                    if (item.dataset.idMapel == idMapel) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
+                        if (item.dataset.idMapel == idMapel) {
 
-                });
+                            item.style.display = 'block';
 
-                document.getElementById('mapel-container').style.display = 'none';
-                document.getElementById('mapel-detail').style.display = 'block';
+                        } else {
+
+                            item.style.display = 'none';
+
+                        }
+
+                    });
+
+                document.getElementById('mapel-container')
+                    .style.display = 'none';
+
+                document.getElementById('mapel-detail')
+                    .style.display = 'block';
 
             });
 
         });
 
-        document.getElementById('btn-back').addEventListener('click', function() {
+        document.getElementById('btn-back')
+            .addEventListener('click', function() {
 
-            document.getElementById('mapel-detail').style.display = 'none';
-            document.getElementById('mapel-container').style.display = 'block';
+                document.getElementById('mapel-detail')
+                    .style.display = 'none';
 
-        });
+                document.getElementById('mapel-container')
+                    .style.display = 'block';
+
+            });
 
     });
 </script>

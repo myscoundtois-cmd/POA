@@ -11,7 +11,6 @@ class TugasUjiModel extends Model
     protected $primaryKey = 'id_tugas';
 
     protected $allowedFields = [
-        'id_tugas',
         'id_mapel',
         'judul',
         'pertemuan',
