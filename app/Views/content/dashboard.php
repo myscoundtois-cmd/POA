@@ -180,67 +180,67 @@
     ========================== -->
 
     <script>
-function showPage(pageId, element = null) {
+        function showPage(pageId, element = null) {
 
-    const pages = document.querySelectorAll('.content-page');
+            const pages = document.querySelectorAll('.content-page');
 
-    pages.forEach(page => {
-        page.style.display = 'none';
-    });
+            pages.forEach(page => {
+                page.style.display = 'none';
+            });
 
-    const activePage = document.getElementById(pageId);
+            const activePage = document.getElementById(pageId);
 
-    if (!activePage) {
-        console.error('Halaman tidak ditemukan:', pageId);
-        return;
-    }
+            if (!activePage) {
+                console.error('Halaman tidak ditemukan:', pageId);
+                return;
+            }
 
-    activePage.style.display = 'block';
+            activePage.style.display = 'block';
 
-    const menus = document.querySelectorAll('.menu-link');
+            const menus = document.querySelectorAll('.menu-link');
 
-    menus.forEach(menu => {
-        menu.classList.remove('active');
-    });
+            menus.forEach(menu => {
+                menu.classList.remove('active');
+            });
 
-    if (element) {
-        element.classList.add('active');
-    }
+            if (element) {
+                element.classList.add('active');
+            }
 
-    const navbarProfiles = document.querySelectorAll('.navbar-profile');
+            const navbarProfiles = document.querySelectorAll('.navbar-profile');
 
-    navbarProfiles.forEach(navbarProfile => {
-        if (pageId === 'profile') {
-            navbarProfile.style.display = 'none';
-        } else {
-            navbarProfile.style.display = 'flex';
+            navbarProfiles.forEach(navbarProfile => {
+                navbarProfile.style.display =
+                    pageId === 'profile' ? 'none' : 'flex';
+            });
+
+            updateNavbarTitle(pageId);
         }
-    });
 
-    updateNavbarTitle(pageId);
-}
+        // Jalankan setelah halaman selesai dimuat
+        document.addEventListener('DOMContentLoaded', function() {
 
-// default page
-showPage(
-    'dashboard',
-    document.querySelector('.menu-link')
-);
+            const hash = window.location.hash.replace('#', '');
 
-// logout
-function confirmLogout() {
+            // Jika datang dari redirect dashboard#data_soal
+            if (hash && document.getElementById(hash)) {
 
-    if (confirm('Yakin ingin keluar dari sistem?')) {
+                showPage(hash);
 
-        window.location.href =
-            "<?= base_url('/logout') ?>";
+            } else {
 
-    }
+                const firstMenu = document.querySelector('.menu-link');
 
-}
+                showPage(
+                    'dashboard',
+                    firstMenu
+                );
 
+            }
 
+        });
 
-        //logout
+        // Logout
         function confirmLogout() {
 
             if (confirm('Yakin ingin keluar dari sistem?')) {
@@ -254,76 +254,82 @@ function confirmLogout() {
 
         function searchTable(input, tableId) {
 
-    const keyword = input.value.toLowerCase();
-    const table = document.getElementById(tableId);
-    const rows = table.querySelectorAll('tbody tr');
+            const keyword = input.value.toLowerCase();
+            const table = document.getElementById(tableId);
 
-    rows.forEach(row => {
+            if (!table) return;
 
-        const text = row.innerText.toLowerCase();
+            const rows = table.querySelectorAll('tbody tr');
 
-        if (text.includes(keyword)) {
-            row.style.display = '';
-        } else {
-            row.style.display = 'none';
+            rows.forEach(row => {
+
+                const text = row.innerText.toLowerCase();
+
+                row.style.display =
+                    text.includes(keyword) ? '' : 'none';
+
+            });
+
         }
 
-    });
-}
+        function confirmDelete(type) {
 
-function confirmDelete(type) {
+            const message = 'Yakin ingin menghapus data ' + type + '?';
 
-    const message = 'Yakin ingin menghapus data ' + type + '?';
+            if (confirm(message)) {
+                alert('Fitur hapus belum disambungkan ke backend.');
+            }
 
-    if (confirm(message)) {
-        alert('Fitur hapus belum disambungkan ke backend.');
-    }
-}
-
-function updateNavbarTitle(pageId) {
-
-    const titles = {
-        dashboard: {
-            title: 'Dashboard <?= ucfirst(session()->get('role')) ?>',
-            subtitle: 'Selamat datang kembali di sistem akademik'
-        },
-        data_siswa: {
-            title: 'Data Siswa',
-            subtitle: 'Kelola informasi siswa yang terdaftar di sistem'
-        },
-        data_guru: {
-            title: 'Data Guru',
-            subtitle: 'Kelola informasi guru dan tenaga pengajar'
-        },
-        mapel: {
-            title: 'Mata Pelajaran',
-            subtitle: 'Kelola mata pelajaran, materi, dan soal pembelajaran'
-        },
-        data_soal: {
-            title: 'Data Soal',
-            subtitle: 'Kelola soal dan ujian yang sudah dibuat'
-        },
-        nilai: {
-            title: 'Data Nilai',
-            subtitle: 'Kelola dan pantau nilai siswa'
-        },
-        profile: {
-            title: 'Profile Pengguna',
-            subtitle: 'Kelola informasi akun dan keamanan pengguna'
         }
-    };
 
-    const navbarTitles = document.querySelectorAll('.navbar-title');
-    const navbarSubtitles = document.querySelectorAll('.navbar-subtitle');
+        function updateNavbarTitle(pageId) {
 
-    navbarTitles.forEach(title => {
-        title.innerText = titles[pageId]?.title || 'Dashboard';
-    });
+            const titles = {
+                dashboard: {
+                    title: 'Dashboard <?= ucfirst(session()->get('role')) ?>',
+                    subtitle: 'Selamat datang kembali di sistem akademik'
+                },
+                data_siswa: {
+                    title: 'Data Siswa',
+                    subtitle: 'Kelola informasi siswa yang terdaftar di sistem'
+                },
+                data_guru: {
+                    title: 'Data Guru',
+                    subtitle: 'Kelola informasi guru dan tenaga pengajar'
+                },
+                mapel: {
+                    title: 'Mata Pelajaran',
+                    subtitle: 'Kelola mata pelajaran, materi, dan soal pembelajaran'
+                },
+                data_soal: {
+                    title: 'Data Soal',
+                    subtitle: 'Kelola soal dan ujian yang sudah dibuat'
+                },
+                nilai: {
+                    title: 'Data Nilai',
+                    subtitle: 'Kelola dan pantau nilai siswa'
+                },
+                profile: {
+                    title: 'Profile Pengguna',
+                    subtitle: 'Kelola informasi akun dan keamanan pengguna'
+                }
+            };
 
-    navbarSubtitles.forEach(subtitle => {
-        subtitle.innerText = titles[pageId]?.subtitle || 'Selamat datang kembali di sistem akademik';
-    });
-}
+            const navbarTitles = document.querySelectorAll('.navbar-title');
+            const navbarSubtitles = document.querySelectorAll('.navbar-subtitle');
+
+            navbarTitles.forEach(title => {
+                title.innerText =
+                    titles[pageId]?.title || 'Dashboard';
+            });
+
+            navbarSubtitles.forEach(subtitle => {
+                subtitle.innerText =
+                    titles[pageId]?.subtitle ||
+                    'Selamat datang kembali di sistem akademik';
+            });
+
+        }
     </script>
 
 </body>

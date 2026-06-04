@@ -31,3 +31,4 @@ $routes->get(
 );
 $routes->post('soaluji/simpan', 'MapelController::simpan');
 $routes->post('soaluji/simpanSoal', 'MapelController::simpanSoal');
+$routes->get('ReadSoal/(:num)/(:num)', 'MapelController::Read/$1/$2');

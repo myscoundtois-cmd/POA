@@ -12,11 +12,13 @@ class PgEssayModel extends Model
 
     protected $allowedFields = [
         'id_mapel',
+        'pertemuan',
         'pertanyaan',
         'opsi_a',
         'opsi_b',
         'opsi_c',
         'opsi_d',
+        'jawaban',
         'kunci'
     ];
 }
