@@ -72,43 +72,40 @@ class MapelController extends BaseController
     {
         $pgessay = new PgEssayModel();
 
-        $json = $this->request->getJSON(true);
+        $jumlah = $this->request->getPost('jumlah_soal');
 
-        if (!$json) {
-            return $this->response->setJSON([
-                'status' => false,
-                'message' => 'Data JSON tidak ditemukan'
-            ]);
-        }
+        for ($i = 0; $i < $jumlah; $i++) {
 
-        $tipe = $json['tipe_soal'] ?? '';
+            $gambar = $this->request->getFile('gambar_' . $i);
 
-        foreach ($json['soal'] as $row) {
+            $namaGambar = null;
+
+            if ($gambar && $gambar->isValid()) {
+
+                $namaGambar = $gambar->getRandomName();
+
+                $gambar->move(
+                    WRITEPATH . 'uploads/soal',
+                    $namaGambar
+                );
+            }
 
             $data = [
 
-                'id_mapel'   => $json['id_mapel'],
-                'pertemuan'  => $json['pertemuan'] ?? null,
-                'tipe_soal'  => $tipe,
-                'pertanyaan' => $row['soal']
+                'id_mapel'   => $this->request->getPost('id_mapel'),
+                'pertemuan'  => $this->request->getPost('pertemuan'),
+                'tipe_soal'  => $this->request->getPost('tipe_soal'),
+                'pertanyaan' => $this->request->getPost('soal_' . $i),
 
+                'opsi_a' => $this->request->getPost('a_' . $i),
+                'opsi_b' => $this->request->getPost('b_' . $i),
+                'opsi_c' => $this->request->getPost('c_' . $i),
+                'opsi_d' => $this->request->getPost('d_' . $i),
+
+                'kunci'  => $this->request->getPost('kunci_' . $i),
+
+                'gambar' => $namaGambar
             ];
-
-            if ($tipe === 'pg') {
-
-                $data['opsi_a'] = $row['a'] ?? null;
-                $data['opsi_b'] = $row['b'] ?? null;
-                $data['opsi_c'] = $row['c'] ?? null;
-                $data['opsi_d'] = $row['d'] ?? null;
-                $data['kunci']  = $row['kunci'] ?? null;
-            } else {
-
-                $data['opsi_a'] = null;
-                $data['opsi_b'] = null;
-                $data['opsi_c'] = null;
-                $data['opsi_d'] = null;
-                $data['kunci']  = null;
-            }
 
             $pgessay->insert($data);
         }

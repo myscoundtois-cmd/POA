@@ -445,49 +445,54 @@
         nomorSoal++;
 
         let html = `
-        <div class="card p-3 mb-3 soal-item">
+    <div class="card p-3 mb-3 soal-item">
 
-            <h5>Soal PG ${nomorSoal}</h5>
+        <h5>Soal PG ${nomorSoal}</h5>
 
-            <textarea
-                class="form-control mb-2 soal"
-                placeholder="Masukkan pertanyaan"
-                rows="3"></textarea>
+        <label class="mb-1">Gambar Soal (Opsional)</label>
+        <input
+            type="file"
+            class="form-control mb-2 gambar"
+            accept="image/*">
 
-            <input
-                type="text"
-                class="form-control mb-2 a"
-                placeholder="Jawaban A">
+        <textarea
+            class="form-control mb-2 soal"
+            placeholder="Masukkan pertanyaan"
+            rows="3"></textarea>
 
-            <input
-                type="text"
-                class="form-control mb-2 b"
-                placeholder="Jawaban B">
+        <input
+            type="text"
+            class="form-control mb-2 a"
+            placeholder="Jawaban A">
 
-            <input
-                type="text"
-                class="form-control mb-2 c"
-                placeholder="Jawaban C">
+        <input
+            type="text"
+            class="form-control mb-2 b"
+            placeholder="Jawaban B">
 
-            <input
-                type="text"
-                class="form-control mb-2 d"
-                placeholder="Jawaban D">
+        <input
+            type="text"
+            class="form-control mb-2 c"
+            placeholder="Jawaban C">
 
-            <select class="form-control kunci">
-                <option value="">Pilih Kunci Jawaban</option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-                <option value="D">D</option>
-            </select>
+        <input
+            type="text"
+            class="form-control mb-2 d"
+            placeholder="Jawaban D">
 
-        </div>
-        `;
+        <select class="form-control kunci">
+            <option value="">Pilih Kunci Jawaban</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+        </select>
+
+    </div>
+    `;
 
         document.getElementById('list-soal')
             .insertAdjacentHTML('beforeend', html);
-
     }
 
     function tambahSoalEssay() {
@@ -495,21 +500,26 @@
         nomorSoal++;
 
         let html = `
-        <div class="card p-3 mb-3 soal-item">
+    <div class="card p-3 mb-3 soal-item">
 
-            <h5>Soal Essay ${nomorSoal}</h5>
+        <h5>Soal Essay ${nomorSoal}</h5>
 
-            <textarea
-                class="form-control mb-2 soal"
-                placeholder="Masukkan pertanyaan essay"
-                rows="4"></textarea>
+        <label class="mb-1">Gambar Soal (Opsional)</label>
+        <input
+            type="file"
+            class="form-control mb-2 gambar"
+            accept="image/*">
 
-        </div>
-        `;
+        <textarea
+            class="form-control mb-2 soal"
+            placeholder="Masukkan pertanyaan essay"
+            rows="4"></textarea>
+
+    </div>
+    `;
 
         document.getElementById('list-soal')
             .insertAdjacentHTML('beforeend', html);
-
     }
 
     function tambahSoal() {

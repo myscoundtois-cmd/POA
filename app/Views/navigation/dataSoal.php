@@ -2,14 +2,23 @@
     <?= $this->include('content/navbar') ?>
     <div class="table-section">
         <?php if (!empty($soal)): ?>
-
+            <h4>
+                <?= 'Pertemuan Ke-' . esc($soal[0]['pertemuan']) . ' ' . esc($soal[0]['judul']) ?>
+            </h4>
             <?php foreach ($soal as $index => $row): ?>
-
                 <div class="mb-4">
+                    <hr>
 
                     <h6>
                         <?= ($index + 1) ?>.
                         <?= esc($row['pertanyaan']) ?>
+                        <?php if (!empty($row['gambar'])): ?>
+
+                            <img
+                                src="<?= base_url('uploads/soal/' . $row['gambar']) ?>"
+                                class="img-fluid mb-3">
+
+                        <?php endif; ?>
                     </h6>
 
                     <hr>

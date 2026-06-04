@@ -19,6 +19,7 @@ class PgEssayModel extends Model
         'opsi_c',
         'opsi_d',
         'jawaban',
-        'kunci'
+        'kunci',
+        'gambar'
     ];
 }
