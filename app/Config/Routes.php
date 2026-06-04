@@ -15,6 +15,7 @@ $routes->get('/admin/dashboard', 'AdminController::index');
 $routes->get('/guru/dashboard', 'GuruController::index');
 // MURID
 $routes->get('/murid/dashboard', 'MuridController::index');
+$routes->post('/murid/simpanJawaban', 'MuridController::simpanJawaban');
 // WALI
 $routes->get('/wali/dashboard', 'WaliController::index');
 
@@ -32,3 +33,4 @@ $routes->get(
 $routes->post('soaluji/simpan', 'MapelController::simpan');
 $routes->post('soaluji/simpanSoal', 'MapelController::simpanSoal');
 $routes->get('ReadSoal/(:num)/(:num)', 'MapelController::Read/$1/$2');
+$routes->post('soal/update', 'MapelController::updateSoal');

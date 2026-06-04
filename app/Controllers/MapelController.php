@@ -114,4 +114,38 @@ class MapelController extends BaseController
             'status' => true
         ]);
     }
+
+    public function updateSoal()
+    {
+        $soalModel = new PgEssayModel();
+
+        $pertanyaan = $this->request->getPost('pertanyaan');
+        $opsi_a     = $this->request->getPost('opsi_a');
+        $opsi_b     = $this->request->getPost('opsi_b');
+        $opsi_c     = $this->request->getPost('opsi_c');
+        $opsi_d     = $this->request->getPost('opsi_d');
+        $kunci      = $this->request->getPost('kunci');
+
+        if (!$pertanyaan) {
+            return redirect()->back()
+                ->with('error', 'Data soal tidak ditemukan.');
+        }
+
+        foreach ($pertanyaan as $id_soal => $isiPertanyaan) {
+
+            $data = [
+                'pertanyaan' => $isiPertanyaan,
+                'opsi_a'     => $opsi_a[$id_soal] ?? '',
+                'opsi_b'     => $opsi_b[$id_soal] ?? '',
+                'opsi_c'     => $opsi_c[$id_soal] ?? '',
+                'opsi_d'     => $opsi_d[$id_soal] ?? '',
+                'kunci'      => $kunci[$id_soal] ?? ''
+            ];
+
+            $soalModel->update($id_soal, $data);
+        }
+
+        return redirect()->back()
+            ->with('success', 'Soal berhasil diperbarui.');
+    }
 }
