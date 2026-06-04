@@ -19,7 +19,7 @@
                     onkeyup="searchTable(this, 'table-siswa')"
                     style="max-width: 220px;">
 
-                <button class="btn btn-primary">
+                <button class="btn btn-primary" type="button" onclick="openTambahSiswaModal()">
                     <i class="fa-solid fa-user-plus"></i>
                     Tambah Siswa
                 </button>
@@ -131,5 +131,131 @@
         </div>
 
     </div>
+
+    <!-- MODAL TAMBAH SISWA -->
+    <div class="modal fade" id="modalTambahSiswa" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <div>
+                        <h5 class="modal-title">Tambah Data Siswa</h5>
+                        <small class="text-muted">
+                            Isi data siswa baru yang akan ditampilkan di sistem
+                        </small>
+                    </div>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <form id="formTambahSiswa">
+
+                        <div class="profile-row">
+                            <span class="label">Foto</span>
+                            <span class="separator">:</span>
+                            <span class="value">
+                                <input type="file" name="foto" class="form-control">
+                            </span>
+                        </div>
+
+                        <div class="profile-row">
+                            <span class="label">Nama</span>
+                            <span class="separator">:</span>
+                            <span class="value">
+                                <input type="text" name="nama" class="form-control" placeholder="Masukkan nama siswa">
+                            </span>
+                        </div>
+
+                        <div class="profile-row">
+                            <span class="label">NIS</span>
+                            <span class="separator">:</span>
+                            <span class="value">
+                                <input type="text" name="nis" class="form-control" placeholder="Masukkan NIS">
+                            </span>
+                        </div>
+
+                        <div class="profile-row">
+                            <span class="label">Kelas</span>
+                            <span class="separator">:</span>
+                            <span class="value">
+                                <select name="kelas" class="form-control">
+                                    <option value="">-- Pilih Kelas --</option>
+                                    <option value="VII">VII</option>
+                                    <option value="VIII">VIII</option>
+                                    <option value="IX">IX</option>
+                                </select>
+                            </span>
+                        </div>
+
+                        <div class="profile-row">
+                            <span class="label">Jenis Kelamin</span>
+                            <span class="separator">:</span>
+                            <span class="value">
+                                <select name="jenis_kelamin" class="form-control">
+                                    <option value="">-- Pilih Jenis Kelamin --</option>
+                                    <option value="Laki-laki">Laki-laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                </select>
+                            </span>
+                        </div>
+
+                        <div class="profile-row">
+                            <span class="label">Email</span>
+                            <span class="separator">:</span>
+                            <span class="value">
+                                <input type="email" name="email" class="form-control" placeholder="Masukkan email siswa">
+                            </span>
+                        </div>
+
+                        <div class="profile-row">
+                            <span class="label">Alamat</span>
+                            <span class="separator">:</span>
+                            <span class="value">
+                                <textarea name="alamat" class="form-control" rows="3" placeholder="Masukkan alamat siswa"></textarea>
+                            </span>
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Batal
+                    </button>
+
+                    <button type="button" class="btn btn-primary" onclick="submitTambahSiswaFrontend()">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        Simpan
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+    function openTambahSiswaModal() {
+        const modalElement = document.getElementById('modalTambahSiswa');
+        const modal = new bootstrap.Modal(modalElement);
+
+        modal.show();
+    }
+
+    function submitTambahSiswaFrontend() {
+
+        const form = document.getElementById('formTambahSiswa');
+        form.reset();
+
+        const modalElement = document.getElementById('modalTambahSiswa');
+        const modal = bootstrap.Modal.getInstance(modalElement);
+
+        modal.hide();
+    }
+</script>
 
 </div>
