@@ -189,7 +189,7 @@
                     <tr
                         class="kelas-row"
                         data-kelas="8"
-                        onclick="toggleSiswaKelas(this, 'siswa-kelas-7')"
+                        onclick="toggleSiswaKelas(this, 'siswa-kelas-8')"
                         style="cursor:pointer;">
                         <td>2</td>
                         <td>
@@ -331,7 +331,7 @@
                     <tr
                         class="kelas-row"
                         data-kelas="9"
-                        onclick="toggleSiswaKelas(this, 'siswa-kelas-7')"
+                        onclick="toggleSiswaKelas(this, 'siswa-kelas-9')"
                         style="cursor:pointer;">
                         <td>3</td>
                         <td>
