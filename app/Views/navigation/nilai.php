@@ -42,72 +42,36 @@
 
                     <tbody>
 
-                        <tr class="kelas-row" data-kelas="7A">
+                        <tr class="kelas-row" data-kelas="7">
                             <td>1</td>
-                            <td><strong>7A</strong></td>
+                            <td><strong>7</strong></td>
                             <td>Bu Ivana Mayada</td>
                             <td>
-                                <button class="btn btn-sm btn-primary" type="button" onclick="showMapelNilai('7A', 'Bu Ivana Mayada')">
+                                <button class="btn btn-sm btn-primary" type="button" onclick="showMapelNilai('7', 'Bu Ivana Mayada')">
                                     <i class="fa-solid fa-book"></i>
                                     Pilih Mata Pelajaran
                                 </button>
                             </td>
                         </tr>
 
-                        <tr class="kelas-row" data-kelas="7B">
+                        <tr class="kelas-row" data-kelas="8">
                             <td>2</td>
-                            <td><strong>7B</strong></td>
+                            <td><strong>8</strong></td>
                             <td>Pak Ahmad Fauzi</td>
                             <td>
-                                <button class="btn btn-sm btn-primary" type="button" onclick="showMapelNilai('7B', 'Pak Ahmad Fauzi')">
+                                <button class="btn btn-sm btn-primary" type="button" onclick="showMapelNilai('8', 'Pak Ahmad Fauzi')">
                                     <i class="fa-solid fa-book"></i>
                                     Pilih Mata Pelajaran
                                 </button>
                             </td>
                         </tr>
 
-                        <tr class="kelas-row" data-kelas="8A">
+                        <tr class="kelas-row" data-kelas="9">
                             <td>3</td>
-                            <td><strong>8A</strong></td>
+                            <td><strong>9</strong></td>
                             <td>Bu Siti Aisyah</td>
                             <td>
-                                <button class="btn btn-sm btn-primary" type="button" onclick="showMapelNilai('8A', 'Bu Siti Aisyah')">
-                                    <i class="fa-solid fa-book"></i>
-                                    Pilih Mata Pelajaran
-                                </button>
-                            </td>
-                        </tr>
-
-                        <tr class="kelas-row" data-kelas="8B">
-                            <td>4</td>
-                            <td><strong>8B</strong></td>
-                            <td>Pak Rahmat Hidayat</td>
-                            <td>
-                                <button class="btn btn-sm btn-primary" type="button" onclick="showMapelNilai('8B', 'Pak Rahmat Hidayat')">
-                                    <i class="fa-solid fa-book"></i>
-                                    Pilih Mata Pelajaran
-                                </button>
-                            </td>
-                        </tr>
-
-                        <tr class="kelas-row" data-kelas="9A">
-                            <td>5</td>
-                            <td><strong>9A</strong></td>
-                            <td>Bu Dina Permata</td>
-                            <td>
-                                <button class="btn btn-sm btn-primary" type="button" onclick="showMapelNilai('9A', 'Bu Dina Permata')">
-                                    <i class="fa-solid fa-book"></i>
-                                    Pilih Mata Pelajaran
-                                </button>
-                            </td>
-                        </tr>
-
-                        <tr class="kelas-row" data-kelas="9B">
-                            <td>6</td>
-                            <td><strong>9B</strong></td>
-                            <td>Pak Budi Santoso</td>
-                            <td>
-                                <button class="btn btn-sm btn-primary" type="button" onclick="showMapelNilai('9B', 'Pak Budi Santoso')">
+                                <button class="btn btn-sm btn-primary" type="button" onclick="showMapelNilai('9', 'Bu Siti Aisyah')">
                                     <i class="fa-solid fa-book"></i>
                                     Pilih Mata Pelajaran
                                 </button>
@@ -325,10 +289,10 @@
 
                     <tbody>
 
-                        <tr class="nilai-row" data-kelas="7A" data-mapel="Matematika" data-pertemuan="1">
+                        <tr class="nilai-row" data-kelas="7" data-mapel="Matematika" data-pertemuan="1">
                             <td>1</td>
                             <td>Budi Santoso</td>
-                            <td>7A</td>
+                            <td>7</td>
                             <td>Matematika</td>
                             <td>Pertemuan 1</td>
                             <td>
@@ -352,10 +316,10 @@
                             </td>
                         </tr>
 
-                        <tr class="nilai-row" data-kelas="7A" data-mapel="Matematika" data-pertemuan="1">
+                        <tr class="nilai-row" data-kelas="7" data-mapel="Matematika" data-pertemuan="1">
                             <td>2</td>
                             <td>Dina Permata</td>
-                            <td>7A</td>
+                            <td>7</td>
                             <td>Matematika</td>
                             <td>Pertemuan 1</td>
                             <td>
@@ -379,10 +343,10 @@
                             </td>
                         </tr>
 
-                        <tr class="nilai-row" data-kelas="7A" data-mapel="Bahasa Indonesia" data-pertemuan="2">
+                        <tr class="nilai-row" data-kelas="7" data-mapel="Bahasa Indonesia" data-pertemuan="2">
                             <td>3</td>
                             <td>Rizky Ramadhan</td>
-                            <td>7A</td>
+                            <td>7</td>
                             <td>Bahasa Indonesia</td>
                             <td>Pertemuan 2</td>
                             <td>
@@ -406,10 +370,10 @@
                             </td>
                         </tr>
 
-                        <tr class="nilai-row" data-kelas="8A" data-mapel="Bahasa Inggris" data-pertemuan="1">
+                        <tr class="nilai-row" data-kelas="8" data-mapel="Bahasa Inggris" data-pertemuan="1">
                             <td>4</td>
                             <td>Siti Aisyah</td>
-                            <td>8A</td>
+                            <td>8</td>
                             <td>Bahasa Inggris</td>
                             <td>Pertemuan 1</td>
                             <td>
@@ -433,10 +397,10 @@
                             </td>
                         </tr>
 
-                        <tr class="nilai-row" data-kelas="9A" data-mapel="IPA" data-pertemuan="3">
+                        <tr class="nilai-row" data-kelas="9" data-mapel="IPA" data-pertemuan="3">
                             <td>5</td>
                             <td>Rahmat</td>
-                            <td>9A</td>
+                            <td>9</td>
                             <td>IPA</td>
                             <td>Pertemuan 3</td>
                             <td>

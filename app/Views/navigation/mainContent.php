@@ -100,7 +100,7 @@
 
                     <tr>
                         <td>Budi Santoso</td>
-                        <td>9A</td>
+                        <td>9</td>
                         <td>
                             <span class="status aktif">
                                 Aktif
@@ -111,7 +111,7 @@
 
                     <tr>
                         <td>Siti Aisyah</td>
-                        <td>8B</td>
+                        <td>8</td>
                         <td>
                             <span class="status aktif">
                                 Aktif
@@ -122,7 +122,7 @@
 
                     <tr>
                         <td>Rahmat</td>
-                        <td>7C</td>
+                        <td>7</td>
                         <td>
                             <span class="status nonaktif">
                                 Nonaktif
