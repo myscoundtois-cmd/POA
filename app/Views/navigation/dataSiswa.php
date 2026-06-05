@@ -38,30 +38,32 @@
                         <th>Kelas</th>
                         <th>Jumlah Siswa</th>
                         <th>Keterangan</th>
-                        <th>Aksi</th>
                     </tr>
                 </thead>
 
                 <tbody>
 
                     <!-- KELAS 7 -->
-                    <tr class="kelas-row" data-kelas="7">
+                    <tr
+                        class="kelas-row"
+                        data-kelas="7"
+                        onclick="toggleSiswaKelas(this, 'siswa-kelas-7')"
+                        style="cursor:pointer;">
                         <td>1</td>
-                        <td><strong>Kelas 7</strong></td>
+                        <td>
+                            <div style="display:flex; align-items:center; justify-content:space-between;">
+                                <strong>Kelas 7</strong>
+                                <i class="fa-solid fa-chevron-down dropdown-icon"></i>
+                            </div>
+                        </td>
                         <td>3 Siswa</td>
                         <td>
-                            <span class="text-muted">Lihat daftar siswa kelas 7</span>
-                        </td>
-                        <td>
-                            <button class="btn btn-sm btn-primary" type="button" onclick="toggleSiswaKelas('siswa-kelas-7')">
-                                <i class="fa-solid fa-users"></i>
-                                Lihat Siswa
-                            </button>
+                            <span class="text-muted">Klik baris ini untuk melihat daftar siswa kelas 7</span>
                         </td>
                     </tr>
 
                     <tr id="siswa-kelas-7" class="siswa-dropdown-row" style="display:none;">
-                        <td colspan="5">
+                        <td colspan="4">
 
                             <div class="table-responsive">
 
@@ -99,14 +101,14 @@
                                                     <button
                                                         class="btn btn-sm btn-warning"
                                                         title="Edit Data"
-                                                        onclick="openEditSiswaModal(this)">
+                                                        onclick="event.stopPropagation(); openEditSiswaModal(this)">
                                                         <i class="fa-solid fa-pen"></i>
                                                     </button>
 
                                                     <button
                                                         class="btn btn-sm btn-danger"
                                                         title="Hapus Data"
-                                                        onclick="confirmDelete('siswa')">
+                                                        onclick="event.stopPropagation(); confirmDelete('siswa')">
                                                         <i class="fa-solid fa-trash"></i>
                                                     </button>
                                                 </div>
@@ -129,14 +131,14 @@
                                                     <button
                                                         class="btn btn-sm btn-warning"
                                                         title="Edit Data"
-                                                        onclick="openEditSiswaModal(this)">
+                                                        onclick="event.stopPropagation(); openEditSiswaModal(this)">
                                                         <i class="fa-solid fa-pen"></i>
                                                     </button>
 
                                                     <button
                                                         class="btn btn-sm btn-danger"
                                                         title="Hapus Data"
-                                                        onclick="confirmDelete('siswa')">
+                                                        onclick="event.stopPropagation(); confirmDelete('siswa')">
                                                         <i class="fa-solid fa-trash"></i>
                                                     </button>
                                                 </div>
@@ -159,14 +161,14 @@
                                                     <button
                                                         class="btn btn-sm btn-warning"
                                                         title="Edit Data"
-                                                        onclick="openEditSiswaModal(this)">
+                                                        onclick="event.stopPropagation(); openEditSiswaModal(this)">
                                                         <i class="fa-solid fa-pen"></i>
                                                     </button>
 
                                                     <button
                                                         class="btn btn-sm btn-danger"
                                                         title="Hapus Data"
-                                                        onclick="confirmDelete('siswa')">
+                                                        onclick="event.stopPropagation(); confirmDelete('siswa')">
                                                         <i class="fa-solid fa-trash"></i>
                                                     </button>
                                                 </div>
@@ -184,23 +186,26 @@
 
 
                     <!-- KELAS 8 -->
-                    <tr class="kelas-row" data-kelas="8">
+                    <tr
+                        class="kelas-row"
+                        data-kelas="8"
+                        onclick="toggleSiswaKelas(this, 'siswa-kelas-7')"
+                        style="cursor:pointer;">
                         <td>2</td>
-                        <td><strong>Kelas 8</strong></td>
+                        <td>
+                            <div style="display:flex; align-items:center; justify-content:space-between;">
+                                <strong>Kelas 8</strong>
+                                <i class="fa-solid fa-chevron-down dropdown-icon"></i>
+                            </div>
+                        </td>
                         <td>3 Siswa</td>
                         <td>
-                            <span class="text-muted">Lihat daftar siswa kelas 8</span>
-                        </td>
-                        <td>
-                            <button class="btn btn-sm btn-primary" type="button" onclick="toggleSiswaKelas('siswa-kelas-8')">
-                                <i class="fa-solid fa-users"></i>
-                                Lihat Siswa
-                            </button>
+                            <span class="text-muted">Klik baris ini untuk melihat daftar siswa kelas 8</span>
                         </td>
                     </tr>
 
                     <tr id="siswa-kelas-8" class="siswa-dropdown-row" style="display:none;">
-                        <td colspan="5">
+                        <td colspan="4">
 
                             <div class="table-responsive">
 
@@ -238,14 +243,14 @@
                                                     <button
                                                         class="btn btn-sm btn-warning"
                                                         title="Edit Data"
-                                                        onclick="openEditSiswaModal(this)">
+                                                        onclick="event.stopPropagation(); openEditSiswaModal(this)">
                                                         <i class="fa-solid fa-pen"></i>
                                                     </button>
 
                                                     <button
                                                         class="btn btn-sm btn-danger"
                                                         title="Hapus Data"
-                                                        onclick="confirmDelete('siswa')">
+                                                        onclick="event.stopPropagation(); confirmDelete('siswa')">
                                                         <i class="fa-solid fa-trash"></i>
                                                     </button>
                                                 </div>
@@ -268,14 +273,14 @@
                                                     <button
                                                         class="btn btn-sm btn-warning"
                                                         title="Edit Data"
-                                                        onclick="openEditSiswaModal(this)">
+                                                        onclick="event.stopPropagation(); openEditSiswaModal(this)">
                                                         <i class="fa-solid fa-pen"></i>
                                                     </button>
 
                                                     <button
                                                         class="btn btn-sm btn-danger"
                                                         title="Hapus Data"
-                                                        onclick="confirmDelete('siswa')">
+                                                        onclick="event.stopPropagation(); confirmDelete('siswa')">
                                                         <i class="fa-solid fa-trash"></i>
                                                     </button>
                                                 </div>
@@ -298,14 +303,14 @@
                                                     <button
                                                         class="btn btn-sm btn-warning"
                                                         title="Edit Data"
-                                                        onclick="openEditSiswaModal(this)">
+                                                        onclick="event.stopPropagation(); openEditSiswaModal(this)">
                                                         <i class="fa-solid fa-pen"></i>
                                                     </button>
 
                                                     <button
                                                         class="btn btn-sm btn-danger"
                                                         title="Hapus Data"
-                                                        onclick="confirmDelete('siswa')">
+                                                        onclick="event.stopPropagation(); confirmDelete('siswa')">
                                                         <i class="fa-solid fa-trash"></i>
                                                     </button>
                                                 </div>
@@ -323,23 +328,26 @@
 
 
                     <!-- KELAS 9 -->
-                    <tr class="kelas-row" data-kelas="9">
+                    <tr
+                        class="kelas-row"
+                        data-kelas="9"
+                        onclick="toggleSiswaKelas(this, 'siswa-kelas-7')"
+                        style="cursor:pointer;">
                         <td>3</td>
-                        <td><strong>Kelas 9</strong></td>
+                        <td>
+                            <div style="display:flex; align-items:center; justify-content:space-between;">
+                                <strong>Kelas 9</strong>
+                                <i class="fa-solid fa-chevron-down dropdown-icon"></i>
+                            </div>
+                        </td>
                         <td>3 Siswa</td>
                         <td>
-                            <span class="text-muted">Lihat daftar siswa kelas 9</span>
-                        </td>
-                        <td>
-                            <button class="btn btn-sm btn-primary" type="button" onclick="toggleSiswaKelas('siswa-kelas-9')">
-                                <i class="fa-solid fa-users"></i>
-                                Lihat Siswa
-                            </button>
+                            <span class="text-muted">Klik baris ini untuk melihat daftar siswa kelas 9</span>
                         </td>
                     </tr>
 
                     <tr id="siswa-kelas-9" class="siswa-dropdown-row" style="display:none;">
-                        <td colspan="5">
+                        <td colspan="4">
 
                             <div class="table-responsive">
 
@@ -377,14 +385,14 @@
                                                     <button
                                                         class="btn btn-sm btn-warning"
                                                         title="Edit Data"
-                                                        onclick="openEditSiswaModal(this)">
+                                                        onclick="event.stopPropagation(); openEditSiswaModal(this)">
                                                         <i class="fa-solid fa-pen"></i>
                                                     </button>
 
                                                     <button
                                                         class="btn btn-sm btn-danger"
                                                         title="Hapus Data"
-                                                        onclick="confirmDelete('siswa')">
+                                                        onclick="event.stopPropagation(); confirmDelete('siswa')">
                                                         <i class="fa-solid fa-trash"></i>
                                                     </button>
                                                 </div>
@@ -407,14 +415,14 @@
                                                     <button
                                                         class="btn btn-sm btn-warning"
                                                         title="Edit Data"
-                                                        onclick="openEditSiswaModal(this)">
+                                                        onclick="event.stopPropagation(); openEditSiswaModal(this)">
                                                         <i class="fa-solid fa-pen"></i>
                                                     </button>
 
                                                     <button
                                                         class="btn btn-sm btn-danger"
                                                         title="Hapus Data"
-                                                        onclick="confirmDelete('siswa')">
+                                                        onclick="event.stopPropagation(); confirmDelete('siswa')">
                                                         <i class="fa-solid fa-trash"></i>
                                                     </button>
                                                 </div>
@@ -437,14 +445,14 @@
                                                     <button
                                                         class="btn btn-sm btn-warning"
                                                         title="Edit Data"
-                                                        onclick="openEditSiswaModal(this)">
+                                                        onclick="event.stopPropagation(); openEditSiswaModal(this)">
                                                         <i class="fa-solid fa-pen"></i>
                                                     </button>
 
                                                     <button
                                                         class="btn btn-sm btn-danger"
                                                         title="Hapus Data"
-                                                        onclick="confirmDelete('siswa')">
+                                                        onclick="event.stopPropagation(); confirmDelete('siswa')">
                                                         <i class="fa-solid fa-trash"></i>
                                                     </button>
                                                 </div>
@@ -709,20 +717,37 @@
     <script>
         let selectedEditRow = null;
 
-        function toggleSiswaKelas(rowId) {
+        function toggleSiswaKelas(kelasRow, rowId) {
+
+            const selectedDropdown = document.getElementById(rowId);
+            const isOpen = selectedDropdown.style.display === 'table-row';
 
             const siswaDropdownRows = document.querySelectorAll('.siswa-dropdown-row');
+            const kelasRows = document.querySelectorAll('.kelas-row');
 
             siswaDropdownRows.forEach(row => {
-
-                if (row.id === rowId) {
-                    row.style.display =
-                        row.style.display === 'none' ? 'table-row' : 'none';
-                } else {
-                    row.style.display = 'none';
-                }
-
+                row.style.display = 'none';
             });
+
+            kelasRows.forEach(row => {
+                const icon = row.querySelector('.dropdown-icon');
+
+                if (icon) {
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                }
+            });
+
+            if (!isOpen) {
+                selectedDropdown.style.display = 'table-row';
+
+                const selectedIcon = kelasRow.querySelector('.dropdown-icon');
+
+                if (selectedIcon) {
+                    selectedIcon.classList.remove('fa-chevron-down');
+                    selectedIcon.classList.add('fa-chevron-up');
+                }
+            }
         }
 
         function searchSiswaDropdown(input) {
@@ -733,6 +758,7 @@
             kelasRows.forEach(kelasRow => {
 
                 const dropdownRow = kelasRow.nextElementSibling;
+                const icon = kelasRow.querySelector('.dropdown-icon');
 
                 if (
                     !dropdownRow ||
@@ -773,15 +799,28 @@
                     kelasRow.style.display = '';
                     dropdownRow.style.display = 'none';
 
+                    if (icon) {
+                        icon.innerText = '∨';
+                    }
+
                     siswaRows.forEach(siswaRow => {
                         siswaRow.style.display = '';
                     });
                 } else if (jumlahCocok > 0) {
                     kelasRow.style.display = '';
                     dropdownRow.style.display = 'table-row';
+
+                    if (icon) {
+                        icon.innerText = '∧';
+                    }
                 } else {
                     kelasRow.style.display = 'none';
                     dropdownRow.style.display = 'none';
+
+                    if (icon) {
+                        icon.classList.remove('fa-chevron-up');
+                        icon.classList.add('fa-chevron-down');
+                    }
                 }
 
             });
