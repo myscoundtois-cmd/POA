@@ -10,6 +10,7 @@ class JawabanModel extends Model
     protected $primaryKey = 'id_jawaban';
 
     protected $allowedFields = [
+        'id_mapel',
         'id_user',
         'pertemuan',
         'nama_siswa',

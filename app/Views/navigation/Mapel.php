@@ -450,6 +450,11 @@
         <h5>Soal PG ${nomorSoal}</h5>
 
         <label class="mb-1">Gambar Soal (Opsional)</label>
+
+        <input
+            type="text"
+            class="id_mapel">
+
         <input
             type="file"
             class="form-control mb-2 gambar"

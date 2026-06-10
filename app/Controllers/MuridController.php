@@ -41,6 +41,7 @@ class MuridController extends BaseController
 
         $id_user    = session()->get('id_user');
         $nama_siswa = session()->get('nama');
+        $id_mapel = session()->get('id_mapel');
 
         $jumlahBenar = 0;
         $totalSoal   = 0;
@@ -84,6 +85,7 @@ class MuridController extends BaseController
 
         $jawabanModel->insert([
             'pertemuan' => $soalPertama['pertemuan'],
+            'id_mapel' => $id_mapel,
             'id_user'   => $id_user,
             'nama_siswa' => $nama_siswa,
             'jawaban'   => $jawabanGabung,

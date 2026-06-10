@@ -18,6 +18,9 @@
 
                     <div class="card mb-4 shadow-sm">
                         <div class="card-body">
+                            <input type="hidden"
+                                name="id_mapel[]"
+                                value="<?= $row['id_mapel'] ?>">
 
                             <input type="hidden"
                                 name="id_soal[]"

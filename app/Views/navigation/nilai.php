@@ -34,408 +34,164 @@
                         <tr>
                             <th>No</th>
                             <th>Kelas</th>
-                            <th>Wali Kelas</th>
-                            <th>Jumlah Mapel</th>
-                            <th>Keterangan</th>
                         </tr>
                     </thead>
 
                     <tbody>
 
-                        <!-- KELAS 7 -->
-                        <tr
-                            class="kelas-nilai-row"
-                            data-kelas="7"
-                            onclick="toggleMapelKelasNilai(this, 'mapel-kelas-7')">
-                            <td>1</td>
-                            <td>
-                                <div class="kelas-title">
-                                    <span class="kelas-badge">Kelas</span>
-                                    <strong>7</strong>
-                                    <i class="fa-solid fa-chevron-down dropdown-icon"></i>
-                                </div>
-                            </td>
-                            <td>Bu Ivana Mayada</td>
-                            <td>4 Mapel</td>
-                            <td>
-                                <span class="text-muted">Klik baris ini untuk melihat mata pelajaran kelas 7</span>
-                            </td>
-                        </tr>
+                        <?php
+                        $kelasList = [];
 
-                        <tr id="mapel-kelas-7" class="mapel-dropdown-row" style="display:none;">
-                            <td colspan="5">
-                                <div class="mapel-box">
-                                    <table class="table table-hover mb-0">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Mata Pelajaran</th>
-                                                <th>Guru Pengajar</th>
-                                                <th>Keterangan</th>
-                                            </tr>
-                                        </thead>
+                        if (!empty($mapel)) {
+                            foreach ($mapel as $m) {
+                                $kelasList[$m['kelas']][] = $m;
+                            }
+                        }
 
-                                        <tbody>
-                                            <tr class="mapel-nilai-row" data-kelas="7" data-mapel="Matematika" onclick="togglePertemuanNilai(this, 'pertemuan-7-matematika')">
-                                                <td>1</td>
-                                                <td>
-                                                    <div class="mapel-title">
-                                                        <span class="mapel-dot"></span>
-                                                        <strong>Matematika</strong>
-                                                        <i class="fa-solid fa-chevron-down dropdown-icon"></i>
-                                                    </div>
-                                                </td>
-                                                <td>Pak Andi Saputra</td>
-                                                <td><span class="text-muted">Klik untuk melihat pertemuan</span></td>
-                                            </tr>
+                        $noKelas = 1;
+                        ?>
 
-                                            <tr id="pertemuan-7-matematika" class="pertemuan-dropdown-row" style="display:none;">
-                                                <td colspan="4">
-                                                    <div class="pertemuan-list">
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '7', 'Matematika', '1')">Pertemuan 1</button>
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '7', 'Matematika', '2')">Pertemuan 2</button>
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '7', 'Matematika', '3')">Pertemuan 3</button>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                        <?php foreach ($kelasList as $kelas => $daftarMapel): ?>
 
-                                            <tr class="mapel-nilai-row" data-kelas="7" data-mapel="Bahasa Indonesia" onclick="togglePertemuanNilai(this, 'pertemuan-7-bindo')">
-                                                <td>2</td>
-                                                <td>
-                                                    <div class="mapel-title">
-                                                        <span class="mapel-dot"></span>
-                                                        <strong>Bahasa Indonesia</strong>
-                                                        <i class="fa-solid fa-chevron-down dropdown-icon"></i>
-                                                    </div>
-                                                </td>
-                                                <td>Bu Rina Lestari</td>
-                                                <td><span class="text-muted">Klik untuk melihat pertemuan</span></td>
-                                            </tr>
+                            <tr
+                                class="kelas-nilai-row"
+                                onclick="toggleMapelKelasNilai(this,'mapel-kelas-<?= $kelas ?>')">
 
-                                            <tr id="pertemuan-7-bindo" class="pertemuan-dropdown-row" style="display:none;">
-                                                <td colspan="4">
-                                                    <div class="pertemuan-list">
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '7', 'Bahasa Indonesia', '1')">Pertemuan 1</button>
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '7', 'Bahasa Indonesia', '2')">Pertemuan 2</button>
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '7', 'Bahasa Indonesia', '3')">Pertemuan 3</button>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                <td><?= $noKelas++ ?></td>
 
-                                            <tr class="mapel-nilai-row" data-kelas="7" data-mapel="Bahasa Inggris" onclick="togglePertemuanNilai(this, 'pertemuan-7-binggris')">
-                                                <td>3</td>
-                                                <td>
-                                                    <div class="mapel-title">
-                                                        <span class="mapel-dot"></span>
-                                                        <strong>Bahasa Inggris</strong>
-                                                        <i class="fa-solid fa-chevron-down dropdown-icon"></i>
-                                                    </div>
-                                                </td>
-                                                <td>Bu Maya Salsabila</td>
-                                                <td><span class="text-muted">Klik untuk melihat pertemuan</span></td>
-                                            </tr>
+                                <td>
+                                    <div class="kelas-title">
+                                        <span class="kelas-badge">Kelas</span>
+                                        <strong><?= esc($kelas) ?></strong>
+                                        <i class="fa-solid fa-chevron-down dropdown-icon"></i>
+                                    </div>
+                                </td>
 
-                                            <tr id="pertemuan-7-binggris" class="pertemuan-dropdown-row" style="display:none;">
-                                                <td colspan="4">
-                                                    <div class="pertemuan-list">
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '7', 'Bahasa Inggris', '1')">Pertemuan 1</button>
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '7', 'Bahasa Inggris', '2')">Pertemuan 2</button>
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '7', 'Bahasa Inggris', '3')">Pertemuan 3</button>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                            </tr>
 
-                                            <tr class="mapel-nilai-row" data-kelas="7" data-mapel="IPA" onclick="togglePertemuanNilai(this, 'pertemuan-7-ipa')">
-                                                <td>4</td>
-                                                <td>
-                                                    <div class="mapel-title">
-                                                        <span class="mapel-dot"></span>
-                                                        <strong>IPA</strong>
-                                                        <i class="fa-solid fa-chevron-down dropdown-icon"></i>
-                                                    </div>
-                                                </td>
-                                                <td>Pak Dimas Pratama</td>
-                                                <td><span class="text-muted">Klik untuk melihat pertemuan</span></td>
-                                            </tr>
+                            <tr
+                                id="mapel-kelas-<?= $kelas ?>"
+                                class="mapel-dropdown-row"
+                                style="display:none;">
 
-                                            <tr id="pertemuan-7-ipa" class="pertemuan-dropdown-row" style="display:none;">
-                                                <td colspan="4">
-                                                    <div class="pertemuan-list">
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '7', 'IPA', '1')">Pertemuan 1</button>
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '7', 'IPA', '2')">Pertemuan 2</button>
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '7', 'IPA', '3')">Pertemuan 3</button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </td>
-                        </tr>
+                                <td colspan="5">
 
+                                    <div class="mapel-box">
 
-                        <!-- KELAS 8 -->
-                        <tr
-                            class="kelas-nilai-row"
-                            data-kelas="8"
-                            onclick="toggleMapelKelasNilai(this, 'mapel-kelas-8')">
-                            <td>2</td>
-                            <td>
-                                <div class="kelas-title">
-                                    <span class="kelas-badge">Kelas</span>
-                                    <strong>8</strong>
-                                    <i class="fa-solid fa-chevron-down dropdown-icon"></i>
-                                </div>
-                            </td>
-                            <td>Pak Ahmad Fauzi</td>
-                            <td>4 Mapel</td>
-                            <td>
-                                <span class="text-muted">Klik baris ini untuk melihat mata pelajaran kelas 8</span>
-                            </td>
-                        </tr>
+                                        <table class="table table-hover mb-0">
 
-                        <tr id="mapel-kelas-8" class="mapel-dropdown-row" style="display:none;">
-                            <td colspan="5">
-                                <div class="mapel-box">
-                                    <table class="table table-hover mb-0">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Mata Pelajaran</th>
-                                                <th>Guru Pengajar</th>
-                                                <th>Keterangan</th>
-                                            </tr>
-                                        </thead>
+                                            <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Mata Pelajaran</th>
+                                                    <th>Guru Pengajar</th>
+                                                    <th>Keterangan</th>
+                                                </tr>
+                                            </thead>
 
-                                        <tbody>
-                                            <tr class="mapel-nilai-row" data-kelas="8" data-mapel="Matematika" onclick="togglePertemuanNilai(this, 'pertemuan-8-matematika')">
-                                                <td>1</td>
-                                                <td>
-                                                    <div class="mapel-title">
-                                                        <span class="mapel-dot"></span>
-                                                        <strong>Matematika</strong>
-                                                        <i class="fa-solid fa-chevron-down dropdown-icon"></i>
-                                                    </div>
-                                                </td>
-                                                <td>Pak Andi Saputra</td>
-                                                <td><span class="text-muted">Klik untuk melihat pertemuan</span></td>
-                                            </tr>
+                                            <tbody>
 
-                                            <tr id="pertemuan-8-matematika" class="pertemuan-dropdown-row" style="display:none;">
-                                                <td colspan="4">
-                                                    <div class="pertemuan-list">
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '8', 'Matematika', '1')">Pertemuan 1</button>
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '8', 'Matematika', '2')">Pertemuan 2</button>
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '8', 'Matematika', '3')">Pertemuan 3</button>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                                <?php foreach ($daftarMapel as $index => $m): ?>
 
-                                            <tr class="mapel-nilai-row" data-kelas="8" data-mapel="Bahasa Indonesia" onclick="togglePertemuanNilai(this, 'pertemuan-8-bindo')">
-                                                <td>2</td>
-                                                <td>
-                                                    <div class="mapel-title">
-                                                        <span class="mapel-dot"></span>
-                                                        <strong>Bahasa Indonesia</strong>
-                                                        <i class="fa-solid fa-chevron-down dropdown-icon"></i>
-                                                    </div>
-                                                </td>
-                                                <td>Bu Rina Lestari</td>
-                                                <td><span class="text-muted">Klik untuk melihat pertemuan</span></td>
-                                            </tr>
+                                                    <tr
+                                                        class="mapel-nilai-row"
+                                                        onclick="togglePertemuanNilai(this,'pertemuan-<?= $m['id_mapel'] ?>')">
 
-                                            <tr id="pertemuan-8-bindo" class="pertemuan-dropdown-row" style="display:none;">
-                                                <td colspan="4">
-                                                    <div class="pertemuan-list">
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '8', 'Bahasa Indonesia', '1')">Pertemuan 1</button>
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '8', 'Bahasa Indonesia', '2')">Pertemuan 2</button>
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '8', 'Bahasa Indonesia', '3')">Pertemuan 3</button>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                                        <td><?= $index + 1 ?></td>
 
-                                            <tr class="mapel-nilai-row" data-kelas="8" data-mapel="Bahasa Inggris" onclick="togglePertemuanNilai(this, 'pertemuan-8-binggris')">
-                                                <td>3</td>
-                                                <td>
-                                                    <div class="mapel-title">
-                                                        <span class="mapel-dot"></span>
-                                                        <strong>Bahasa Inggris</strong>
-                                                        <i class="fa-solid fa-chevron-down dropdown-icon"></i>
-                                                    </div>
-                                                </td>
-                                                <td>Bu Maya Salsabila</td>
-                                                <td><span class="text-muted">Klik untuk melihat pertemuan</span></td>
-                                            </tr>
+                                                        <td>
+                                                            <div class="mapel-title">
+                                                                <span class="mapel-dot"></span>
+                                                                <strong><?= esc($m['nama_mapel']) ?></strong>
+                                                                <i class="fa-solid fa-chevron-down dropdown-icon"></i>
+                                                            </div>
+                                                        </td>
 
-                                            <tr id="pertemuan-8-binggris" class="pertemuan-dropdown-row" style="display:none;">
-                                                <td colspan="4">
-                                                    <div class="pertemuan-list">
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '8', 'Bahasa Inggris', '1')">Pertemuan 1</button>
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '8', 'Bahasa Inggris', '2')">Pertemuan 2</button>
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '8', 'Bahasa Inggris', '3')">Pertemuan 3</button>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                                        <td>
+                                                            <?= esc($m['created_by'] ?? '-') ?>
+                                                        </td>
 
-                                            <tr class="mapel-nilai-row" data-kelas="8" data-mapel="IPA" onclick="togglePertemuanNilai(this, 'pertemuan-8-ipa')">
-                                                <td>4</td>
-                                                <td>
-                                                    <div class="mapel-title">
-                                                        <span class="mapel-dot"></span>
-                                                        <strong>IPA</strong>
-                                                        <i class="fa-solid fa-chevron-down dropdown-icon"></i>
-                                                    </div>
-                                                </td>
-                                                <td>Pak Dimas Pratama</td>
-                                                <td><span class="text-muted">Klik untuk melihat pertemuan</span></td>
-                                            </tr>
+                                                        <td>
+                                                            <span class="text-muted">
+                                                                Klik untuk melihat pertemuan
+                                                            </span>
+                                                        </td>
 
-                                            <tr id="pertemuan-8-ipa" class="pertemuan-dropdown-row" style="display:none;">
-                                                <td colspan="4">
-                                                    <div class="pertemuan-list">
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '8', 'IPA', '1')">Pertemuan 1</button>
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '8', 'IPA', '2')">Pertemuan 2</button>
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '8', 'IPA', '3')">Pertemuan 3</button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </td>
-                        </tr>
+                                                    </tr>
 
+                                                    <tr
+                                                        id="pertemuan-<?= $m['id_mapel'] ?>"
+                                                        class="pertemuan-dropdown-row"
+                                                        style="display:none;">
 
-                        <!-- KELAS 9 -->
-                        <tr
-                            class="kelas-nilai-row"
-                            data-kelas="9"
-                            onclick="toggleMapelKelasNilai(this, 'mapel-kelas-9')">
-                            <td>3</td>
-                            <td>
-                                <div class="kelas-title">
-                                    <span class="kelas-badge">Kelas</span>
-                                    <strong>9</strong>
-                                    <i class="fa-solid fa-chevron-down dropdown-icon"></i>
-                                </div>
-                            </td>
-                            <td>Bu Siti Aisyah</td>
-                            <td>4 Mapel</td>
-                            <td>
-                                <span class="text-muted">Klik baris ini untuk melihat mata pelajaran kelas 9</span>
-                            </td>
-                        </tr>
+                                                        <td colspan="4">
 
-                        <tr id="mapel-kelas-9" class="mapel-dropdown-row" style="display:none;">
-                            <td colspan="5">
-                                <div class="mapel-box">
-                                    <table class="table table-hover mb-0">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Mata Pelajaran</th>
-                                                <th>Guru Pengajar</th>
-                                                <th>Keterangan</th>
-                                            </tr>
-                                        </thead>
+                                                            <div class="pertemuan-list">
 
-                                        <tbody>
-                                            <tr class="mapel-nilai-row" data-kelas="9" data-mapel="Matematika" onclick="togglePertemuanNilai(this, 'pertemuan-9-matematika')">
-                                                <td>1</td>
-                                                <td>
-                                                    <div class="mapel-title">
-                                                        <span class="mapel-dot"></span>
-                                                        <strong>Matematika</strong>
-                                                        <i class="fa-solid fa-chevron-down dropdown-icon"></i>
-                                                    </div>
-                                                </td>
-                                                <td>Pak Andi Saputra</td>
-                                                <td><span class="text-muted">Klik untuk melihat pertemuan</span></td>
-                                            </tr>
+                                                                <?php
+                                                                $adaPertemuan = false;
 
-                                            <tr id="pertemuan-9-matematika" class="pertemuan-dropdown-row" style="display:none;">
-                                                <td colspan="4">
-                                                    <div class="pertemuan-list">
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '9', 'Matematika', '1')">Pertemuan 1</button>
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '9', 'Matematika', '2')">Pertemuan 2</button>
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '9', 'Matematika', '3')">Pertemuan 3</button>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                                                if (!empty($tugasUji)) :
 
-                                            <tr class="mapel-nilai-row" data-kelas="9" data-mapel="Bahasa Indonesia" onclick="togglePertemuanNilai(this, 'pertemuan-9-bindo')">
-                                                <td>2</td>
-                                                <td>
-                                                    <div class="mapel-title">
-                                                        <span class="mapel-dot"></span>
-                                                        <strong>Bahasa Indonesia</strong>
-                                                        <i class="fa-solid fa-chevron-down dropdown-icon"></i>
-                                                    </div>
-                                                </td>
-                                                <td>Bu Rina Lestari</td>
-                                                <td><span class="text-muted">Klik untuk melihat pertemuan</span></td>
-                                            </tr>
+                                                                    foreach ($tugasUji as $p) :
 
-                                            <tr id="pertemuan-9-bindo" class="pertemuan-dropdown-row" style="display:none;">
-                                                <td colspan="4">
-                                                    <div class="pertemuan-list">
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '9', 'Bahasa Indonesia', '1')">Pertemuan 1</button>
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '9', 'Bahasa Indonesia', '2')">Pertemuan 2</button>
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '9', 'Bahasa Indonesia', '3')">Pertemuan 3</button>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                                                        if (
+                                                                            $p['id_mapel'] == $m['id_mapel']
+                                                                        ) :
 
-                                            <tr class="mapel-nilai-row" data-kelas="9" data-mapel="Bahasa Inggris" onclick="togglePertemuanNilai(this, 'pertemuan-9-binggris')">
-                                                <td>3</td>
-                                                <td>
-                                                    <div class="mapel-title">
-                                                        <span class="mapel-dot"></span>
-                                                        <strong>Bahasa Inggris</strong>
-                                                        <i class="fa-solid fa-chevron-down dropdown-icon"></i>
-                                                    </div>
-                                                </td>
-                                                <td>Bu Maya Salsabila</td>
-                                                <td><span class="text-muted">Klik untuk melihat pertemuan</span></td>
-                                            </tr>
+                                                                            $adaPertemuan = true;
+                                                                ?>
 
-                                            <tr id="pertemuan-9-binggris" class="pertemuan-dropdown-row" style="display:none;">
-                                                <td colspan="4">
-                                                    <div class="pertemuan-list">
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '9', 'Bahasa Inggris', '1')">Pertemuan 1</button>
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '9', 'Bahasa Inggris', '2')">Pertemuan 2</button>
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '9', 'Bahasa Inggris', '3')">Pertemuan 3</button>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                                                            <button
+                                                                                type="button"
+                                                                                onclick="bukaHalamanDetailNilai(
+    event,
+    '<?= esc($kelas) ?>',
+    '<?= esc($m['nama_mapel']) ?>',
+    '<?= esc($m['id_mapel']) ?>',
+    '<?= esc($p['pertemuan']) ?>',
+    '<?= esc($m['created_by']) ?>'
+)">
 
-                                            <tr class="mapel-nilai-row" data-kelas="9" data-mapel="IPA" onclick="togglePertemuanNilai(this, 'pertemuan-9-ipa')">
-                                                <td>4</td>
-                                                <td>
-                                                    <div class="mapel-title">
-                                                        <span class="mapel-dot"></span>
-                                                        <strong>IPA</strong>
-                                                        <i class="fa-solid fa-chevron-down dropdown-icon"></i>
-                                                    </div>
-                                                </td>
-                                                <td>Pak Dimas Pratama</td>
-                                                <td><span class="text-muted">Klik untuk melihat pertemuan</span></td>
-                                            </tr>
+                                                                                Pertemuan <?= esc($p['pertemuan']) ?>
 
-                                            <tr id="pertemuan-9-ipa" class="pertemuan-dropdown-row" style="display:none;">
-                                                <td colspan="4">
-                                                    <div class="pertemuan-list">
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '9', 'IPA', '1')">Pertemuan 1</button>
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '9', 'IPA', '2')">Pertemuan 2</button>
-                                                        <button type="button" onclick="bukaHalamanDetailNilai(event, '9', 'IPA', '3')">Pertemuan 3</button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </td>
-                        </tr>
+                                                                            </button>
+
+                                                                    <?php
+                                                                        endif;
+
+                                                                    endforeach;
+
+                                                                endif;
+
+                                                                if (!$adaPertemuan):
+                                                                    ?>
+
+                                                                    <span class="text-muted">
+                                                                        Belum ada pertemuan
+                                                                    </span>
+
+                                                                <?php endif; ?>
+
+                                                            </div>
+
+                                                        </td>
+
+                                                    </tr>
+
+                                                <?php endforeach; ?>
+
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        <?php endforeach; ?>
 
                     </tbody>
                 </table>
@@ -718,7 +474,7 @@
         margin-left: auto;
     }
 
-    .mapel-dropdown-row > td {
+    .mapel-dropdown-row>td {
         background: #f8fafc;
         padding: 14px;
     }
@@ -764,7 +520,7 @@
         display: inline-block;
     }
 
-    .pertemuan-dropdown-row > td {
+    .pertemuan-dropdown-row>td {
         background: #f8fafc;
         padding: 12px 16px;
     }
@@ -839,80 +595,7 @@
 <script>
     let selectedFilterNilai = null;
 
-    let dataNilai = [
-        {
-            nama: 'Budi Santoso',
-            kelas: '7',
-            mapel: 'Matematika',
-            pertemuan: '1',
-            status: 'Tuntas',
-            nilai: 90
-        },
-        {
-            nama: 'Dina Permata',
-            kelas: '7',
-            mapel: 'Matematika',
-            pertemuan: '1',
-            status: 'Tuntas',
-            nilai: 86
-        },
-        {
-            nama: 'Rizky Ramadhan',
-            kelas: '7',
-            mapel: 'Bahasa Indonesia',
-            pertemuan: '2',
-            status: 'Belum Tuntas',
-            nilai: 72
-        },
-        {
-            nama: 'Siti Aisyah',
-            kelas: '8',
-            mapel: 'Bahasa Inggris',
-            pertemuan: '1',
-            status: 'Tuntas',
-            nilai: 88
-        },
-        {
-            nama: 'Ahmad Fauzi',
-            kelas: '8',
-            mapel: 'Matematika',
-            pertemuan: '2',
-            status: 'Tuntas',
-            nilai: 82
-        },
-        {
-            nama: 'Maya Salsabila',
-            kelas: '8',
-            mapel: 'IPA',
-            pertemuan: '3',
-            status: 'Belum Tuntas',
-            nilai: 74
-        },
-        {
-            nama: 'Rahmat Hidayat',
-            kelas: '9',
-            mapel: 'IPA',
-            pertemuan: '3',
-            status: 'Belum Tuntas',
-            nilai: 70
-        },
-        {
-            nama: 'Putri Lestari',
-            kelas: '9',
-            mapel: 'Bahasa Indonesia',
-            pertemuan: '2',
-            status: 'Tuntas',
-            nilai: 91
-        },
-        {
-            nama: 'Andi Saputra',
-            kelas: '9',
-            mapel: 'Matematika',
-            pertemuan: '1',
-            status: 'Tuntas',
-            nilai: 89
-        }
-    ];
+    let dataNilai = <?= json_encode($jawabanSiswa ?? []) ?>;
 
     function setChevronDown(icon) {
         if (icon) {
@@ -983,26 +666,36 @@
         }
     }
 
-    function bukaHalamanDetailNilai(event, kelas, mapel, pertemuan) {
+    function bukaHalamanDetailNilai(
+        event,
+        kelas,
+        mapel,
+        id_mapel,
+        pertemuan,
+        created_by
+    ) {
         event.stopPropagation();
 
         selectedFilterNilai = {
-            kelas: kelas,
-            mapel: mapel,
-            pertemuan: pertemuan
+            kelas,
+            mapel,
+            id_mapel,
+            pertemuan,
+            created_by
         };
 
         const filteredData = dataNilai.filter(item => {
-            return item.kelas === kelas &&
-                item.mapel === mapel &&
-                item.pertemuan === pertemuan;
+
+            return String(item.id_mapel) === String(id_mapel) &&
+                String(item.pertemuan) === String(pertemuan);
+
         });
 
         document.getElementById('halaman-pilih-nilai').style.display = 'none';
         document.getElementById('halaman-detail-nilai').style.display = 'block';
 
         document.getElementById('detail-info-nilai').innerText =
-            'Menampilkan nilai kelas ' + kelas + ', ' + mapel + ', pertemuan ke-' + pertemuan;
+            `Menampilkan nilai kelas ${kelas}, ${mapel}, pertemuan ke-${pertemuan}`;
 
         document.getElementById('info-kelas').innerText = kelas;
         document.getElementById('info-mapel').innerText = mapel;
@@ -1026,6 +719,7 @@
     }
 
     function renderNilaiTable(data) {
+
         const tbody = document.getElementById('nilai-result-body');
         const emptyState = document.getElementById('nilai-empty-state');
 
@@ -1039,37 +733,44 @@
         emptyState.style.display = 'none';
 
         data.forEach((item, index) => {
-            const realIndex = dataNilai.indexOf(item);
-            const statusClass = item.status === 'Tuntas' ? 'aktif' : 'nonaktif';
+
+            const status = Number(item.nilai) >= 75 ?
+                'Tuntas' :
+                'Belum Tuntas';
+
+            const statusClass = Number(item.nilai) >= 75 ?
+                'aktif' :
+                'nonaktif';
 
             tbody.innerHTML += `
-                <tr>
-                    <td>${index + 1}</td>
-                    <td>${item.nama}</td>
-                    <td>${item.kelas}</td>
-                    <td>${item.mapel}</td>
-                    <td>Pertemuan ${item.pertemuan}</td>
-                    <td>
-                        <span class="status ${statusClass}">${item.status}</span>
-                    </td>
-                    <td>${item.nilai}</td>
-                    <td>
-                        <div class="action-table">
-                            <button class="btn btn-sm btn-primary" title="Detail Nilai" onclick="openDetailNilai(${realIndex})">
-                                <i class="fa-solid fa-eye"></i>
-                            </button>
+        <tr>
+            <td>${index + 1}</td>
 
-                            <button class="btn btn-sm btn-warning" title="Edit Nilai" onclick="openEditNilaiModal(${realIndex})">
-                                <i class="fa-solid fa-pen"></i>
-                            </button>
+            <td>${item.nama_siswa ?? '-'}</td>
 
-                            <button class="btn btn-sm btn-danger" title="Hapus Nilai" onclick="hapusNilaiDummy(${realIndex})">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            `;
+            <td>${document.getElementById('info-kelas').innerText}</td>
+
+            <td>${document.getElementById('info-mapel').innerText}</td>
+
+            <td>Pertemuan ${item.pertemuan}</td>
+
+            <td>
+                <span class="status ${statusClass}">
+                    ${status}
+                </span>
+            </td>
+
+            <td>${item.nilai ?? 0}</td>
+
+            <td>
+                <button
+                    class="btn btn-sm btn-primary"
+                    onclick="openDetailNilai(${index})">
+                    <i class="fa-solid fa-eye"></i>
+                </button>
+            </td>
+        </tr>
+        `;
         });
     }
 
@@ -1165,17 +866,36 @@
     }
 
     function openDetailNilai(index) {
-        const item = dataNilai[index];
 
-        document.getElementById('detailNamaNilai').innerText = item.nama;
-        document.getElementById('detailKelasNilai').innerText = item.kelas;
-        document.getElementById('detailMapelNilai').innerText = item.mapel;
-        document.getElementById('detailPertemuanNilai').innerText = 'Pertemuan ' + item.pertemuan;
-        document.getElementById('detailStatusNilai').innerText = item.status;
-        document.getElementById('detailAngkaNilai').innerText = item.nilai;
+        const item = dataNilai.filter(x =>
+            String(x.pertemuan) === String(selectedFilterNilai.pertemuan)
+        )[index];
 
-        const modalElement = document.getElementById('modalDetailNilai');
-        const modal = new bootstrap.Modal(modalElement);
+        if (!item) return;
+
+        document.getElementById('detailNamaNilai').innerText =
+            item.nama_siswa ?? '-';
+
+        document.getElementById('detailKelasNilai').innerText =
+            selectedFilterNilai.kelas;
+
+        document.getElementById('detailMapelNilai').innerText =
+            selectedFilterNilai.mapel;
+
+        document.getElementById('detailPertemuanNilai').innerText =
+            'Pertemuan ' + item.pertemuan;
+
+        document.getElementById('detailStatusNilai').innerText =
+            Number(item.nilai) >= 75 ?
+            'Tuntas' :
+            'Belum Tuntas';
+
+        document.getElementById('detailAngkaNilai').innerText =
+            item.nilai ?? 0;
+
+        const modal = new bootstrap.Modal(
+            document.getElementById('modalDetailNilai')
+        );
 
         modal.show();
     }

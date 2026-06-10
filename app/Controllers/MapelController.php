@@ -119,6 +119,7 @@ class MapelController extends BaseController
     {
         $soalModel = new PgEssayModel();
 
+        $id_mapel = session()->get('id_mapel');
         $pertanyaan = $this->request->getPost('pertanyaan');
         $opsi_a     = $this->request->getPost('opsi_a');
         $opsi_b     = $this->request->getPost('opsi_b');
@@ -134,6 +135,7 @@ class MapelController extends BaseController
         foreach ($pertanyaan as $id_soal => $isiPertanyaan) {
 
             $data = [
+                'id_mapel'   => $id_mapel,
                 'pertanyaan' => $isiPertanyaan,
                 'opsi_a'     => $opsi_a[$id_soal] ?? '',
                 'opsi_b'     => $opsi_b[$id_soal] ?? '',

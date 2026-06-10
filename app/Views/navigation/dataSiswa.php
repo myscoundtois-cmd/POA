@@ -1,5 +1,10 @@
 <div class="main-content">
 
+    <?php
+    $kelas = isset($kelas) && is_array($kelas) ? $kelas : [];
+    $siswa = isset($siswa) && is_array($siswa) ? $siswa : [];
+    ?>
+
     <?= $this->include('content/navbar') ?>
 
     <div class="table-section">
@@ -43,430 +48,115 @@
 
                 <tbody>
 
-                    <!-- KELAS 7 -->
-                    <tr
-                        class="kelas-row"
-                        data-kelas="7"
-                        onclick="toggleSiswaKelas(this, 'siswa-kelas-7')"
-                        style="cursor:pointer;">
-                        <td>1</td>
-                        <td>
-                            <div style="display:flex; align-items:center; justify-content:space-between;">
-                                <strong>Kelas 7</strong>
-                                <i class="fa-solid fa-chevron-down dropdown-icon"></i>
-                            </div>
-                        </td>
-                        <td>3 Siswa</td>
-                        <td>
-                            <span class="text-muted">Klik baris ini untuk melihat daftar siswa kelas 7</span>
-                        </td>
-                    </tr>
+                    <?php foreach ($kelas as $index => $k): ?>
 
-                    <tr id="siswa-kelas-7" class="siswa-dropdown-row" style="display:none;">
-                        <td colspan="4">
+                        <tr
+                            class="kelas-row"
+                            onclick="toggleSiswaKelas(this, 'siswa-kelas-<?= $k['kelas'] ?>')"
+                            style="cursor:pointer;">
 
-                            <div class="table-responsive">
+                            <td><?= $index + 1 ?></td>
 
-                                <table class="table table-hover">
+                            <td>
+                                <div style="display:flex; align-items:center; justify-content:space-between;">
+                                    <strong>Kelas <?= esc($k['kelas']) ?></strong>
+                                    <i class="fa-solid fa-chevron-down dropdown-icon"></i>
+                                </div>
+                            </td>
 
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Foto</th>
-                                            <th>Nama</th>
-                                            <th>NIS</th>
-                                            <th>Kelas</th>
-                                            <th>JK</th>
-                                            <th>Email</th>
-                                            <th>Alamat</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
+                            <td><?= $k['jumlah_siswa'] ?> Siswa</td>
 
-                                    <tbody>
+                            <td>
+                                <span class="text-muted">
+                                    Klik baris ini untuk melihat daftar siswa kelas <?= esc($k['kelas']) ?>
+                                </span>
+                            </td>
 
-                                        <tr class="siswa-row">
-                                            <td>1</td>
-                                            <td>
-                                                <span class="text-muted">Tidak ada foto</span>
-                                            </td>
-                                            <td>Budi Santoso</td>
-                                            <td>2026001</td>
-                                            <td>7</td>
-                                            <td>Laki-laki</td>
-                                            <td>budi.santoso@mail.com</td>
-                                            <td>Jl. Melati No. 12</td>
-                                            <td>
-                                                <div class="action-table">
-                                                    <button
-                                                        class="btn btn-sm btn-warning"
-                                                        title="Edit Data"
-                                                        onclick="event.stopPropagation(); openEditSiswaModal(this)">
-                                                        <i class="fa-solid fa-pen"></i>
-                                                    </button>
+                        </tr>
 
-                                                    <button
-                                                        class="btn btn-sm btn-danger"
-                                                        title="Hapus Data"
-                                                        onclick="event.stopPropagation(); confirmDelete('siswa')">
-                                                        <i class="fa-solid fa-trash"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
+                        <tr
+                            id="siswa-kelas-<?= $k['kelas'] ?>"
+                            class="siswa-dropdown-row"
+                            style="display:none;">
 
-                                        <tr class="siswa-row">
-                                            <td>2</td>
-                                            <td>
-                                                <span class="text-muted">Tidak ada foto</span>
-                                            </td>
-                                            <td>Dina Permata</td>
-                                            <td>2026002</td>
-                                            <td>7</td>
-                                            <td>Perempuan</td>
-                                            <td>dina.permata@mail.com</td>
-                                            <td>Jl. Kenanga No. 8</td>
-                                            <td>
-                                                <div class="action-table">
-                                                    <button
-                                                        class="btn btn-sm btn-warning"
-                                                        title="Edit Data"
-                                                        onclick="event.stopPropagation(); openEditSiswaModal(this)">
-                                                        <i class="fa-solid fa-pen"></i>
-                                                    </button>
+                            <td colspan="4">
 
-                                                    <button
-                                                        class="btn btn-sm btn-danger"
-                                                        title="Hapus Data"
-                                                        onclick="event.stopPropagation(); confirmDelete('siswa')">
-                                                        <i class="fa-solid fa-trash"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                <div class="table-responsive">
 
-                                        <tr class="siswa-row">
-                                            <td>3</td>
-                                            <td>
-                                                <span class="text-muted">Tidak ada foto</span>
-                                            </td>
-                                            <td>Rizky Ramadhan</td>
-                                            <td>2026003</td>
-                                            <td>7</td>
-                                            <td>Laki-laki</td>
-                                            <td>rizky.ramadhan@mail.com</td>
-                                            <td>Jl. Mawar No. 21</td>
-                                            <td>
-                                                <div class="action-table">
-                                                    <button
-                                                        class="btn btn-sm btn-warning"
-                                                        title="Edit Data"
-                                                        onclick="event.stopPropagation(); openEditSiswaModal(this)">
-                                                        <i class="fa-solid fa-pen"></i>
-                                                    </button>
+                                    <table class="table table-hover">
 
-                                                    <button
-                                                        class="btn btn-sm btn-danger"
-                                                        title="Hapus Data"
-                                                        onclick="event.stopPropagation(); confirmDelete('siswa')">
-                                                        <i class="fa-solid fa-trash"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Foto</th>
+                                                <th>Nama</th>
+                                                <th>NIS</th>
+                                                <th>Kelas</th>
+                                                <th>JK</th>
+                                                <th>Email</th>
+                                                <th>Alamat</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
 
-                                    </tbody>
+                                        <tbody>
 
-                                </table>
+                                            <?php
+                                            $no = 1;
+                                            foreach ($siswa as $row):
+                                                if ($row['kelas'] == $k['kelas']):
+                                            ?>
 
-                            </div>
+                                                    <tr class="siswa-row">
 
-                        </td>
-                    </tr>
+                                                        <td><?= $no++ ?></td>
+
+                                                        <td>
+                                                            <?php if (!empty($row['foto'])): ?>
+                                                                <img
+                                                                    src="<?= base_url('uploads/' . $row['foto']) ?>"
+                                                                    width="50"
+                                                                    class="img-thumbnail">
+                                                            <?php else: ?>
+                                                                <span class="text-muted">
+                                                                    Tidak ada foto
+                                                                </span>
+                                                            <?php endif; ?>
+                                                        </td>
+
+                                                        <td><?= esc($row['nama']) ?></td>
+                                                        <td><?= esc($row['nis']) ?></td>
+                                                        <td><?= esc($row['kelas']) ?></td>
+                                                        <td><?= esc($row['jenis_kelamin']) ?></td>
+                                                        <td><?= esc($row['email']) ?></td>
+                                                        <td><?= esc($row['alamat']) ?></td>
+
+                                                        <td>
+                                                            <div class="action-table">
 
 
-                    <!-- KELAS 8 -->
-                    <tr
-                        class="kelas-row"
-                        data-kelas="8"
-                        onclick="toggleSiswaKelas(this, 'siswa-kelas-8')"
-                        style="cursor:pointer;">
-                        <td>2</td>
-                        <td>
-                            <div style="display:flex; align-items:center; justify-content:space-between;">
-                                <strong>Kelas 8</strong>
-                                <i class="fa-solid fa-chevron-down dropdown-icon"></i>
-                            </div>
-                        </td>
-                        <td>3 Siswa</td>
-                        <td>
-                            <span class="text-muted">Klik baris ini untuk melihat daftar siswa kelas 8</span>
-                        </td>
-                    </tr>
 
-                    <tr id="siswa-kelas-8" class="siswa-dropdown-row" style="display:none;">
-                        <td colspan="4">
+                                                            </div>
+                                                        </td>
 
-                            <div class="table-responsive">
+                                                    </tr>
 
-                                <table class="table table-hover">
+                                            <?php
+                                                endif;
+                                            endforeach;
+                                            ?>
 
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Foto</th>
-                                            <th>Nama</th>
-                                            <th>NIS</th>
-                                            <th>Kelas</th>
-                                            <th>JK</th>
-                                            <th>Email</th>
-                                            <th>Alamat</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
+                                        </tbody>
 
-                                    <tbody>
+                                    </table>
 
-                                        <tr class="siswa-row">
-                                            <td>1</td>
-                                            <td>
-                                                <span class="text-muted">Tidak ada foto</span>
-                                            </td>
-                                            <td>Siti Aisyah</td>
-                                            <td>2026004</td>
-                                            <td>8</td>
-                                            <td>Perempuan</td>
-                                            <td>siti.aisyah@mail.com</td>
-                                            <td>Jl. Anggrek No. 5</td>
-                                            <td>
-                                                <div class="action-table">
-                                                    <button
-                                                        class="btn btn-sm btn-warning"
-                                                        title="Edit Data"
-                                                        onclick="event.stopPropagation(); openEditSiswaModal(this)">
-                                                        <i class="fa-solid fa-pen"></i>
-                                                    </button>
+                                </div>
 
-                                                    <button
-                                                        class="btn btn-sm btn-danger"
-                                                        title="Hapus Data"
-                                                        onclick="event.stopPropagation(); confirmDelete('siswa')">
-                                                        <i class="fa-solid fa-trash"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
+                            </td>
 
-                                        <tr class="siswa-row">
-                                            <td>2</td>
-                                            <td>
-                                                <span class="text-muted">Tidak ada foto</span>
-                                            </td>
-                                            <td>Ahmad Fauzi</td>
-                                            <td>2026005</td>
-                                            <td>8</td>
-                                            <td>Laki-laki</td>
-                                            <td>ahmad.fauzi@mail.com</td>
-                                            <td>Jl. Cempaka No. 17</td>
-                                            <td>
-                                                <div class="action-table">
-                                                    <button
-                                                        class="btn btn-sm btn-warning"
-                                                        title="Edit Data"
-                                                        onclick="event.stopPropagation(); openEditSiswaModal(this)">
-                                                        <i class="fa-solid fa-pen"></i>
-                                                    </button>
+                        </tr>
 
-                                                    <button
-                                                        class="btn btn-sm btn-danger"
-                                                        title="Hapus Data"
-                                                        onclick="event.stopPropagation(); confirmDelete('siswa')">
-                                                        <i class="fa-solid fa-trash"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                        <tr class="siswa-row">
-                                            <td>3</td>
-                                            <td>
-                                                <span class="text-muted">Tidak ada foto</span>
-                                            </td>
-                                            <td>Maya Salsabila</td>
-                                            <td>2026006</td>
-                                            <td>8</td>
-                                            <td>Perempuan</td>
-                                            <td>maya.salsabila@mail.com</td>
-                                            <td>Jl. Flamboyan No. 10</td>
-                                            <td>
-                                                <div class="action-table">
-                                                    <button
-                                                        class="btn btn-sm btn-warning"
-                                                        title="Edit Data"
-                                                        onclick="event.stopPropagation(); openEditSiswaModal(this)">
-                                                        <i class="fa-solid fa-pen"></i>
-                                                    </button>
-
-                                                    <button
-                                                        class="btn btn-sm btn-danger"
-                                                        title="Hapus Data"
-                                                        onclick="event.stopPropagation(); confirmDelete('siswa')">
-                                                        <i class="fa-solid fa-trash"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                    </tbody>
-
-                                </table>
-
-                            </div>
-
-                        </td>
-                    </tr>
-
-
-                    <!-- KELAS 9 -->
-                    <tr
-                        class="kelas-row"
-                        data-kelas="9"
-                        onclick="toggleSiswaKelas(this, 'siswa-kelas-9')"
-                        style="cursor:pointer;">
-                        <td>3</td>
-                        <td>
-                            <div style="display:flex; align-items:center; justify-content:space-between;">
-                                <strong>Kelas 9</strong>
-                                <i class="fa-solid fa-chevron-down dropdown-icon"></i>
-                            </div>
-                        </td>
-                        <td>3 Siswa</td>
-                        <td>
-                            <span class="text-muted">Klik baris ini untuk melihat daftar siswa kelas 9</span>
-                        </td>
-                    </tr>
-
-                    <tr id="siswa-kelas-9" class="siswa-dropdown-row" style="display:none;">
-                        <td colspan="4">
-
-                            <div class="table-responsive">
-
-                                <table class="table table-hover">
-
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Foto</th>
-                                            <th>Nama</th>
-                                            <th>NIS</th>
-                                            <th>Kelas</th>
-                                            <th>JK</th>
-                                            <th>Email</th>
-                                            <th>Alamat</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-
-                                        <tr class="siswa-row">
-                                            <td>1</td>
-                                            <td>
-                                                <span class="text-muted">Tidak ada foto</span>
-                                            </td>
-                                            <td>Rahmat Hidayat</td>
-                                            <td>2026007</td>
-                                            <td>9</td>
-                                            <td>Laki-laki</td>
-                                            <td>rahmat.hidayat@mail.com</td>
-                                            <td>Jl. Dahlia No. 14</td>
-                                            <td>
-                                                <div class="action-table">
-                                                    <button
-                                                        class="btn btn-sm btn-warning"
-                                                        title="Edit Data"
-                                                        onclick="event.stopPropagation(); openEditSiswaModal(this)">
-                                                        <i class="fa-solid fa-pen"></i>
-                                                    </button>
-
-                                                    <button
-                                                        class="btn btn-sm btn-danger"
-                                                        title="Hapus Data"
-                                                        onclick="event.stopPropagation(); confirmDelete('siswa')">
-                                                        <i class="fa-solid fa-trash"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                        <tr class="siswa-row">
-                                            <td>2</td>
-                                            <td>
-                                                <span class="text-muted">Tidak ada foto</span>
-                                            </td>
-                                            <td>Putri Lestari</td>
-                                            <td>2026008</td>
-                                            <td>9</td>
-                                            <td>Perempuan</td>
-                                            <td>putri.lestari@mail.com</td>
-                                            <td>Jl. Teratai No. 9</td>
-                                            <td>
-                                                <div class="action-table">
-                                                    <button
-                                                        class="btn btn-sm btn-warning"
-                                                        title="Edit Data"
-                                                        onclick="event.stopPropagation(); openEditSiswaModal(this)">
-                                                        <i class="fa-solid fa-pen"></i>
-                                                    </button>
-
-                                                    <button
-                                                        class="btn btn-sm btn-danger"
-                                                        title="Hapus Data"
-                                                        onclick="event.stopPropagation(); confirmDelete('siswa')">
-                                                        <i class="fa-solid fa-trash"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                        <tr class="siswa-row">
-                                            <td>3</td>
-                                            <td>
-                                                <span class="text-muted">Tidak ada foto</span>
-                                            </td>
-                                            <td>Andi Saputra</td>
-                                            <td>2026009</td>
-                                            <td>9</td>
-                                            <td>Laki-laki</td>
-                                            <td>andi.saputra@mail.com</td>
-                                            <td>Jl. Sakura No. 3</td>
-                                            <td>
-                                                <div class="action-table">
-                                                    <button
-                                                        class="btn btn-sm btn-warning"
-                                                        title="Edit Data"
-                                                        onclick="event.stopPropagation(); openEditSiswaModal(this)">
-                                                        <i class="fa-solid fa-pen"></i>
-                                                    </button>
-
-                                                    <button
-                                                        class="btn btn-sm btn-danger"
-                                                        title="Hapus Data"
-                                                        onclick="event.stopPropagation(); confirmDelete('siswa')">
-                                                        <i class="fa-solid fa-trash"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                    </tbody>
-
-                                </table>
-
-                            </div>
-
-                        </td>
-                    </tr>
+                    <?php endforeach; ?>
 
                 </tbody>
 

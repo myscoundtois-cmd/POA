@@ -27,6 +27,15 @@ class AdminController extends BaseController
         $userModel = new UsersModel();
         $pgEssayModel = new PgEssayModel();
         $tugasUjiModel = new TugasUjiModel();
+        $model = new DataUserModel();
+
+        $data['siswa'] = $model->findAll();
+
+        $data['kelas'] = $model
+            ->select('kelas, COUNT(*) as jumlah_siswa')
+            ->groupBy('kelas')
+            ->orderBy('kelas', 'ASC')
+            ->findAll();
 
         $pgEssayModel = new PgEssayModel();
 
@@ -91,8 +100,13 @@ class AdminController extends BaseController
             ->get()
             ->getResultArray();
 
+        $jawabanModel = new \App\Models\JawabanModel();
+
+        $data['jawabanSiswa'] = $jawabanModel->findAll();
         return view('content/dashboard', $data);
     }
+
+
     public function lihatMateri($folder, $file)
     {
         $path = WRITEPATH . 'uploads/' . $folder . '/' . $file;
