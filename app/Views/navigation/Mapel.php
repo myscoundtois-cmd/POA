@@ -44,58 +44,59 @@
 
             <hr class="my-4">
 
-            <!-- FORM TAMBAH MAPEL -->
-            <form action="<?= base_url('mapel') ?>" method="post">
+            <?php if (session('role') == 'admin'): ?>
+                <!-- FORM TAMBAH MAPEL -->
+                <form action="<?= base_url('mapel') ?>" method="post">
 
-                <div class="profile-row">
-                    <span class="label">Nama Mapel</span>
-                    <span class="separator">:</span>
-                    <span class="value">
-                        <input type="text" name="nama_mapel" class="form-control" required>
-                    </span>
-                </div>
+                    <div class="profile-row">
+                        <span class="label">Nama Mapel</span>
+                        <span class="separator">:</span>
+                        <span class="value">
+                            <input type="text" name="nama_mapel" class="form-control" required>
+                        </span>
+                    </div>
 
-                <div class="profile-row">
-                    <span class="label">Untuk Kelas</span>
-                    <span class="separator">:</span>
-                    <span class="value">
-                        <select name="kelas" class="form-control" required>
-                            <option value="">-- Pilih Kelas --</option>
-                            <option value="VII">VII</option>
-                            <option value="VIII">VIII</option>
-                            <option value="IX">IX</option>
-                        </select>
-                    </span>
-                </div>
+                    <div class="profile-row">
+                        <span class="label">Untuk Kelas</span>
+                        <span class="separator">:</span>
+                        <span class="value">
+                            <select name="kelas" class="form-control" required>
+                                <option value="">-- Pilih Kelas --</option>
+                                <option value="VII">VII</option>
+                                <option value="VIII">VIII</option>
+                                <option value="IX">IX</option>
+                            </select>
+                        </span>
+                    </div>
 
-                <div class="profile-row">
-                    <span class="label">Pengajar</span>
-                    <span class="separator">:</span>
-                    <span class="value">
-                        <select name="guru" class="form-control" required>
+                    <div class="profile-row">
+                        <span class="label">Pengajar</span>
+                        <span class="separator">:</span>
+                        <span class="value">
+                            <select name="guru" class="form-control" required>
 
-                            <option value="">-- Pilih Guru --</option>
+                                <option value="">-- Pilih Guru --</option>
 
-                            <?php if (!empty($guru)): ?>
-                                <?php foreach ($guru as $g): ?>
+                                <?php if (!empty($guru)): ?>
+                                    <?php foreach ($guru as $g): ?>
 
-                                    <option value="<?= $g['nama']; ?>">
-                                        <?= esc($g['nama']); ?>
-                                    </option>
+                                        <option value="<?= $g['nama']; ?>">
+                                            <?= esc($g['nama']); ?>
+                                        </option>
 
-                                <?php endforeach; ?>
-                            <?php endif; ?>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
 
-                        </select>
-                    </span>
-                </div>
+                            </select>
+                        </span>
+                    </div>
 
-                <button type="submit" class="btn btn-primary mt-3">
-                    Tambah Mapel
-                </button>
+                    <button type="submit" class="btn btn-primary mt-3">
+                        Tambah Mapel
+                    </button>
 
-            </form>
-
+                </form>
+            <?php endif; ?>
         </div>
 
         <!-- DETAIL MAPEL -->

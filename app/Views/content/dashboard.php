@@ -57,27 +57,30 @@
                 </a>
             </li>
 
-            <li>
-                <a href="#"
-                    class="menu-link"
-                    onclick="showPage('data_siswa', this)">
+            <?php if (session('role') == 'admin'): ?>
+                <li>
+                    <a href="#"
+                        class="menu-link"
+                        onclick="showPage('data_siswa', this)">
 
-                    <i class="fa-solid fa-users"></i>
-                    <span>Data Siswa</span>
+                        <i class="fa-solid fa-users"></i>
+                        <span>Data Siswa</span>
 
-                </a>
-            </li>
+                    </a>
+                </li>
 
-            <li>
-                <a href="#"
-                    class="menu-link"
-                    onclick="showPage('data_guru', this)">
 
-                    <i class="fa-solid fa-chalkboard-user"></i>
-                    <span>Data Guru</span>
+                <li>
+                    <a href="#"
+                        class="menu-link"
+                        onclick="showPage('data_guru', this)">
 
-                </a>
-            </li>
+                        <i class="fa-solid fa-chalkboard-user"></i>
+                        <span>Data Guru</span>
+
+                    </a>
+                </li>
+            <?php endif; ?>
 
             <li>
                 <a href="#"
