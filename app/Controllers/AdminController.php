@@ -102,6 +102,8 @@ class AdminController extends BaseController
 
         $jawabanModel = new \App\Models\JawabanModel();
 
+        
+
         $data['jawabanSiswa'] = $jawabanModel->findAll();
         return view('content/dashboard', $data);
     }

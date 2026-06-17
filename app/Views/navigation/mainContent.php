@@ -12,7 +12,9 @@
                 <div class="card-wave"></div>
 
                 <h5>Total Siswa</h5>
-                <h2>1.250</h2>
+                <h2>
+                    <h2><?= count($siswa) ?></h2>
+                </h2>
 
                 <i class="fa-solid fa-user-graduate"></i>
 
@@ -24,7 +26,7 @@
                 <div class="card-wave"></div>
 
                 <h5>Total Guru</h5>
-                <h2>85</h2>
+                <h2><?= count($guru) ?></h2>
 
                 <i class="fa-solid fa-chalkboard-user"></i>
 
@@ -35,7 +37,7 @@
             <div class="dashboard-card bg3">
                 <div class="card-wave"></div>
                 <h5>Total Kelas</h5>
-                <h2>35</h2>
+                <h2><?= count($kelas) ?></h2>
 
                 <i class="fa-solid fa-school"></i>
 
@@ -46,8 +48,8 @@
             <div class="dashboard-card bg4">
                 <div class="card-wave"></div>
 
-                <h5>Tugas Aktif</h5>
-                <h2>120</h2>
+                <h5>Total Mapel</h5>
+                <h2><?= count($mapel) ?></h2>
 
                 <i class="fa-solid fa-book-open"></i>
 
