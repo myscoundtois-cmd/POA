@@ -82,16 +82,18 @@
                 </li>
             <?php endif; ?>
 
-            <li>
-                <a href="#"
-                    class="menu-link"
-                    onclick="showPage('mapel', this)">
+            <?php if (session('role') == 'admin' || session('role') == 'guru' || session('role') == 'murid'): ?>
+                <li>
+                    <a href="#"
+                        class="menu-link"
+                        onclick="showPage('mapel', this)">
 
-                    <i class="fa-solid fa-book"></i>
-                    <span>Mata Pelajaran</span>
+                        <i class="fa-solid fa-book"></i>
+                        <span>Mata Pelajaran</span>
 
-                </a>
-            </li>
+                    </a>
+                </li>
+            <?php endif; ?>
 
             <li>
                 <a href="#"
