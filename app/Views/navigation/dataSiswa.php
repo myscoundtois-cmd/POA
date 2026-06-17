@@ -134,7 +134,18 @@
                                                         <td>
                                                             <div class="action-table">
 
+                                                                <button
+                                                                    class="btn btn-sm btn-warning"
+                                                                    title="Edit Data">
+                                                                    <i class="fa-solid fa-pen"></i>
+                                                                </button>
 
+                                                                <button
+                                                                    class="btn btn-sm btn-danger"
+                                                                    title="Hapus Data"
+                                                                    onclick="confirmDelete('guru')">
+                                                                    <i class="fa-solid fa-trash"></i>
+                                                                </button>
 
                                                             </div>
                                                         </td>

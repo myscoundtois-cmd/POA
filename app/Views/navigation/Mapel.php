@@ -166,14 +166,14 @@
 
                                         <a href="<?= site_url('materi/' . $m['file_mapel']) ?>"
                                             target="_blank"
-                                            class="btn btn-primary btn-sm">
+                                            class="btn btn-warning btn-sm" style="color: white;">
                                             <i class="fa-solid fa-file-arrow-down"></i>
                                             Download Materi
                                         </a>
 
                                         <a href="<?= base_url('ReadSoal/' . $m['id_mapel']) . '/' . $m['pertemuan'] ?>"
-                                            class="menu-link btn btn-success btn-sm">
-                                            <i class="fa-solid fa-list-check"></i>
+                                            class="menu-link btn btn-primary btn-sm">
+                                            <i class="fa-solid fa-list"></i>
                                             Lihat Soal
                                         </a>
 
@@ -548,97 +548,53 @@
 
     function simpanSoal() {
 
-        const idMapel =
-            document.getElementById('id_mapel').value;
+        const formData = new FormData();
 
-        const pertemuan =
-            document.querySelector(
-                '#formUjian select[name="pertemuan"]'
-            ).value;
+        const idMapel = document.getElementById('id_mapel').value;
+        const pertemuan = document.querySelector('#formUjian select[name="pertemuan"]').value;
 
-        let dataSoal = [];
+        formData.append('id_mapel', idMapel);
+        formData.append('pertemuan', pertemuan);
+        formData.append('tipe_soal', tipeSoalAktif);
 
-        document.querySelectorAll('.soal-item')
-            .forEach(item => {
+        const items = document.querySelectorAll('.soal-item');
 
-                if (tipeSoalAktif === 'pg') {
+        formData.append('jumlah_soal', items.length);
 
-                    dataSoal.push({
+        items.forEach((item, i) => {
 
-                        soal: item.querySelector('.soal')?.value || '',
+            formData.append('soal_' + i, item.querySelector('.soal').value);
 
-                        a: item.querySelector('.a')?.value || '',
-                        b: item.querySelector('.b')?.value || '',
-                        c: item.querySelector('.c')?.value || '',
-                        d: item.querySelector('.d')?.value || '',
+            if (tipeSoalAktif === 'pg') {
 
-                        kunci: item.querySelector('.kunci')?.value || ''
+                formData.append('a_' + i, item.querySelector('.a')?.value || '');
+                formData.append('b_' + i, item.querySelector('.b')?.value || '');
+                formData.append('c_' + i, item.querySelector('.c')?.value || '');
+                formData.append('d_' + i, item.querySelector('.d')?.value || '');
+                formData.append('kunci_' + i, item.querySelector('.kunci')?.value || '');
+            }
 
-                    });
+            const gambar = item.querySelector('.gambar');
 
-                } else {
-
-                    dataSoal.push({
-
-                        soal: item.querySelector('.soal')?.value || ''
-
-                    });
-
-                }
-
-            });
-
-        console.log({
-            id_mapel: idMapel,
-            tipe_soal: tipeSoalAktif,
-            pertemuan: pertemuan,
-            soal: dataSoal
+            if (gambar && gambar.files.length > 0) {
+                formData.append('gambar_' + i, gambar.files[0]);
+            }
         });
 
         fetch("<?= base_url('soaluji/simpanSoal') ?>", {
-
                 method: 'POST',
-
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-
-                body: JSON.stringify({
-
-                    id_mapel: idMapel,
-                    tipe_soal: tipeSoalAktif,
-                    pertemuan: pertemuan,
-                    soal: dataSoal
-
-                })
-
+                body: formData
             })
             .then(res => res.json())
             .then(result => {
-
                 if (result.status) {
-
-                    alert('Semua soal berhasil disimpan');
-
-                    document.getElementById('list-soal')
-                        .innerHTML = '';
-
+                    alert('Berhasil disimpan');
+                    document.getElementById('list-soal').innerHTML = '';
                     nomorSoal = 0;
-
                 } else {
-
-                    alert(result.message || 'Gagal menyimpan soal');
-
+                    alert(result.message);
                 }
-
-            })
-            .catch(error => {
-
-                console.error(error);
-                alert('Terjadi kesalahan saat menyimpan soal');
-
             });
-
     }
 
     document.addEventListener('DOMContentLoaded', function() {

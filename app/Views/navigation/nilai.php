@@ -273,169 +273,6 @@
 
     </div>
 
-
-    <!-- MODAL DETAIL NILAI -->
-    <div class="modal fade" id="modalDetailNilai" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <div>
-                        <h5 class="modal-title">Detail Nilai Siswa</h5>
-                        <small class="text-muted">Informasi lengkap nilai penugasan siswa</small>
-                    </div>
-
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-
-                <div class="modal-body">
-                    <div class="profile-row">
-                        <span class="label">Nama</span>
-                        <span class="separator">:</span>
-                        <span class="value" id="detailNamaNilai"></span>
-                    </div>
-
-                    <div class="profile-row">
-                        <span class="label">Kelas</span>
-                        <span class="separator">:</span>
-                        <span class="value" id="detailKelasNilai"></span>
-                    </div>
-
-                    <div class="profile-row">
-                        <span class="label">Mata Pelajaran</span>
-                        <span class="separator">:</span>
-                        <span class="value" id="detailMapelNilai"></span>
-                    </div>
-
-                    <div class="profile-row">
-                        <span class="label">Pertemuan</span>
-                        <span class="separator">:</span>
-                        <span class="value" id="detailPertemuanNilai"></span>
-                    </div>
-
-                    <div class="profile-row">
-                        <span class="label">Status</span>
-                        <span class="separator">:</span>
-                        <span class="value" id="detailStatusNilai"></span>
-                    </div>
-
-                    <div class="profile-row">
-                        <span class="label">Nilai</span>
-                        <span class="separator">:</span>
-                        <span class="value" id="detailAngkaNilai"></span>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Tutup
-                    </button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-
-    <!-- MODAL EDIT NILAI -->
-    <div class="modal fade" id="modalEditNilai" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <div>
-                        <h5 class="modal-title">Edit Nilai Siswa</h5>
-                        <small class="text-muted">Ubah nilai dan status penugasan siswa</small>
-                    </div>
-
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-
-                <div class="modal-body">
-                    <form id="formEditNilai">
-                        <input type="hidden" id="editIndexNilai">
-
-                        <div class="profile-row">
-                            <span class="label">Nama</span>
-                            <span class="separator">:</span>
-                            <span class="value">
-                                <input type="text" id="editNamaNilai" class="form-control">
-                            </span>
-                        </div>
-
-                        <div class="profile-row">
-                            <span class="label">Kelas</span>
-                            <span class="separator">:</span>
-                            <span class="value">
-                                <select id="editKelasNilai" class="form-control">
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                </select>
-                            </span>
-                        </div>
-
-                        <div class="profile-row">
-                            <span class="label">Mata Pelajaran</span>
-                            <span class="separator">:</span>
-                            <span class="value">
-                                <select id="editMapelNilai" class="form-control">
-                                    <option value="Matematika">Matematika</option>
-                                    <option value="Bahasa Indonesia">Bahasa Indonesia</option>
-                                    <option value="Bahasa Inggris">Bahasa Inggris</option>
-                                    <option value="IPA">IPA</option>
-                                </select>
-                            </span>
-                        </div>
-
-                        <div class="profile-row">
-                            <span class="label">Pertemuan</span>
-                            <span class="separator">:</span>
-                            <span class="value">
-                                <select id="editPertemuanNilai" class="form-control">
-                                    <option value="1">Pertemuan 1</option>
-                                    <option value="2">Pertemuan 2</option>
-                                    <option value="3">Pertemuan 3</option>
-                                </select>
-                            </span>
-                        </div>
-
-                        <div class="profile-row">
-                            <span class="label">Status</span>
-                            <span class="separator">:</span>
-                            <span class="value">
-                                <select id="editStatusNilai" class="form-control">
-                                    <option value="Tuntas">Tuntas</option>
-                                    <option value="Belum Tuntas">Belum Tuntas</option>
-                                </select>
-                            </span>
-                        </div>
-
-                        <div class="profile-row">
-                            <span class="label">Nilai</span>
-                            <span class="separator">:</span>
-                            <span class="value">
-                                <input type="number" id="editAngkaNilai" class="form-control" min="0" max="100">
-                            </span>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Batal
-                    </button>
-
-                    <button type="button" class="btn btn-primary" onclick="submitEditNilaiFrontend()">
-                        <i class="fa-solid fa-floppy-disk"></i>
-                        Simpan Perubahan
-                    </button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
 </div>
 
 
@@ -735,8 +572,8 @@
         data.forEach((item, index) => {
 
             const status = Number(item.nilai) >= 75 ?
-                'Tuntas' :
-                'Belum Tuntas';
+                'cukup' :
+                'tidak cukup';
 
             const statusClass = Number(item.nilai) >= 75 ?
                 'aktif' :
@@ -762,12 +599,12 @@
 
             <td>${item.nilai ?? 0}</td>
 
-            <td>
-                <button
-                    class="btn btn-sm btn-primary"
-                    onclick="openDetailNilai(${index})">
-                    <i class="fa-solid fa-eye"></i>
-                </button>
+           <td>
+                <a href="<?= base_url('readNilai') ?>/${item.id_user}/${item.id_mapel}/${item.pertemuan}"
+                class="btn btn-sm btn-primary">
+
+                <i class="fa-solid fa-eye"></i>
+                </a>
             </td>
         </tr>
         `;
@@ -863,102 +700,6 @@
 
         document.getElementById('nilai-result-body').innerHTML = '';
         document.getElementById('nilai-empty-state').style.display = 'none';
-    }
-
-    function openDetailNilai(index) {
-
-        const item = dataNilai.filter(x =>
-            String(x.pertemuan) === String(selectedFilterNilai.pertemuan)
-        )[index];
-
-        if (!item) return;
-
-        document.getElementById('detailNamaNilai').innerText =
-            item.nama_siswa ?? '-';
-
-        document.getElementById('detailKelasNilai').innerText =
-            selectedFilterNilai.kelas;
-
-        document.getElementById('detailMapelNilai').innerText =
-            selectedFilterNilai.mapel;
-
-        document.getElementById('detailPertemuanNilai').innerText =
-            'Pertemuan ' + item.pertemuan;
-
-        document.getElementById('detailStatusNilai').innerText =
-            Number(item.nilai) >= 75 ?
-            'Tuntas' :
-            'Belum Tuntas';
-
-        document.getElementById('detailAngkaNilai').innerText =
-            item.nilai ?? 0;
-
-        const modal = new bootstrap.Modal(
-            document.getElementById('modalDetailNilai')
-        );
-
-        modal.show();
-    }
-
-    function openEditNilaiModal(index) {
-        const item = dataNilai[index];
-
-        document.getElementById('editIndexNilai').value = index;
-        document.getElementById('editNamaNilai').value = item.nama;
-        document.getElementById('editKelasNilai').value = item.kelas;
-        document.getElementById('editMapelNilai').value = item.mapel;
-        document.getElementById('editPertemuanNilai').value = item.pertemuan;
-        document.getElementById('editStatusNilai').value = item.status;
-        document.getElementById('editAngkaNilai').value = item.nilai;
-
-        const modalElement = document.getElementById('modalEditNilai');
-        const modal = new bootstrap.Modal(modalElement);
-
-        modal.show();
-    }
-
-    function submitEditNilaiFrontend() {
-        const index = document.getElementById('editIndexNilai').value;
-
-        dataNilai[index].nama = document.getElementById('editNamaNilai').value;
-        dataNilai[index].kelas = document.getElementById('editKelasNilai').value;
-        dataNilai[index].mapel = document.getElementById('editMapelNilai').value;
-        dataNilai[index].pertemuan = document.getElementById('editPertemuanNilai').value;
-        dataNilai[index].status = document.getElementById('editStatusNilai').value;
-        dataNilai[index].nilai = document.getElementById('editAngkaNilai').value;
-
-        const modalElement = document.getElementById('modalEditNilai');
-        const modal = bootstrap.Modal.getInstance(modalElement);
-
-        modal.hide();
-
-        if (selectedFilterNilai) {
-            const filteredData = dataNilai.filter(item => {
-                return item.kelas === selectedFilterNilai.kelas &&
-                    item.mapel === selectedFilterNilai.mapel &&
-                    item.pertemuan === selectedFilterNilai.pertemuan;
-            });
-
-            document.getElementById('info-jumlah').innerText = filteredData.length + ' Siswa';
-            renderNilaiTable(filteredData);
-        }
-    }
-
-    function hapusNilaiDummy(index) {
-        if (confirm('Yakin ingin menghapus data nilai ini?')) {
-            dataNilai.splice(index, 1);
-
-            if (selectedFilterNilai) {
-                const filteredData = dataNilai.filter(item => {
-                    return item.kelas === selectedFilterNilai.kelas &&
-                        item.mapel === selectedFilterNilai.mapel &&
-                        item.pertemuan === selectedFilterNilai.pertemuan;
-                });
-
-                document.getElementById('info-jumlah').innerText = filteredData.length + ' Siswa';
-                renderNilaiTable(filteredData);
-            }
-        }
     }
 
     function searchTable(input, tableId) {

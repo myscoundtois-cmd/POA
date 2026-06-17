@@ -20,6 +20,8 @@ class MuridController extends BaseController
 
         if (session()->get('role') != 'murid') {
             return redirect()->to('/');
+        } elseif (session()->get('role') == 'admin') {
+            return redirect()->to('/murid/dashboard');
         }
 
         $mapelModel = new MapelModel();
@@ -102,7 +104,11 @@ class MuridController extends BaseController
 
         $jawabanModel = new \App\Models\JawabanModel();
 
-        $data['jawabanSiswa'] = $jawabanModel->findAll();
+        $data['jawabanSiswa'] = $jawabanModel
+            ->where('id_user', session('id_user'))
+            ->orderBy('id_mapel', 'ASC')
+            ->orderBy('pertemuan', 'ASC')
+            ->findAll();
         return view('content/dashboard', $data);
     }
 
@@ -123,65 +129,119 @@ class MuridController extends BaseController
         $jawabanModel = new JawabanModel();
         $soalModel    = new PgEssayModel();
 
-        $jawaban = $this->request->getPost('jawaban');
+        $jawabanPG    = $this->request->getPost('jawaban');
+        $jawabanEssay = $this->request->getPost('jawabanEssay');
 
-        if (empty($jawaban)) {
+        // Jika tidak ada jawaban sama sekali
+        if (empty($jawabanPG) && empty($jawabanEssay)) {
             return redirect()->back()
                 ->with('error', 'Tidak ada jawaban yang dikirim.');
         }
 
         $id_user    = session()->get('id_user');
         $nama_siswa = session()->get('nama');
-        $id_mapel = session()->get('id_mapel');
+        $id_mapel   = session()->get('id_mapel');
 
         $jumlahBenar = 0;
         $totalSoal   = 0;
-
         $semuaJawaban = [];
 
-        foreach ($jawaban as $id_soal => $isi_jawaban) {
+        /*
+    |--------------------------------------------------------------------------
+    | PROSES PILIHAN GANDA
+    |--------------------------------------------------------------------------
+    */
+        if (!empty($jawabanPG)) {
 
-            $soal = $soalModel->find($id_soal);
+            foreach ($jawabanPG as $id_soal => $isi_jawaban) {
 
-            if (!$soal) {
-                continue;
-            }
+                $soal = $soalModel->find($id_soal);
 
-            $totalSoal++;
+                if (!$soal) {
+                    continue;
+                }
 
-            // simpan format: idsoal.jawaban
-            $semuaJawaban[] = $id_soal . '.' . $isi_jawaban;
+                $totalSoal++;
 
-            // sesuaikan nama field kunci
-            $kunci = strtoupper(trim($soal['kunci']));
+                $semuaJawaban[] = $id_soal . '.' . trim($isi_jawaban);
 
-            if (strtoupper(trim($isi_jawaban)) == $kunci) {
-                $jumlahBenar++;
+                $kunci = strtoupper(trim($soal['kunci']));
+
+                if (strtoupper(trim($isi_jawaban)) == $kunci) {
+                    $jumlahBenar++;
+                }
             }
         }
 
-        // nilai akhir
+        /*
+    |--------------------------------------------------------------------------
+    | PROSES ESSAY
+    |--------------------------------------------------------------------------
+    */
+        if (!empty($jawabanEssay)) {
+
+            foreach ($jawabanEssay as $id_soal => $isi_jawaban) {
+
+                if (trim($isi_jawaban) == '') {
+                    continue;
+                }
+
+                $semuaJawaban[] =
+                    $id_soal . '.[' . trim($isi_jawaban) . ']';
+            }
+        }
+
+        /*
+    |--------------------------------------------------------------------------
+    | HITUNG NILAI PG
+    |--------------------------------------------------------------------------
+    */
         $nilai = 0;
 
         if ($totalSoal > 0) {
             $nilai = round(($jumlahBenar / $totalSoal) * 100);
         }
 
-        // gabungkan semua jawaban menjadi satu string
+        /*
+    |--------------------------------------------------------------------------
+    | GABUNGKAN JAWABAN
+    |--------------------------------------------------------------------------
+    */
         $jawabanGabung = implode(',', $semuaJawaban);
 
-        // ambil pertemuan dari soal pertama
-        $idSoalPertama = array_key_first($jawaban);
-        $soalPertama   = $soalModel->find($idSoalPertama);
+        /*
+    |--------------------------------------------------------------------------
+    | AMBIL PERTEMUAN
+    |--------------------------------------------------------------------------
+    */
+        if (!empty($jawabanPG)) {
 
+            $idSoalPertama = array_key_first($jawabanPG);
+        } else {
+
+            $idSoalPertama = array_key_first($jawabanEssay);
+        }
+
+        $soalPertama = $soalModel->find($idSoalPertama);
+
+        if (!$soalPertama) {
+            return redirect()->back()
+                ->with('error', 'Data soal tidak ditemukan.');
+        }
+
+        /*
+    |--------------------------------------------------------------------------
+    | SIMPAN KE DATABASE
+    |--------------------------------------------------------------------------
+    */
         $jawabanModel->insert([
-            'pertemuan' => $soalPertama['pertemuan'],
-            'id_mapel' => $id_mapel,
-            'id_user'   => $id_user,
+            'pertemuan'  => $soalPertama['pertemuan'],
+            'id_mapel'   => $id_mapel,
+            'id_user'    => $id_user,
             'nama_siswa' => $nama_siswa,
-            'jawaban'   => $jawabanGabung,
-            'nilai'     => $nilai,
-            'create_at' => date('Y-m-d H:i:s')
+            'jawaban'    => $jawabanGabung,
+            'nilai'      => $nilai,
+            'create_at'  => date('Y-m-d H:i:s')
         ]);
 
         return redirect()->back()

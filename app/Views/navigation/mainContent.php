@@ -5,140 +5,145 @@
     <?= $this->include('content/navbar') ?>
 
     <!-- Cards -->
-    <div class="row mt-4 g-4">
+    <?php if (session('role') === 'admin'): ?>
+        <div class="row mt-4 g-4">
 
-        <div class="col-md-3">
-            <div class="dashboard-card bg1">
-                <div class="card-wave"></div>
+            <div class="col-md-3">
+                <div class="dashboard-card bg1">
+                    <div class="card-wave"></div>
 
-                <h5>Total Siswa</h5>
-                <h2>
-                    <h2><?= count($siswa) ?></h2>
-                </h2>
+                    <h5>Total Siswa</h5>
+                    <h2><?= $total_siswa ?> </h2>
 
-                <i class="fa-solid fa-user-graduate"></i>
+                    <i class="fa-solid fa-user-graduate"></i>
 
+                </div>
             </div>
-        </div>
 
-        <div class="col-md-3">
-            <div class="dashboard-card bg2">
-                <div class="card-wave"></div>
+            <div class="col-md-3">
+                <div class="dashboard-card bg2">
+                    <div class="card-wave"></div>
 
-                <h5>Total Guru</h5>
-                <h2><?= count($guru) ?></h2>
+                    <h5>Total Guru</h5>
+                    <h2><?= $total_guru ?></h2>
 
-                <i class="fa-solid fa-chalkboard-user"></i>
+                    <i class="fa-solid fa-chalkboard-user"></i>
 
+                </div>
             </div>
-        </div>
 
-        <div class="col-md-3">
-            <div class="dashboard-card bg3">
-                <div class="card-wave"></div>
-                <h5>Total Kelas</h5>
-                <h2><?= count($kelas) ?></h2>
+            <div class="col-md-3">
+                <div class="dashboard-card bg3">
+                    <div class="card-wave"></div>
+                    <h5>Total Kelas</h5>
+                    <h2><?= $total_kelas ?></h2>
 
-                <i class="fa-solid fa-school"></i>
+                    <i class="fa-solid fa-school"></i>
 
+                </div>
             </div>
-        </div>
 
-        <div class="col-md-3">
-            <div class="dashboard-card bg4">
-                <div class="card-wave"></div>
+            <div class="col-md-3">
+                <div class="dashboard-card bg4">
+                    <div class="card-wave"></div>
 
-                <h5>Total Mapel</h5>
-                <h2><?= count($mapel) ?></h2>
+                    <h5>Total Mapel</h5>
+                    <h2><?= $total_mapel ?></h2>
 
-                <i class="fa-solid fa-book-open"></i>
+                    <i class="fa-solid fa-book-open"></i>
 
+                </div>
             </div>
-        </div>
-
-    </div>
-
-
-    <!-- quick action -->
-    <div class="quick-action">
-
-        <a href="#" class="action-btn action-primary">
-            <i class="fa-solid fa-user-plus"></i>
-            Tambah Siswa
-        </a>
-
-        <a href="#" class="action-btn action-success">
-            <i class="fa-solid fa-plus"></i>
-            Tambah Guru
-        </a>
-
-        <a href="#" class="action-btn action-warning">
-            <i class="fa-solid fa-book"></i>
-            Tambah Mapel
-        </a>
-
-    </div>
-
-
-    <!-- Table -->
-    <div class="table-section">
-
-        <h5 class="mb-4">Data Siswa Terbaru</h5>
-
-        <div class="table-responsive">
-
-            <table class="table table-hover">
-
-                <thead>
-                    <tr>
-                        <th>Nama</th>
-                        <th>Kelas</th>
-                        <th>Status</th>
-                        <th>Nilai</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    <tr>
-                        <td>Budi Santoso</td>
-                        <td>9</td>
-                        <td>
-                            <span class="status aktif">
-                                Aktif
-                            </span>
-                        </td>
-                        <td>90</td>
-                    </tr>
-
-                    <tr>
-                        <td>Siti Aisyah</td>
-                        <td>8</td>
-                        <td>
-                            <span class="status aktif">
-                                Aktif
-                            </span>
-                        </td>
-                        <td>88</td>
-                    </tr>
-
-                    <tr>
-                        <td>Rahmat</td>
-                        <td>7</td>
-                        <td>
-                            <span class="status nonaktif">
-                                Nonaktif
-                            </span>
-                        </td>
-                        <td>70</td>
-                    </tr>
-
-                </tbody>
-
-            </table>
 
         </div>
+    <?php elseif (session('role') == 'wali' || session('role') == 'murid'): ?>
 
-    </div>
+        <?php
+        $grafikMapel = [];
 
+        foreach ($jawabanSiswa as $j) {
+
+            $idMapel = $j['id_mapel'];
+
+            if (!isset($grafikMapel[$idMapel])) {
+                $grafikMapel[$idMapel] = [
+                    'nama_mapel' => '',
+                    'labels' => [],
+                    'nilai' => []
+                ];
+
+                foreach ($mapel as $m) {
+                    if ($m['id_mapel'] == $idMapel) {
+                        $grafikMapel[$idMapel]['nama_mapel'] = $m['nama_mapel'];
+                        break;
+                    }
+                }
+            }
+
+            $grafikMapel[$idMapel]['labels'][] =
+                'Pertemuan ' . $j['pertemuan'];
+
+            $grafikMapel[$idMapel]['nilai'][] =
+                (int) $j['nilai'];
+        }
+        ?>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <div class="row mt-4 g-4">
+
+            <?php $no = 1; ?>
+
+            <?php foreach ($grafikMapel as $idMapel => $grafik): ?>
+
+                <div class="col-md-6">
+
+                    <div class="dashboard-card bg5">
+
+                        <div class="card-wave"></div>
+
+                        <h5 class="mb-3" style="color:black;">
+                            <?= esc($grafik['nama_mapel']) ?>
+                        </h5>
+
+                        <canvas id="chart<?= $no ?>"></canvas>
+
+                    </div>
+
+                </div>
+
+                <script>
+                    new Chart(
+                        document.getElementById('chart<?= $no ?>'), {
+                            type: 'line',
+                            data: {
+                                labels: <?= json_encode($grafik['labels']) ?>,
+                                datasets: [{
+                                    label: 'Nilai',
+                                    data: <?= json_encode($grafik['nilai']) ?>,
+                                    borderWidth: 3,
+                                    tension: 0.4,
+                                    fill: false
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                scales: {
+                                    y: {
+                                        beginAtZero: true,
+                                        max: 100
+                                    }
+                                }
+                            }
+                        }
+                    );
+                </script>
+
+                <?php $no++; ?>
+
+            <?php endforeach; ?>
+
+        </div>
+
+    <?php endif; ?>
 </div>

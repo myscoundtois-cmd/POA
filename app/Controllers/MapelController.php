@@ -77,6 +77,14 @@ class MapelController extends BaseController
     }
     public function simpanSoal()
     {
+        $jumlah = $this->request->getPost('jumlah_soal');
+
+        if (!$jumlah) {
+            return $this->response->setJSON([
+                'status' => false,
+                'message' => 'jumlah soal kosong'
+            ]);
+        }
         $pgessay = new PgEssayModel();
 
         $jumlah = $this->request->getPost('jumlah_soal');
@@ -85,16 +93,23 @@ class MapelController extends BaseController
 
             $gambar = $this->request->getFile('gambar_' . $i);
 
-            $namaGambar = null;
+            $namaGambar = '';
 
-            if ($gambar && $gambar->isValid()) {
+            if (
+                $gambar &&
+                $gambar->isValid() &&
+                !$gambar->hasMoved()
+            ) {
 
                 $namaGambar = $gambar->getRandomName();
 
-                $gambar->move(
-                    WRITEPATH . 'uploads/soal',
-                    $namaGambar
-                );
+                $folder = FCPATH . 'uploads/soal';
+
+                if (!is_dir($folder)) {
+                    mkdir($folder, 0777, true);
+                }
+
+                $gambar->move($folder, $namaGambar);
             }
 
             $data = [
@@ -109,7 +124,7 @@ class MapelController extends BaseController
                 'opsi_c' => $this->request->getPost('c_' . $i),
                 'opsi_d' => $this->request->getPost('d_' . $i),
 
-                'kunci'  => $this->request->getPost('kunci_' . $i),
+                'kunci' => $this->request->getPost('kunci_' . $i),
 
                 'gambar' => $namaGambar
             ];
@@ -156,5 +171,24 @@ class MapelController extends BaseController
 
         return redirect()->back()
             ->with('success', 'Soal berhasil diperbarui.');
+    }
+    public function readNilai($id_user, $id_mapel, $pertemuan)
+    {
+        session()->set('detail_id_user', $id_user);
+        session()->set('detail_id_mapel', $id_mapel);
+        session()->set('detail_pertemuan', $pertemuan);
+
+        $role = session()->get('role');
+
+        if ($role == 'guru') {
+
+            return redirect()->to(base_url('guru/dashboard#nilai-murid'));
+        } elseif ($role == 'admin') {
+
+            return redirect()->to(base_url('admin/dashboard#nilai-murid'));
+        } else {
+
+            return redirect()->to(base_url('dashboard'));
+        }
     }
 }

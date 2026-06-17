@@ -13,6 +13,7 @@ $routes->get('/logout', 'LoginController::logout');
 $routes->get('/admin/dashboard', 'AdminController::index');
 // GURU
 $routes->get('/guru/dashboard', 'GuruController::index');
+$routes->post('/koreksi', 'GuruController::koreksi');
 // MURID
 $routes->get('/murid/dashboard', 'MuridController::index');
 $routes->post('/murid/simpanJawaban', 'MuridController::simpanJawaban');
@@ -34,3 +35,7 @@ $routes->post('soaluji/simpan', 'MapelController::simpan');
 $routes->post('soaluji/simpanSoal', 'MapelController::simpanSoal');
 $routes->get('ReadSoal/(:num)/(:num)', 'MapelController::Read/$1/$2');
 $routes->post('soal/update', 'MapelController::updateSoal');
+$routes->get(
+    'readNilai/(:num)/(:num)/(:num)',
+    'MapelController::readNilai/$1/$2/$3'
+);

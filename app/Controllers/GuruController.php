@@ -26,7 +26,6 @@ class GuruController extends BaseController
         $materiModel = new MateriModel();
         $userModel = new UsersModel();
         $pgEssayModel = new PgEssayModel();
-        $tugasUjiModel = new TugasUjiModel();
         $model = new DataUserModel();
 
         $data['siswa'] = $model->findAll();
@@ -101,6 +100,74 @@ class GuruController extends BaseController
             ->getResultArray();
 
         $jawabanModel = new \App\Models\JawabanModel();
+        $data['total_siswa'] = count($data['siswa']);
+        $data['total_guru']  = count($data['guru']);
+        $data['total_kelas'] = count($data['kelas']);
+        $data['total_mapel'] = count($data['mapel']);
+
+        $detailUser      = session()->get('detail_id_user');
+        $detailMapel     = session()->get('detail_id_mapel');
+        $detailPertemuan = session()->get('detail_pertemuan');
+
+        $data['detailNilai'] = [];
+
+        if (
+            !empty($detailUser) &&
+            !empty($detailMapel) &&
+            !empty($detailPertemuan)
+        ) {
+
+            $data['detailNilai'] = $jawabanModel
+                ->select('jawabansiswa.*, data_user.nama as nama_siswa')
+                ->join(
+                    'data_user',
+                    'data_user.id_user = jawabansiswa.id_user',
+                    'left'
+                )
+                ->where('jawabansiswa.id_user', $detailUser)
+                ->where('jawabansiswa.id_mapel', $detailMapel)
+                ->where('jawabansiswa.pertemuan', $detailPertemuan)
+                ->first();
+
+            $data['mapelDetail'] = $mapelModel
+                ->where('id_mapel', $detailMapel)
+                ->first();
+
+            // Ambil semua soal yang sesuai
+            $data['detailSoal'] = $pgEssayModel
+                ->select('soal.*, tugasuji.*')
+                ->join(
+                    'tugasuji',
+                    'tugasuji.id_mapel = soal.id_mapel
+            AND tugasuji.pertemuan = soal.pertemuan'
+                )
+                ->where('soal.id_mapel', $detailMapel)
+                ->where('soal.pertemuan', $detailPertemuan)
+                ->orderBy('soal.id_soal', 'ASC')
+                ->findAll();
+
+            $data['jawabanParsed'] = [];
+
+            if (!empty($data['detailNilai']['jawaban'])) {
+
+                $listJawaban = explode(',', $data['detailNilai']['jawaban']);
+
+                foreach ($listJawaban as $item) {
+
+                    $pecah = explode('.', $item, 2);
+
+                    if (count($pecah) == 2) {
+                        $data['jawabanParsed'][$pecah[0]] = $pecah[1];
+                    }
+                }
+            }
+        } else {
+
+            $data['detailNilai'] = [];
+            $data['mapelDetail'] = [];
+            $data['detailSoal'] = [];
+            $data['jawabanParsed'] = [];
+        }
 
         $data['jawabanSiswa'] = $jawabanModel->findAll();
         return view('content/dashboard', $data);
@@ -116,5 +183,38 @@ class GuruController extends BaseController
         }
 
         return $this->response->download($path, null);
+    }
+
+    public function koreksi()
+    {
+        $jawabanModel = new \App\Models\JawabanModel();
+
+        $idJawaban = $this->request->getPost('id_jawaban');
+        $status    = $this->request->getPost('status');
+
+        $jumlahBenar = 0;
+        $jumlahSoal  = count($status);
+
+        foreach ($status as $nilai) {
+
+            if ($nilai == 'benar') {
+                $jumlahBenar++;
+            }
+        }
+
+        $nilaiAkhir = 0;
+
+        if ($jumlahSoal > 0) {
+            $nilaiAkhir = round(($jumlahBenar / $jumlahSoal) * 100);
+        }
+
+        $jawabanModel->update($idJawaban, [
+            'nilai' => $nilaiAkhir
+        ]);
+
+        return redirect()->back()->with(
+            'success',
+            'Nilai berhasil dikoreksi'
+        );
     }
 }

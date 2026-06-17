@@ -179,6 +179,10 @@
         <?= $this->include('navigation/dataSoal') ?>
     </div>
 
+    <div id="nilai-murid" class="content-page">
+        <?= $this->include('navigation/NilaiMurid') ?>
+    </div>
+
 
     <!-- =========================
         JAVASCRIPT
