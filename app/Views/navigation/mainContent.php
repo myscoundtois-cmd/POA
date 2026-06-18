@@ -56,6 +56,49 @@
             </div>
 
         </div>
+    <?php elseif (session('role') == 'guru'): ?>
+        <div class="row mt-4 g-4">
+
+            <div class="col-md-3">
+                <div class="dashboard-card bg1">
+                    <div class="card-wave"></div>
+
+                    <h5>Kelas Yang diajar</h5>
+                    <h2><?= $total_kelas_guru ?> </h2>
+
+                    <i class="fa-solid fa-user-graduate"></i>
+
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="dashboard-card bg2">
+                    <div class="card-wave"></div>
+
+                    <h5>Mapel Yang diajar</h5>
+                    <h2><?= $mapel_guru ?></h2>
+
+                    <i class="fa-solid fa-chalkboard-user"></i>
+
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="dashboard-card bg3">
+                    <div class="card-wave"></div>
+                    <h5>Wali Murid Kelas</h5>
+                    <h2>
+                        <?php foreach ($wali_kelas as $row): ?>
+                            <?= esc($row['kelas']) ?>
+                        <?php endforeach; ?>
+                    </h2>
+
+                    <i class="fa-solid fa-school"></i>
+
+                </div>
+            </div>
+
+        </div>
     <?php elseif (session('role') == 'wali' || session('role') == 'murid'): ?>
 
         <?php

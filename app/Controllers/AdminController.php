@@ -32,6 +32,8 @@ class AdminController extends BaseController
 
         $data['kelas'] = $model
             ->select('kelas, COUNT(*) as jumlah_siswa')
+            ->join('users', 'users.id_user = data_user.id_user')
+            ->where('users.role', 'murid')
             ->groupBy('kelas')
             ->orderBy('kelas', 'ASC')
             ->findAll();

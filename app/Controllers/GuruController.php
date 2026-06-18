@@ -105,6 +105,25 @@ class GuruController extends BaseController
         $data['total_kelas'] = count($data['kelas']);
         $data['total_mapel'] = count($data['mapel']);
 
+        $data['mapel_guru'] = $mapelModel
+            ->where('created_by', session()->get('nama'))
+            ->countAllResults();
+
+        $data['kelas_guru'] = $mapelModel
+            ->select('kelas')
+            ->where('created_by', session()->get('nama'))
+            ->groupBy('kelas')
+            ->findAll();
+
+        $data['total_kelas_guru'] = count($data['kelas_guru']);
+
+        $data['wali_kelas'] = $model
+            ->select('kelas')
+            ->where('nama', session()->get('nama'))
+            ->findAll();
+
+        $userModel = new \App\Models\UsersModel();
+
         $detailUser      = session()->get('detail_id_user');
         $detailMapel     = session()->get('detail_id_mapel');
         $detailPertemuan = session()->get('detail_pertemuan');

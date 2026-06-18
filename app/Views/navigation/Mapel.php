@@ -109,20 +109,22 @@
                     Kembali
                 </button>
 
-                <button class="btn action-btn action-success mb-4" id="btn-tambah">
-                    <i class="fa-solid fa-plus"></i>
-                    Tambah Pertemuan
-                </button>
-
-                <button class="btn action-btn action-success mb-4" id="btn-buat-soal">
-                    <i class="fa-solid fa-clipboard-question"></i>
-                    Buat Soal
-                </button>
-
                 <button class="btn action-btn action-success mb-4" id="btn-lihat">
                     <i class="fa-solid fa-book"></i>
                     Lihat Pertemuan
                 </button>
+
+                <?php if (session('role') == 'admin' || session('role') == 'guru'): ?>
+                    <button class="btn action-btn action-success mb-4" id="btn-tambah">
+                        <i class="fa-solid fa-plus"></i>
+                        Tambah Pertemuan
+                    </button>
+
+                    <button class="btn action-btn action-success mb-4" id="btn-buat-soal">
+                        <i class="fa-solid fa-clipboard-question"></i>
+                        Buat Soal
+                    </button>
+                <?php endif; ?>
             </div>
 
             <div id="con-pertemuan">
@@ -351,6 +353,7 @@
 
                 <div id="list-soal"></div>
 
+
                 <button type="button"
                     class="btn btn-success"
                     onclick="tambahSoal()">
@@ -364,7 +367,6 @@
 
                     Simpan Semua Soal
                 </button>
-
             </div>
 
         </div>
@@ -599,54 +601,87 @@
 
     document.addEventListener('DOMContentLoaded', function() {
 
-        const btnTambah =
-            document.getElementById('btn-tambah');
+        const btnLihat = document.getElementById('btn-lihat');
+        const btnTambah = document.getElementById('btn-tambah');
+        const btnBuatSoal = document.getElementById('btn-buat-soal');
+        const btnBack = document.getElementById('btn-back');
 
-        const btnLihat =
-            document.getElementById('btn-lihat');
+        const conPertemuan = document.getElementById('con-pertemuan');
+        const conTambahPertemuan = document.getElementById('con-tambah-pertemuan');
+        const conBuatSoal = document.getElementById('con-buat-soal');
 
-        const btnBuatSoal =
-            document.getElementById('btn-buat-soal');
-
-        const conPertemuan =
-            document.getElementById('con-pertemuan');
-
-        const conTambahPertemuan =
-            document.getElementById('con-tambah-pertemuan');
-
-        const conBuatSoal =
-            document.getElementById('con-buat-soal');
-
-        conPertemuan.style.display = 'block';
-        conTambahPertemuan.style.display = 'none';
-        conBuatSoal.style.display = 'none';
-
-        btnTambah.addEventListener('click', function() {
-
-            conPertemuan.style.display = 'none';
-            conBuatSoal.style.display = 'none';
-            conTambahPertemuan.style.display = 'block';
-
-        });
-
-        btnLihat.addEventListener('click', function() {
-
+        // Set tampilan awal jika elemen ada
+        if (conPertemuan) {
             conPertemuan.style.display = 'block';
+        }
+
+        if (conTambahPertemuan) {
+            conTambahPertemuan.style.display = 'none';
+        }
+
+        if (conBuatSoal) {
             conBuatSoal.style.display = 'none';
-            conTambahPertemuan.style.display = 'none';
+        }
 
-        });
+        // Tombol Tambah Pertemuan
+        if (btnTambah) {
+            btnTambah.addEventListener('click', function() {
 
-        btnBuatSoal.addEventListener('click', function() {
+                if (conPertemuan) {
+                    conPertemuan.style.display = 'none';
+                }
 
-            conPertemuan.style.display = 'none';
-            conTambahPertemuan.style.display = 'none';
-            conBuatSoal.style.display = 'block';
+                if (conBuatSoal) {
+                    conBuatSoal.style.display = 'none';
+                }
 
-        });
+                if (conTambahPertemuan) {
+                    conTambahPertemuan.style.display = 'block';
+                }
 
-        const cards =
-            document.querySelectorAll('.mapel-card');
+            });
+        }
+
+        // Tombol Lihat Pertemuan
+        if (btnLihat) {
+            btnLihat.addEventListener('click', function() {
+
+                if (conPertemuan) {
+                    conPertemuan.style.display = 'block';
+                }
+
+                if (conBuatSoal) {
+                    conBuatSoal.style.display = 'none';
+                }
+
+                if (conTambahPertemuan) {
+                    conTambahPertemuan.style.display = 'none';
+                }
+
+            });
+        }
+
+        // Tombol Buat Soal
+        if (btnBuatSoal) {
+            btnBuatSoal.addEventListener('click', function() {
+
+                if (conPertemuan) {
+                    conPertemuan.style.display = 'none';
+                }
+
+                if (conTambahPertemuan) {
+                    conTambahPertemuan.style.display = 'none';
+                }
+
+                if (conBuatSoal) {
+                    conBuatSoal.style.display = 'block';
+                }
+
+            });
+        }
+
+        // Klik Card Mata Pelajaran
+        const cards = document.querySelectorAll('.mapel-card');
 
         cards.forEach(card => {
 
@@ -692,26 +727,46 @@
 
                     });
 
-                document.getElementById('mapel-container')
-                    .style.display = 'none';
+                const mapelContainer =
+                    document.getElementById('mapel-container');
 
-                document.getElementById('mapel-detail')
-                    .style.display = 'block';
+                const mapelDetail =
+                    document.getElementById('mapel-detail');
+
+                if (mapelContainer) {
+                    mapelContainer.style.display = 'none';
+                }
+
+                if (mapelDetail) {
+                    mapelDetail.style.display = 'block';
+                }
 
             });
 
         });
 
-        document.getElementById('btn-back')
-            .addEventListener('click', function() {
+        // Tombol Kembali
+        if (btnBack) {
 
-                document.getElementById('mapel-detail')
-                    .style.display = 'none';
+            btnBack.addEventListener('click', function() {
 
-                document.getElementById('mapel-container')
-                    .style.display = 'block';
+                const mapelDetail =
+                    document.getElementById('mapel-detail');
+
+                const mapelContainer =
+                    document.getElementById('mapel-container');
+
+                if (mapelDetail) {
+                    mapelDetail.style.display = 'none';
+                }
+
+                if (mapelContainer) {
+                    mapelContainer.style.display = 'block';
+                }
 
             });
+
+        }
 
     });
 </script>
