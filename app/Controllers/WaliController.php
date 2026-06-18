@@ -9,6 +9,7 @@ use App\Models\JawabanModel;
 use App\Models\MapelModel;
 use App\Models\MateriModel;
 use App\Models\TugasUjiModel;
+
 class WaliController extends BaseController
 {
     public function index()
@@ -31,6 +32,7 @@ class WaliController extends BaseController
         $pgEssayModel = new PgEssayModel();
         $tugasUjiModel = new TugasUjiModel();
         $model = new DataUserModel();
+
 
         $data['siswa'] = $model->findAll();
 
@@ -104,6 +106,8 @@ class WaliController extends BaseController
             ->getResultArray();
 
         $jawabanModel = new \App\Models\JawabanModel();
+
+
 
         $data['jawabanSiswa'] = $jawabanModel->findAll();
         return view('content/dashboard', $data);

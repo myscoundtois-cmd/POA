@@ -100,7 +100,15 @@
 
         </div>
     <?php elseif (session('role') == 'wali' || session('role') == 'murid'): ?>
-
+        <div class="table-section">
+            <div class="table-toolbar">
+                <tr>
+                    <td>Nama</td>
+                    <td>Nama</td>
+                    <td>Nama</td>
+                </tr>
+            </div>
+        </div>
         <?php
         $grafikMapel = [];
 

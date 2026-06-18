@@ -257,7 +257,9 @@
                             <th>Pertemuan</th>
                             <th>Status</th>
                             <th>Nilai</th>
-                            <th>Aksi</th>
+                            <?php if (session('role') == 'admin' || session('role') == 'guru' || session('role') == 'murid'): ?>
+                                <th>Aksi</th>
+                            <?php endif; ?>
                         </tr>
                     </thead>
 
@@ -598,7 +600,7 @@
             </td>
 
             <td>${item.nilai ?? 0}</td>
-
+            <?php if (session('role') == 'admin' || session('role') == 'guru'): ?>
            <td>
                 <a href="<?= base_url('readNilai') ?>/${item.id_user}/${item.id_mapel}/${item.pertemuan}"
                 class="btn btn-sm btn-primary">
@@ -606,6 +608,7 @@
                 <i class="fa-solid fa-eye"></i>
                 </a>
             </td>
+            <?php endif; ?>
         </tr>
         `;
         });
