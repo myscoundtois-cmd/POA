@@ -1,24 +1,3 @@
-<?php if (session()->getFlashdata('open_mapel')) : ?>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-
-            // buka halaman mapel
-            showPage('mapel');
-
-            // tampilkan detail mapel
-            document.getElementById('mapel-container').style.display = 'none';
-            document.getElementById('mapel-detail').style.display = 'block';
-
-            // tampilkan form soal
-            document.getElementById('con-pertemuan').style.display = 'none';
-            document.getElementById('con-tambah-pertemuan').style.display = 'none';
-            document.getElementById('con-buat-soal').style.display = 'block';
-
-        });
-    </script>
-
-<?php endif; ?>
 <?= $this->include('content/headstyle') ?>
 
 <body>
@@ -27,21 +6,7 @@
         SIDEBAR
     ========================== -->
 
-    <div class="sidebar">
-
-        <!-- LOGO -->
-        <div class="logo">
-
-            <img
-                src="<?= base_url('image/unpam logo.png') ?>"
-                alt="Logo Sekolah">
-
-            <div class="logo-text">
-                <h4>SMPN 2</h4>
-                <span>Pesisir Utara</span>
-            </div>
-
-        </div>
+    <div class="sidebar" id="sidebar">
 
         <!-- MENU -->
         <ul class="menu-list">
@@ -49,6 +14,7 @@
             <li>
                 <a href="#"
                     class="menu-link active"
+                    data-page="dashboard"
                     onclick="showPage('dashboard', this)">
 
                     <i class="fa-solid fa-house"></i>
@@ -58,9 +24,11 @@
             </li>
 
             <?php if (session('role') == 'admin'): ?>
+
                 <li>
                     <a href="#"
                         class="menu-link"
+                        data-page="data_siswa"
                         onclick="showPage('data_siswa', this)">
 
                         <i class="fa-solid fa-users"></i>
@@ -69,10 +37,10 @@
                     </a>
                 </li>
 
-
                 <li>
                     <a href="#"
                         class="menu-link"
+                        data-page="data_guru"
                         onclick="showPage('data_guru', this)">
 
                         <i class="fa-solid fa-chalkboard-user"></i>
@@ -80,12 +48,15 @@
 
                     </a>
                 </li>
+
             <?php endif; ?>
 
             <?php if (session('role') == 'admin' || session('role') == 'guru' || session('role') == 'murid'): ?>
+
                 <li>
                     <a href="#"
                         class="menu-link"
+                        data-page="mapel"
                         onclick="showPage('mapel', this)">
 
                         <i class="fa-solid fa-book"></i>
@@ -93,11 +64,13 @@
 
                     </a>
                 </li>
+
             <?php endif; ?>
 
             <li>
                 <a href="#"
                     class="menu-link"
+                    data-page="nilai"
                     onclick="showPage('nilai', this)">
 
                     <i class="fa-solid fa-clipboard-check"></i>
@@ -109,6 +82,7 @@
             <li>
                 <a href="#"
                     class="menu-link"
+                    data-page="profile"
                     onclick="showPage('profile', this)">
 
                     <i class="fa-solid fa-user"></i>
@@ -118,69 +92,74 @@
             </li>
 
             <li class="logout-menu">
-
-
                 <a href="#"
                     class="logout-btn"
                     onclick="confirmLogout()">
 
                     <i class="fa-solid fa-right-from-bracket"></i>
-                    Logout
+                    <span>Logout</span>
 
                 </a>
-
-
-
             </li>
 
         </ul>
 
         <!-- FOOTER -->
         <div class="sidebar-footer">
-
-            <small>
-                © 2026 SMPN 2
-            </small>
-
+            <small>© 2026 SMPN 2</small>
         </div>
 
     </div>
 
 
     <!-- =========================
-        CONTENT
+        MAIN LAYOUT
     ========================== -->
 
-    <div id="dashboard" class="content-page">
-        <?= $this->include('navigation/mainContent') ?>
-    </div>
+    <div class="layout-content" id="layoutContent">
 
-    <div id="data_siswa" class="content-page">
-        <?= $this->include('navigation/dataSiswa') ?>
-    </div>
+        <!-- =========================
+    HEADER
+========================== -->
 
-    <div id="data_guru" class="content-page">
-        <?= $this->include('navigation/dataGuru') ?>
-    </div>
+<?= $this->include('content/navbar') ?>
 
-    <div id="mapel" class="content-page">
-        <?= $this->include('navigation/Mapel') ?>
-    </div>
+        <!-- =========================
+            CONTENT
+        ========================== -->
 
-    <div id="nilai" class="content-page">
-        <?= $this->include('navigation/nilai') ?>
-    </div>
+        <div id="dashboard" class="content-page">
+            <?= $this->include('navigation/mainContent') ?>
+        </div>
 
-    <div id="profile" class="content-page">
-        <?= $this->include('navigation/profile') ?>
-    </div>
+        <div id="data_siswa" class="content-page">
+            <?= $this->include('navigation/dataSiswa') ?>
+        </div>
 
-    <div id="data_soal" class="content-page">
-        <?= $this->include('navigation/dataSoal') ?>
-    </div>
+        <div id="data_guru" class="content-page">
+            <?= $this->include('navigation/dataGuru') ?>
+        </div>
 
-    <div id="nilai-murid" class="content-page">
-        <?= $this->include('navigation/NilaiMurid') ?>
+        <div id="mapel" class="content-page">
+            <?= $this->include('navigation/Mapel') ?>
+        </div>
+
+        <div id="nilai" class="content-page">
+            <?= $this->include('navigation/nilai') ?>
+        </div>
+
+        <div id="profile" class="content-page">
+            <?= $this->include('navigation/profile') ?>
+        </div>
+
+        <div id="data_soal" class="content-page">
+            <?= $this->include('navigation/dataSoal') ?>
+        </div>
+
+        <div id="nilai-murid" class="content-page">
+            <?= $this->include('navigation/NilaiMurid') ?>
+        </div>
+
     </div>
 
 
@@ -189,6 +168,18 @@
     ========================== -->
 
     <script>
+        const openMapel = <?= session()->getFlashdata('open_mapel') ? 'true' : 'false' ?>;
+
+        function toggleSidebar() {
+            document.body.classList.toggle('sidebar-open');
+        }
+
+        function closeSidebarMobile() {
+            if (window.innerWidth <= 768) {
+                document.body.classList.remove('sidebar-open');
+            }
+        }
+
         function showPage(pageId, element = null) {
 
             const pages = document.querySelectorAll('.content-page');
@@ -214,24 +205,60 @@
 
             if (element) {
                 element.classList.add('active');
+            } else {
+                const activeMenu = document.querySelector(`.menu-link[data-page="${pageId}"]`);
+
+                if (activeMenu) {
+                    activeMenu.classList.add('active');
+                }
             }
+                const navbarProfile = document.getElementById('navbarProfile');
 
-            const navbarProfiles = document.querySelectorAll('.navbar-profile');
-
-            navbarProfiles.forEach(navbarProfile => {
-                navbarProfile.style.display =
-                    pageId === 'profile' ? 'none' : 'flex';
-            });
-
+if (navbarProfile) {
+    navbarProfile.style.display =
+        pageId === 'profile' ? 'none' : 'flex';
+}
             updateNavbarTitle(pageId);
+            closeSidebarMobile();
         }
 
-        // Jalankan setelah halaman selesai dimuat
         document.addEventListener('DOMContentLoaded', function() {
 
             const hash = window.location.hash.replace('#', '');
 
-            // Jika datang dari redirect dashboard#data_soal
+            if (openMapel) {
+
+                showPage('mapel');
+
+                const mapelContainer = document.getElementById('mapel-container');
+                const mapelDetail = document.getElementById('mapel-detail');
+                const conPertemuan = document.getElementById('con-pertemuan');
+                const conTambahPertemuan = document.getElementById('con-tambah-pertemuan');
+                const conBuatSoal = document.getElementById('con-buat-soal');
+
+                if (mapelContainer) {
+                    mapelContainer.style.display = 'none';
+                }
+
+                if (mapelDetail) {
+                    mapelDetail.style.display = 'block';
+                }
+
+                if (conPertemuan) {
+                    conPertemuan.style.display = 'none';
+                }
+
+                if (conTambahPertemuan) {
+                    conTambahPertemuan.style.display = 'none';
+                }
+
+                if (conBuatSoal) {
+                    conBuatSoal.style.display = 'block';
+                }
+
+                return;
+            }
+
             if (hash && document.getElementById(hash)) {
 
                 showPage(hash);
@@ -240,22 +267,17 @@
 
                 const firstMenu = document.querySelector('.menu-link');
 
-                showPage(
-                    'dashboard',
-                    firstMenu
-                );
+                showPage('dashboard', firstMenu);
 
             }
 
         });
 
-        // Logout
         function confirmLogout() {
 
             if (confirm('Yakin ingin keluar dari sistem?')) {
 
-                window.location.href =
-                    "<?= base_url('/logout') ?>";
+                window.location.href = "<?= base_url('/logout') ?>";
 
             }
 
@@ -321,6 +343,10 @@
                 profile: {
                     title: 'Profile Pengguna',
                     subtitle: 'Kelola informasi akun dan keamanan pengguna'
+                },
+                'nilai-murid': {
+                    title: 'Nilai Murid',
+                    subtitle: 'Lihat hasil nilai berdasarkan tugas dan mata pelajaran'
                 }
             };
 

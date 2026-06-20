@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 03, 2026 at 05:45 PM
+-- Generation Time: Jun 20, 2026 at 10:34 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -45,10 +45,35 @@ CREATE TABLE `data_user` (
 --
 
 INSERT INTO `data_user` (`id_dataUser`, `nama`, `nis`, `jenis_kelamin`, `alamat`, `tgl_lahir`, `kelas`, `foto`, `email`, `id_user`) VALUES
-(1, 'Toto Iswanto', '12739817389123', 'Laki-laki', 'jl. yuk', '2009-02-28', '11B', '1779977472_e482bb68cc075bd1e41e.png', 'itoto1937@', 1),
-(2, 'Ivana Mayada', '', 'Laki-laki', '', '', '', '1779791740_6fa1a5e1c10fc6c9fd8e.jpg', 'ivana@ngan', 2),
-(3, 'Anindia Fayza J', '', 'Laki-laki', '', '', '', '1779792158_1d2f1056fdc53a592a89.jpeg', 'anin@gmail', 3),
-(4, 'Inul Santika', '', 'Laki-laki', '', '', '', '1779792450_86ab19b4d41222bba16b.jpg', 'inulS@gmai', 4);
+(1, 'Toto Iswanto', '12739817389123', 'Laki-laki', 'jl. yuk', '2009-02-28', '', '1779977472_e482bb68cc075bd1e41e.png', 'itoto1937@', 1),
+(2, 'Ivana Mayada', '238293840234', 'Laki-laki', 'jl. bro', '2009-02-28', '8B', '1779791740_6fa1a5e1c10fc6c9fd8e.jpg', 'ivana@ngan', 2),
+(3, 'Anindia Fayza J', '2398402938432', 'Laki-laki', 'JL.DLU', '2009-02-28', '8B', '1779792158_1d2f1056fdc53a592a89.jpeg', 'anin@gmail', 3),
+(4, 'Inul Santika', '2398402938432', 'Laki-laki', 'jl. yuk', '2009-02-28', '', '1779792450_86ab19b4d41222bba16b.jpg', 'inulS@gmai', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jawabansiswa`
+--
+
+CREATE TABLE `jawabansiswa` (
+  `id_jawaban` int NOT NULL,
+  `id_mapel` int NOT NULL,
+  `pertemuan` varchar(100) NOT NULL,
+  `id_user` int NOT NULL,
+  `nama_siswa` varchar(10) NOT NULL,
+  `jawaban` text NOT NULL,
+  `nilai` int NOT NULL,
+  `create_at` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `jawabansiswa`
+--
+
+INSERT INTO `jawabansiswa` (`id_jawaban`, `id_mapel`, `pertemuan`, `id_user`, `nama_siswa`, `jawaban`, `nilai`, `create_at`) VALUES
+(1, 1, '1', 1, 'Toto Iswan', '1.[sdsada],2.[asdasd],3.[asdasd]', 33, 2026),
+(2, 1, '1', 3, 'Anindia Fa', '1.[asdasd],2.[asdasd],3.[3434]', 67, 2026);
 
 -- --------------------------------------------------------
 
@@ -69,9 +94,8 @@ CREATE TABLE `mapel` (
 --
 
 INSERT INTO `mapel` (`id_mapel`, `nama_mapel`, `kelas`, `created_by`, `created_at`) VALUES
-(1, 'Bahasa Inggris', 'VIII', 'Ivana Mayada', '2026-06-02 08:01:55'),
-(2, 'Bahasa Indonesia', 'VIII', 'Ivana Mayada', '2026-06-02 09:29:04'),
-(3, 'Matematika', 'VII', 'Ivana Mayada', '2026-06-02 09:46:13');
+(1, 'B. Indonesia', 'IX', 'Ivana Mayada', '2026-06-03 23:53:09'),
+(2, 'Matematika', 'VIII', 'Ivana Mayada', '2026-06-04 00:31:09');
 
 -- --------------------------------------------------------
 
@@ -95,9 +119,10 @@ CREATE TABLE `materi` (
 --
 
 INSERT INTO `materi` (`id_materi`, `id_mapel`, `nama_mapel`, `created_by`, `file_mapel`, `kelas`, `pertemuan`, `created_at`) VALUES
-(1, 1, 'Bahasa Inggris', 'Ivana Mayada', '20260602/1780387527_bd3e882604e95d9badab.pdf', 'VIII', '1', '2026-06-02 08:05:27'),
-(2, 1, 'Bahasa Inggris', 'Ivana Mayada', '20260602/1780393228_693362be7d388a9b75ad.pdf', 'VIII', '2', '2026-06-02 09:40:28'),
-(3, 2, 'Bahasa Indonesia', 'Ivana Mayada', '20260603/1780503997_2e40cb6321a980f98382.pdf', 'VIII', '1', '2026-06-03 16:26:37');
+(1, 1, 'B. Indonesia', 'Ivana Mayada', '20260603/1780530812_364a4659095303bcf9b7.pdf', 'IX', '1', '2026-06-03 23:53:32'),
+(2, 1, 'B. Indonesia', 'Ivana Mayada', '20260603/1780531018_d48eec56cea9f373d535.pdf', 'IX', '2', '2026-06-03 23:56:58'),
+(3, 2, 'Matematika', 'Ivana Mayada', '20260604/1780533084_4554000b60c8f1440e04.pdf', 'VIII', '1', '2026-06-04 00:31:24'),
+(4, 2, 'Matematika', 'Ivana Mayada', '20260617/1781721647_fdf585665bf0631070b5.pdf', 'VIII', '2', '2026-06-17 18:40:47');
 
 -- --------------------------------------------------------
 
@@ -107,14 +132,25 @@ INSERT INTO `materi` (`id_materi`, `id_mapel`, `nama_mapel`, `created_by`, `file
 
 CREATE TABLE `soal` (
   `id_soal` int NOT NULL,
-  `id_ujian` int DEFAULT NULL,
+  `id_mapel` int DEFAULT NULL,
+  `pertemuan` int NOT NULL,
   `pertanyaan` text,
   `opsi_a` text,
   `opsi_b` text,
   `opsi_c` text,
   `opsi_d` text,
-  `jawaban_benar` varchar(10) DEFAULT NULL
+  `kunci` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `gambar` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `soal`
+--
+
+INSERT INTO `soal` (`id_soal`, `id_mapel`, `pertemuan`, `pertanyaan`, `opsi_a`, `opsi_b`, `opsi_c`, `opsi_d`, `kunci`, `gambar`) VALUES
+(1, 1, 1, 'asadasda', NULL, NULL, NULL, NULL, NULL, '1781723715_911779ee84a7e49a1059.jpg'),
+(2, 1, 1, 'asdasd', NULL, NULL, NULL, NULL, NULL, ''),
+(3, 1, 1, 'asdasdas', NULL, NULL, NULL, NULL, NULL, '1781723715_d99491bc29b486050adc.png');
 
 -- --------------------------------------------------------
 
@@ -136,12 +172,7 @@ CREATE TABLE `tugasuji` (
 --
 
 INSERT INTO `tugasuji` (`id_tugas`, `id_mapel`, `judul`, `pertemuan`, `tipe_soal`, `durasi`) VALUES
-(1, 2, 'SURAT IZIN KERAMAYAN', 1, 'pg', 30),
-(2, 2, 'Perancangan sistem Judi Online pada Era Ddigital', 1, 'pg', 28),
-(3, 1, 'SURAT KETERANGAN TIDAK MAMPU', 1, 'pg', 19),
-(4, 2, 'Perancangan sistem Judi Online pada Era Ddigital', 1, 'pg', 2),
-(5, 1, 'SURAT IZIN KERAMAYAN', 1, 'pg', 32),
-(6, 0, 'SURAT PENGANTAR IZIN KERAMAIAN', 3, 'pg', 23);
+(1, 1, 'Sejarah Indonesia', 1, 'esai', 34);
 
 -- --------------------------------------------------------
 
@@ -176,6 +207,12 @@ INSERT INTO `users` (`id_user`, `email`, `password`, `password_hash`, `role`) VA
 --
 ALTER TABLE `data_user`
   ADD PRIMARY KEY (`id_dataUser`);
+
+--
+-- Indexes for table `jawabansiswa`
+--
+ALTER TABLE `jawabansiswa`
+  ADD PRIMARY KEY (`id_jawaban`);
 
 --
 -- Indexes for table `mapel`
@@ -218,28 +255,34 @@ ALTER TABLE `data_user`
   MODIFY `id_dataUser` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `jawabansiswa`
+--
+ALTER TABLE `jawabansiswa`
+  MODIFY `id_jawaban` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `mapel`
 --
 ALTER TABLE `mapel`
-  MODIFY `id_mapel` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_mapel` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `materi`
 --
 ALTER TABLE `materi`
-  MODIFY `id_materi` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_materi` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `soal`
 --
 ALTER TABLE `soal`
-  MODIFY `id_soal` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_soal` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tugasuji`
 --
 ALTER TABLE `tugasuji`
-  MODIFY `id_tugas` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_tugas` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`

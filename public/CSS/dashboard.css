@@ -18,6 +18,13 @@ a {
   text-decoration: none;
 }
 
+a,
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none !important;
+}
+
 .content-page {
   display: none;
   animation: fadePage 0.3s ease;
@@ -33,62 +40,42 @@ a {
 
   position: fixed;
   top: 0;
-  left: 0;
+  left: -260px;
   z-index: 1000;
 
   padding: 20px;
 
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
 
   background: #1e3a8a;
   box-shadow: 4px 0 20px rgba(0, 0, 0, 0.12);
 
   overflow-y: auto;
+
+  transition: 0.3s ease;
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-
-  margin-bottom: 40px;
-}
-
-.logo img {
-  width: 55px;
-  height: 55px;
-
-  border-radius: 50%;
-  object-fit: cover;
-
-  background: white;
-  padding: 5px;
-}
-
-.logo-text h4 {
-  margin: 0;
-  font-size: 22px;
-  font-weight: 700;
-  color: white;
-}
-
-.logo-text span {
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.7);
+body.sidebar-open .sidebar {
+  left: 0;
 }
 
 .menu-list {
   list-style: none;
   padding-left: 0;
+  margin-bottom: 0;
+
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .menu-list li {
   margin-bottom: 8px;
 }
 
-.menu-link {
+.menu-link,
+.logout-btn {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -102,18 +89,21 @@ a {
   transition: 0.25s ease;
 }
 
-.menu-link i {
+.menu-link i,
+.logout-btn i {
   width: 20px;
   text-align: center;
 }
 
-.menu-link span {
+.menu-link span,
+.logout-btn span {
   flex: 1;
 }
 
 .menu-link:hover {
   background: rgba(255, 255, 255, 0.15);
   transform: translateX(4px);
+  color: white;
 }
 
 .menu-link.active {
@@ -127,7 +117,7 @@ a {
 }
 
 .logout-menu {
-  margin-top: 30px;
+  margin-top: auto;
   border-top: 1px solid rgba(255, 255, 255, 0.15);
   padding-top: 20px;
 }
@@ -146,51 +136,131 @@ a {
   text-align: center;
   color: rgba(255, 255, 255, 0.6);
   font-size: 13px;
+  margin-top: 20px;
 }
 
 /* =========================
-   MAIN CONTENT
+   LAYOUT CONTENT
 ========================= */
 
-.main-content {
-  margin-left: 260px;
+.layout-content {
   min-height: 100vh;
   padding: 25px;
+  margin-left: 0;
+  transition: 0.3s ease;
+}
+
+body.sidebar-open .layout-content {
+  margin-left: 260px;
 }
 
 /* =========================
-   NAVBAR
+   HEADER
 ========================= */
 
-.navbar-custom {
+.top-header {
+  width: 100%;
+
   background: white;
 
-  padding: 18px 25px;
+  padding: 16px 22px;
+  margin-bottom: 25px;
 
   border-radius: 16px;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 20px;
 
   border: 1px solid rgba(0, 0, 0, 0.04);
 
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
 }
 
-.navbar-custom h4 {
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.sidebar-toggle {
+  width: 42px;
+  height: 42px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: #eff6ff;
+  color: #1e3a8a;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 20px;
+  cursor: pointer;
+
+  transition: 0.25s ease;
+}
+
+.sidebar-toggle:hover {
+  background: #dbeafe;
+}
+
+.school-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding-right: 18px;
+  border-right: 1px solid #e5e7eb;
+}
+
+.school-brand img {
+  width: 48px;
+  height: 48px;
+
+  border-radius: 50%;
+  object-fit: cover;
+
+  background: white;
+  padding: 4px;
+
+  border: 1px solid #e5e7eb;
+}
+
+.school-text h4 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.school-text span {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.header-title-box h4 {
   margin: 0;
   color: #1e293b;
+  font-size: 20px;
   font-weight: 700;
 }
 
-.profile {
+.header-title-box span {
+  font-size: 14px;
+  color: #64748b;
+}
+
+.navbar-profile {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.profile img {
+.navbar-profile img {
   width: 45px;
   height: 45px;
 
@@ -213,6 +283,46 @@ a {
 
 .profile-info small {
   color: #64748b;
+}
+
+/* =========================
+   RESET CONTENT DARI FILE INCLUDE
+========================= */
+
+.content-page .main-content {
+  margin-left: 0 !important;
+  padding: 0 !important;
+  min-height: auto !important;
+}
+
+.content-page .navbar-custom {
+  display: none !important;
+}
+
+/* =========================
+   OLD NAVBAR SUPPORT
+========================= */
+
+.navbar-custom {
+  background: white;
+
+  padding: 18px 25px;
+
+  border-radius: 16px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  border: 1px solid rgba(0, 0, 0, 0.04);
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-custom h4 {
+  margin: 0;
+  color: #1e293b;
+  font-weight: 700;
 }
 
 /* =========================
@@ -398,8 +508,47 @@ a {
   transform: scale(1.005);
 }
 
+.table-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.toolbar-left,
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.table-img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e5e7eb;
+}
+
+.action-table {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.action-table .btn {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* =========================
-   STATUS
+   STATUS DAN BADGE
 ========================= */
 
 .status {
@@ -421,8 +570,56 @@ a {
   background: #ef4444;
 }
 
+.badge-soft {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.badge-soft.success {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.badge-soft.warning {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.badge-soft.danger {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.badge-soft.primary {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
 /* =========================
-   PROFILE
+   EMPTY STATE
+========================= */
+
+.empty-state {
+  text-align: center;
+  padding: 35px 20px;
+  color: #64748b;
+}
+
+.empty-state i {
+  font-size: 42px;
+  color: #94a3b8;
+  margin-bottom: 10px;
+}
+
+.empty-state p {
+  margin-bottom: 0;
+}
+
+/* =========================
+   PROFILE PAGE
 ========================= */
 
 .profile-body {
@@ -557,6 +754,56 @@ a {
 }
 
 /* =========================
+   PERTEMUAN
+========================= */
+
+.pertemuan-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 8px 0;
+}
+
+.pertemuan-list button {
+  border: 1px solid #dbeafe;
+  background: #f8fafc;
+  color: #334155;
+  border-radius: 10px;
+  padding: 9px 14px;
+  font-weight: 600;
+  transition: 0.25s;
+}
+
+.pertemuan-list button:hover {
+  background: #eff6ff;
+  color: #1e40af;
+}
+
+/* =========================
+   LINK CLEANUP
+========================= */
+
+.sidebar ul li a {
+  text-decoration: none !important;
+  border: none !important;
+}
+
+.quick-action a {
+  text-decoration: none !important;
+  border: none !important;
+}
+
+.layout-content a {
+  text-decoration: none !important;
+}
+
+.sidebar ul li a:focus,
+.sidebar ul li a:active {
+  outline: none;
+  box-shadow: none;
+}
+
+/* =========================
    SCROLLBAR
 ========================= */
 
@@ -595,11 +842,16 @@ a {
 
 @media (max-width: 992px) {
   .sidebar {
-    width: 220px;
+    width: 240px;
+    left: -240px;
   }
 
-  .main-content {
-    margin-left: 220px;
+  body.sidebar-open .sidebar {
+    left: 0;
+  }
+
+  body.sidebar-open .layout-content {
+    margin-left: 240px;
   }
 
   .profile-body {
@@ -608,24 +860,55 @@ a {
 }
 
 @media (max-width: 768px) {
-  .sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
+  .layout-content {
+    padding: 16px;
   }
 
-  .main-content {
+  body.sidebar-open .layout-content {
     margin-left: 0;
   }
 
-  .navbar-custom {
-    flex-direction: column;
-    align-items: flex-start;
+  .sidebar {
+    width: 240px;
+    left: -240px;
   }
 
-  .profile {
+  body.sidebar-open .sidebar {
+    left: 0;
+  }
+
+  .top-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+  }
+
+  .header-left {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .school-brand {
+    border-right: none;
+    padding-right: 0;
+  }
+
+  .header-title-box {
+    width: 100%;
+  }
+
+  .header-title-box h4 {
+    font-size: 18px;
+  }
+
+  .navbar-profile {
     width: 100%;
     justify-content: space-between;
+  }
+
+  .profile-info {
+    text-align: left;
   }
 
   .profile-body {
@@ -635,192 +918,13 @@ a {
   .sidebar-footer {
     display: none;
   }
-}
 
-/* =========================
-   REMOVE LINK UNDERLINE
-========================= */
+  .table-toolbar {
+    align-items: flex-start;
+  }
 
-a,
-a:hover,
-a:focus,
-a:active {
-  text-decoration: none !important;
-}
-
-/* Sidebar Menu */
-.sidebar ul li a {
-  text-decoration: none !important;
-  border: none !important;
-}
-
-/* Profile Navbar */
-.profile {
-  text-decoration: none !important;
-  border: none !important;
-}
-
-/* Quick Action */
-.quick-action a {
-  text-decoration: none !important;
-  border: none !important;
-}
-
-/* Semua link dalam dashboard */
-.main-content a {
-  text-decoration: none !important;
-}
-
-.sidebar ul li a:focus,
-.sidebar ul li a:active {
-  outline: none;
-  box-shadow: none;
-}
-
-.table-toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-}
-
-.toolbar-left,
-.toolbar-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.table-img {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #e5e7eb;
-}
-
-.action-table {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.action-table .btn {
-  width: 34px;
-  height: 34px;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.empty-state {
-  text-align: center;
-  padding: 35px 20px;
-  color: #64748b;
-}
-
-.empty-state i {
-  font-size: 42px;
-  color: #94a3b8;
-  margin-bottom: 10px;
-}
-
-.empty-state p {
-  margin-bottom: 0;
-}
-
-.badge-soft {
-  display: inline-block;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.badge-soft.success {
-  background: #dcfce7;
-  color: #166534;
-}
-
-.badge-soft.warning {
-  background: #fef3c7;
-  color: #92400e;
-}
-
-.badge-soft.danger {
-  background: #fee2e2;
-  color: #991b1b;
-}
-
-.badge-soft.primary {
-  background: #dbeafe;
-  color: #1e40af;
-}
-
-.table-toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-}
-
-.toolbar-left,
-.toolbar-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.action-table {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.action-table .btn {
-  width: 34px;
-  height: 34px;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.empty-state {
-  text-align: center;
-  padding: 35px 20px;
-  color: #64748b;
-}
-
-.empty-state i {
-  font-size: 42px;
-  color: #94a3b8;
-  margin-bottom: 10px;
-}
-
-.pertemuan-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding: 8px 0;
-}
-
-.pertemuan-list button {
-  border: 1px solid #dbeafe;
-  background: #f8fafc;
-  color: #334155;
-  border-radius: 10px;
-  padding: 9px 14px;
-  font-weight: 600;
-  transition: 0.25s;
-}
-
-.pertemuan-list button:hover {
-  background: #eff6ff;
-  color: #1e40af;
+  .toolbar-left,
+  .toolbar-right {
+    width: 100%;
+  }
 }

@@ -1,5 +1,5 @@
 <div class="main-content">
-    <?= $this->include('content/navbar') ?>
+
 
     <div class="table-section">
 

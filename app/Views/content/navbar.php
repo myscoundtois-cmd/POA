@@ -1,23 +1,55 @@
-<div class="navbar-custom">
+<div class="top-header">
 
-   <h4 class="navbar-title">
-    Dashboard <?= ucfirst(session()->get('role')) ?>
-</h4>
+    <div class="header-left">
 
-<small class="text-muted navbar-subtitle">
-    Selamat datang kembali di sistem akademik
-</small>
+        <button type="button"
+            class="sidebar-toggle"
+            onclick="toggleSidebar()">
+
+            <i class="fa-solid fa-bars"></i>
+
+        </button>
+
+        <div class="school-brand">
+
+            <img
+                src="<?= base_url('image/unpam logo.png') ?>"
+                alt="Logo Sekolah">
+
+            <div class="school-text">
+                <h4>SMPN 2</h4>
+                <span>Pesisir Utara</span>
+            </div>
+
+        </div>
+
+        <div class="header-title-box">
+
+            <h4 class="navbar-title">
+                Dashboard <?= ucfirst(session()->get('role')) ?>
+            </h4>
+
+            <span class="navbar-subtitle">
+                Selamat datang kembali di sistem akademik
+            </span>
+
+        </div>
+
+    </div>
 
     <a href="#"
-        onclick="showPage('profile', document.querySelector('[onclick*=profile]'))"
-        class="profile navbar-profile">
+    id="navbarProfile"
+    onclick="showPage('profile', document.querySelector('.menu-link[data-page=profile]'))"
+    class="navbar-profile">
 
         <div class="profile-info">
-            <span><?= session()->get('nama') ?></span>
+            <span><?= session()->get('nama') ?? 'Toto Iswanto' ?></span>
             <small><?= ucfirst(session()->get('role')) ?></small>
         </div>
 
-        <img src="<?= base_url('uploads/' . session()->get('foto')); ?>" alt="">
+        <img
+            src="<?= base_url('uploads/' . session()->get('foto')); ?>"
+            alt="Foto Profile">
 
     </a>
 

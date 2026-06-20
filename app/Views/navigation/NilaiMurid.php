@@ -1,5 +1,5 @@
 <div class="main-content">
-    <?= $this->include('content/navbar') ?>
+
     <div class="table-section">
         <div class="table-responsive">
             <form action="<?= base_url('/koreksi') ?>" method="post" enctype="multipart/form-data">

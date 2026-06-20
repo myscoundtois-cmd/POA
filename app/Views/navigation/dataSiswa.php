@@ -5,7 +5,6 @@
     $siswa = isset($siswa) && is_array($siswa) ? $siswa : [];
     ?>
 
-    <?= $this->include('content/navbar') ?>
 
     <div class="table-section">
 

@@ -2,7 +2,6 @@
 <div class="main-content">
 
     <!-- Navbar -->
-    <?= $this->include('content/navbar') ?>
 
     <!-- Cards -->
     <?php if (session('role') === 'admin'): ?>
