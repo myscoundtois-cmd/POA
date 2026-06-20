@@ -12,7 +12,7 @@
                     <div class="card-wave"></div>
 
                     <h5>Total Siswa</h5>
-                    <h2><?= !empty($total_siswa) ?> </h2>
+                    <h2><?= $total_siswa ?> </h2>
 
                     <i class="fa-solid fa-user-graduate"></i>
 
@@ -24,7 +24,7 @@
                     <div class="card-wave"></div>
 
                     <h5>Total Guru</h5>
-                    <h2><?= !empty($total_guru) ?></h2>
+                    <h2><?= $total_guru ?></h2>
 
                     <i class="fa-solid fa-chalkboard-user"></i>
 
@@ -35,7 +35,7 @@
                 <div class="dashboard-card bg3">
                     <div class="card-wave"></div>
                     <h5>Total Kelas</h5>
-                    <h2><?= !empty($total_kelas) ?></h2>
+                    <h2><?= $total_kelas ?></h2>
 
                     <i class="fa-solid fa-school"></i>
 
@@ -47,7 +47,7 @@
                     <div class="card-wave"></div>
 
                     <h5>Total Mapel</h5>
-                    <h2><?= !empty($total_mapel) ?></h2>
+                    <h2><?= $total_mapel ?></h2>
 
                     <i class="fa-solid fa-book-open"></i>
 

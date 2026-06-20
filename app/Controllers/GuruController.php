@@ -49,7 +49,9 @@ class GuruController extends BaseController
             ->where('soal.pertemuan', session()->get('pertemuan'))
             ->findAll();
 
-        $data['mapel'] = $mapelModel->findAll();
+        $data['mapel'] = $mapelModel
+            ->where('created_by', session()->get('nama'))
+            ->findAll();
 
         $data['materi'] = $materiModel->findAll();
 

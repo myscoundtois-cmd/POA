@@ -51,7 +51,14 @@ class MapelController extends BaseController
         ];
 
         $model->insert($data);
-        return redirect()->to('/admin/dashboard');
+
+        if (session('role') == 'admin') {
+            return redirect()->to('/admin/dashboard');
+        } elseif (session('role') == 'guru') {
+            return redirect()->to('/guru/dashboard');
+        } else {
+            return redirect()->to('/dashboard');
+        }
     }
 
     public function simpan()

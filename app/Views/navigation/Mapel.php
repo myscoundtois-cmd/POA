@@ -23,7 +23,7 @@
                                 data-id="<?= $m['id_mapel'] ?>"
                                 data-mapel="<?= esc($m['nama_mapel']) ?>"
                                 data-kelas="<?= esc($m['kelas']) ?>"
-                                data-guru="<?= esc($m['created_by']) ?>"
+                                data-guru="<?= esc(session('nama')) ?> "
                                 style="cursor:pointer;">
 
                                 <div class="card-wave"></div>
@@ -62,9 +62,15 @@
                         <span class="value">
                             <select name="kelas" class="form-control" required>
                                 <option value="">-- Pilih Kelas --</option>
-                                <option value="VII">VII</option>
-                                <option value="VIII">VIII</option>
-                                <option value="IX">IX</option>
+                                <option value="7A">7A</option>
+                                <option value="7B">7B</option>
+                                <option value="7C">7C</option>
+                                <option value="8A">8A</option>
+                                <option value="8B">8B</option>
+                                <option value="8C">8C</option>
+                                <option value="9A">9A</option>
+                                <option value="9B">9B</option>
+                                <option value="9C">9C</option>
                             </select>
                         </span>
                     </div>
