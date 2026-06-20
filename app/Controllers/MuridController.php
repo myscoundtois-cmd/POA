@@ -52,10 +52,8 @@ class MuridController extends BaseController
             ->where('soal.pertemuan', session()->get('pertemuan'))
             ->findAll();
 
-        $kelasUser = preg_replace('/[^0-9]/', '', session()->get('kelas'));
-
         $data['mapel'] = $mapelModel
-            ->where('kelas', $kelasUser)
+            ->where('kelas', session()->get('kelas'))
             ->findAll();
 
         $data['materi'] = $materiModel->findAll();
