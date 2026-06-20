@@ -12,7 +12,7 @@
                     <div class="card-wave"></div>
 
                     <h5>Total Siswa</h5>
-                    <h2><?= $total_siswa ?> </h2>
+                    <h2><?= !empty($total_siswa) ?> </h2>
 
                     <i class="fa-solid fa-user-graduate"></i>
 
@@ -24,7 +24,7 @@
                     <div class="card-wave"></div>
 
                     <h5>Total Guru</h5>
-                    <h2><?= $total_guru ?></h2>
+                    <h2><?= !empty($total_guru) ?></h2>
 
                     <i class="fa-solid fa-chalkboard-user"></i>
 
@@ -35,7 +35,7 @@
                 <div class="dashboard-card bg3">
                     <div class="card-wave"></div>
                     <h5>Total Kelas</h5>
-                    <h2><?= $total_kelas ?></h2>
+                    <h2><?= !empty($total_kelas) ?></h2>
 
                     <i class="fa-solid fa-school"></i>
 
@@ -47,7 +47,7 @@
                     <div class="card-wave"></div>
 
                     <h5>Total Mapel</h5>
-                    <h2><?= $total_mapel ?></h2>
+                    <h2><?= !empty($total_mapel) ?></h2>
 
                     <i class="fa-solid fa-book-open"></i>
 
@@ -63,7 +63,7 @@
                     <div class="card-wave"></div>
 
                     <h5>Kelas Yang diajar</h5>
-                    <h2><?= $total_kelas_guru ?> </h2>
+                    <h2><?= !empty($total_kelas_guru) ?> </h2>
 
                     <i class="fa-solid fa-user-graduate"></i>
 
@@ -75,7 +75,7 @@
                     <div class="card-wave"></div>
 
                     <h5>Mapel Yang diajar</h5>
-                    <h2><?= $mapel_guru ?></h2>
+                    <h2><?= !empty($mapel_guru) ?></h2>
 
                     <i class="fa-solid fa-chalkboard-user"></i>
 
@@ -87,9 +87,11 @@
                     <div class="card-wave"></div>
                     <h5>Wali Murid Kelas</h5>
                     <h2>
-                        <?php foreach ($wali_kelas as $row): ?>
-                            <?= esc($row['kelas']) ?>
-                        <?php endforeach; ?>
+                        <?php if (!empty($wali_kelas)): ?>
+                            <?php foreach ($wali_kelas as $row): ?>
+                                <?= esc($row['kelas']) ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </h2>
 
                     <i class="fa-solid fa-school"></i>
@@ -99,6 +101,7 @@
 
         </div>
     <?php elseif (session('role') == 'wali' || session('role') == 'murid'): ?>
+
         <div class="table-section">
             <div class="table-toolbar">
                 <?php if (!empty($wali)): ?>
@@ -114,31 +117,33 @@
         </div>
         <?php
         $grafikMapel = [];
+        if (!empty($jawabanSiswa)) {
+            foreach ($jawabanSiswa as $j) {
 
-        foreach ($jawabanSiswa as $j) {
+                $idMapel = $j['id_mapel'];
 
-            $idMapel = $j['id_mapel'];
-
-            if (!isset($grafikMapel[$idMapel])) {
-                $grafikMapel[$idMapel] = [
-                    'nama_mapel' => '',
-                    'labels' => [],
-                    'nilai' => []
-                ];
-
-                foreach ($mapel as $m) {
-                    if ($m['id_mapel'] == $idMapel) {
-                        $grafikMapel[$idMapel]['nama_mapel'] = $m['nama_mapel'];
-                        break;
+                if (!isset($grafikMapel[$idMapel])) {
+                    $grafikMapel[$idMapel] = [
+                        'nama_mapel' => '',
+                        'labels' => [],
+                        'nilai' => []
+                    ];
+                    if (!empty($mapel)) {
+                        foreach ($mapel as $m) {
+                            if ($m['id_mapel'] == $idMapel) {
+                                $grafikMapel[$idMapel]['nama_mapel'] = $m['nama_mapel'];
+                                break;
+                            }
+                        }
                     }
                 }
+
+                $grafikMapel[$idMapel]['labels'][] =
+                    'Pertemuan ' . $j['pertemuan'];
+
+                $grafikMapel[$idMapel]['nilai'][] =
+                    (int) $j['nilai'];
             }
-
-            $grafikMapel[$idMapel]['labels'][] =
-                'Pertemuan ' . $j['pertemuan'];
-
-            $grafikMapel[$idMapel]['nilai'][] =
-                (int) $j['nilai'];
         }
         ?>
 
@@ -201,43 +206,47 @@
     <?php elseif (session('role') == 'wali' || session('role') == 'murid' || session('role') ?? ''): ?>
         <div class="table-section">
             <div class="table-toolbar">
-
-                <?php foreach ($wali as $w): ?>
-                    <tr>
-                        <td><strong>Nama <span>:</span></strong><?= $w['nama']; ?></td>
-                        <td><strong>NIS <span>:</span></strong><?= $w['nis']; ?></td>
-                        <td><strong>Kelas <span>:</span></strong><?= $w['kelas']; ?></td>
-                    </tr>
-                <?php endforeach; ?>
+                <?php if (!empty($wali)): ?>
+                    <?php foreach ($wali as $w): ?>
+                        <tr>
+                            <td><strong>Nama <span>:</span></strong><?= $w['nama']; ?></td>
+                            <td><strong>NIS <span>:</span></strong><?= $w['nis']; ?></td>
+                            <td><strong>Kelas <span>:</span></strong><?= $w['kelas']; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </div>
         </div>
         <?php
         $grafikMapel = [];
+        if (!empty($jawabanSiswa)) {
+            foreach ($jawabanSiswa as $j) {
 
-        foreach ($jawabanSiswa as $j) {
+                $idMapel = $j['id_mapel'];
 
-            $idMapel = $j['id_mapel'];
-
-            if (!isset($grafikMapel[$idMapel])) {
-                $grafikMapel[$idMapel] = [
-                    'nama_mapel' => '',
-                    'labels' => [],
-                    'nilai' => []
-                ];
-
-                foreach ($mapel as $m) {
-                    if ($m['id_mapel'] == $idMapel) {
-                        $grafikMapel[$idMapel]['nama_mapel'] = $m['nama_mapel'];
-                        break;
+                if (!isset($grafikMapel[$idMapel])) {
+                    $grafikMapel[$idMapel] = [
+                        'nama_mapel' => '',
+                        'labels' => [],
+                        'nilai' => []
+                    ];
+                    if (!empty($mapel)) {
+                        foreach ($mapel as $m) {
+                            if ($m['id_mapel'] == $idMapel) {
+                                $grafikMapel[$idMapel]['nama_mapel'] = $m['nama_mapel'];
+                                break;
+                            }
+                        }
                     }
                 }
+
+
+                $grafikMapel[$idMapel]['labels'][] =
+                    'Pertemuan ' . $j['pertemuan'];
+
+                $grafikMapel[$idMapel]['nilai'][] =
+                    (int) $j['nilai'];
             }
-
-            $grafikMapel[$idMapel]['labels'][] =
-                'Pertemuan ' . $j['pertemuan'];
-
-            $grafikMapel[$idMapel]['nilai'][] =
-                (int) $j['nilai'];
         }
         ?>
 

@@ -116,6 +116,20 @@ class WaliController extends BaseController
             ->where('nis', session('nis'))
             ->findAll();
 
+        $data['lihat_nilai'] = $model
+            ->select('
+        data_user.*,
+        jawabansiswa.nilai,
+        jawabansiswa.pertemuan,
+        mapel.nama_mapel,
+        mapel.kelas as kelas_mapel
+    ')
+            ->join('jawabansiswa', 'jawabansiswa.nis = data_user.nis', 'left')
+            ->join('mapel', 'mapel.id_mapel = jawabansiswa.id_mapel', 'left')
+            ->where('data_user.nis', session('nis'))
+            ->where('data_user.nama !=', session('nama'))
+            ->findAll();
+
         return view('content/dashboard', $data);
     }
 }

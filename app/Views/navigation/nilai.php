@@ -7,11 +7,13 @@
         <div id="halaman-pilih-nilai">
 
             <div class="table-toolbar">
-                <div class="toolbar-left">
-                    <small class="text-muted">
-                        Pilih kelas, mata pelajaran, dan pertemuan untuk melihat nilai penugasan siswa
-                    </small>
-                </div>
+                <?php if (session('role') == 'admin' || session('role') == 'guru'): ?>
+                    <div class="toolbar-left">
+                        <small class="text-muted">
+                            Pilih kelas, mata pelajaran, dan pertemuan untuk melihat nilai penugasan siswa
+                        </small>
+                    </div>
+                <?php endif; ?>
 
                 <div class="toolbar-right">
                     <input
@@ -20,7 +22,8 @@
                         placeholder="Cari kelas atau mapel..."
                         onkeyup="searchNilaiMenu(this)"
                         style="max-width: 240px;">
-
+                </div>
+                <div class="toolbar-right">
                     <button class="btn btn-secondary" type="button" onclick="resetNilaiView()">
                         <i class="fa-solid fa-rotate-left"></i>
                         Reset
@@ -28,123 +31,124 @@
                 </div>
             </div>
 
-            <div class="table-responsive mt-4">
-                <table class="table table-hover" id="table-kelas-nilai">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Kelas</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-
-                        <?php
-                        $kelasList = [];
-
-                        if (!empty($mapel)) {
-                            foreach ($mapel as $m) {
-                                $kelasList[$m['kelas']][] = $m;
-                            }
-                        }
-
-                        $noKelas = 1;
-                        ?>
-
-                        <?php foreach ($kelasList as $kelas => $daftarMapel): ?>
-
-                            <tr
-                                class="kelas-nilai-row"
-                                onclick="toggleMapelKelasNilai(this,'mapel-kelas-<?= $kelas ?>')">
-
-                                <td><?= $noKelas++ ?></td>
-
-                                <td>
-                                    <div class="kelas-title">
-                                        <span class="kelas-badge">Kelas</span>
-                                        <strong><?= esc($kelas) ?></strong>
-                                        <i class="fa-solid fa-chevron-down dropdown-icon"></i>
-                                    </div>
-                                </td>
-
+            <?php if (session('role') == 'admin' || session('role') == 'guru'): ?>
+                <div class="table-responsive mt-4">
+                    <table class="table table-hover" id="table-kelas-nilai">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Kelas</th>
                             </tr>
+                        </thead>
 
-                            <tr
-                                id="mapel-kelas-<?= $kelas ?>"
-                                class="mapel-dropdown-row"
-                                style="display:none;">
+                        <tbody>
 
-                                <td colspan="5">
+                            <?php
+                            $kelasList = [];
 
-                                    <div class="mapel-box">
+                            if (!empty($mapel)) {
+                                foreach ($mapel as $m) {
+                                    $kelasList[$m['kelas']][] = $m;
+                                }
+                            }
 
-                                        <table class="table table-hover mb-0">
+                            $noKelas = 1;
+                            ?>
 
-                                            <thead>
-                                                <tr>
-                                                    <th>No</th>
-                                                    <th>Mata Pelajaran</th>
-                                                    <th>Guru Pengajar</th>
-                                                    <th>Keterangan</th>
-                                                </tr>
-                                            </thead>
+                            <?php foreach ($kelasList as $kelas => $daftarMapel): ?>
 
-                                            <tbody>
+                                <tr
+                                    class="kelas-nilai-row"
+                                    onclick="toggleMapelKelasNilai(this,'mapel-kelas-<?= $kelas ?>')">
 
-                                                <?php foreach ($daftarMapel as $index => $m): ?>
+                                    <td><?= $noKelas++ ?></td>
 
-                                                    <tr
-                                                        class="mapel-nilai-row"
-                                                        onclick="togglePertemuanNilai(this,'pertemuan-<?= $m['id_mapel'] ?>')">
+                                    <td>
+                                        <div class="kelas-title">
+                                            <span class="kelas-badge">Kelas</span>
+                                            <strong><?= esc($kelas) ?></strong>
+                                            <i class="fa-solid fa-chevron-down dropdown-icon"></i>
+                                        </div>
+                                    </td>
 
-                                                        <td><?= $index + 1 ?></td>
+                                </tr>
 
-                                                        <td>
-                                                            <div class="mapel-title">
-                                                                <span class="mapel-dot"></span>
-                                                                <strong><?= esc($m['nama_mapel']) ?></strong>
-                                                                <i class="fa-solid fa-chevron-down dropdown-icon"></i>
-                                                            </div>
-                                                        </td>
+                                <tr
+                                    id="mapel-kelas-<?= $kelas ?>"
+                                    class="mapel-dropdown-row"
+                                    style="display:none;">
 
-                                                        <td>
-                                                            <?= esc($m['created_by'] ?? '-') ?>
-                                                        </td>
+                                    <td colspan="5">
 
-                                                        <td>
-                                                            <span class="text-muted">
-                                                                Klik untuk melihat pertemuan
-                                                            </span>
-                                                        </td>
+                                        <div class="mapel-box">
 
+                                            <table class="table table-hover mb-0">
+
+                                                <thead>
+                                                    <tr>
+                                                        <th>No</th>
+                                                        <th>Mata Pelajaran</th>
+                                                        <th>Guru Pengajar</th>
+                                                        <th>Keterangan</th>
                                                     </tr>
+                                                </thead>
 
-                                                    <tr
-                                                        id="pertemuan-<?= $m['id_mapel'] ?>"
-                                                        class="pertemuan-dropdown-row"
-                                                        style="display:none;">
+                                                <tbody>
 
-                                                        <td colspan="4">
+                                                    <?php foreach ($daftarMapel as $index => $m): ?>
 
-                                                            <div class="pertemuan-list">
+                                                        <tr
+                                                            class="mapel-nilai-row"
+                                                            onclick="togglePertemuanNilai(this,'pertemuan-<?= $m['id_mapel'] ?>')">
 
-                                                                <?php
-                                                                $adaPertemuan = false;
+                                                            <td><?= $index + 1 ?></td>
 
-                                                                if (!empty($tugasUji)) :
+                                                            <td>
+                                                                <div class="mapel-title">
+                                                                    <span class="mapel-dot"></span>
+                                                                    <strong><?= esc($m['nama_mapel']) ?></strong>
+                                                                    <i class="fa-solid fa-chevron-down dropdown-icon"></i>
+                                                                </div>
+                                                            </td>
 
-                                                                    foreach ($tugasUji as $p) :
+                                                            <td>
+                                                                <?= esc($m['created_by'] ?? '-') ?>
+                                                            </td>
 
-                                                                        if (
-                                                                            $p['id_mapel'] == $m['id_mapel']
-                                                                        ) :
+                                                            <td>
+                                                                <span class="text-muted">
+                                                                    Klik untuk melihat pertemuan
+                                                                </span>
+                                                            </td>
 
-                                                                            $adaPertemuan = true;
-                                                                ?>
+                                                        </tr>
 
-                                                                            <button
-                                                                                type="button"
-                                                                                onclick="bukaHalamanDetailNilai(
+                                                        <tr
+                                                            id="pertemuan-<?= $m['id_mapel'] ?>"
+                                                            class="pertemuan-dropdown-row"
+                                                            style="display:none;">
+
+                                                            <td colspan="4">
+
+                                                                <div class="pertemuan-list">
+
+                                                                    <?php
+                                                                    $adaPertemuan = false;
+
+                                                                    if (!empty($tugasUji)) :
+
+                                                                        foreach ($tugasUji as $p) :
+
+                                                                            if (
+                                                                                $p['id_mapel'] == $m['id_mapel']
+                                                                            ) :
+
+                                                                                $adaPertemuan = true;
+                                                                    ?>
+
+                                                                                <button
+                                                                                    type="button"
+                                                                                    onclick="bukaHalamanDetailNilai(
     event,
     '<?= esc($kelas) ?>',
     '<?= esc($m['nama_mapel']) ?>',
@@ -153,49 +157,83 @@
     '<?= esc($m['created_by']) ?>'
 )">
 
-                                                                                Pertemuan <?= esc($p['pertemuan']) ?>
+                                                                                    Pertemuan <?= esc($p['pertemuan']) ?>
 
-                                                                            </button>
+                                                                                </button>
 
-                                                                    <?php
-                                                                        endif;
+                                                                        <?php
+                                                                            endif;
 
-                                                                    endforeach;
+                                                                        endforeach;
 
-                                                                endif;
+                                                                    endif;
 
-                                                                if (!$adaPertemuan):
-                                                                    ?>
+                                                                    if (!$adaPertemuan):
+                                                                        ?>
 
-                                                                    <span class="text-muted">
-                                                                        Belum ada pertemuan
-                                                                    </span>
+                                                                        <span class="text-muted">
+                                                                            Belum ada pertemuan
+                                                                        </span>
 
-                                                                <?php endif; ?>
+                                                                    <?php endif; ?>
 
-                                                            </div>
+                                                                </div>
 
-                                                        </td>
+                                                            </td>
 
-                                                    </tr>
+                                                        </tr>
 
-                                                <?php endforeach; ?>
+                                                    <?php endforeach; ?>
 
-                                            </tbody>
+                                                </tbody>
 
-                                        </table>
+                                            </table>
 
-                                    </div>
+                                        </div>
 
-                                </td>
+                                    </td>
 
-                            </tr>
+                                </tr>
 
-                        <?php endforeach; ?>
+                            <?php endforeach; ?>
 
-                    </tbody>
-                </table>
-            </div>
+                        </tbody>
+                    </table>
+                </div>
+            <?php elseif (session('role') == 'wali' || session('role') == 'murid'): ?>
+                <div class="table-responsive mt-4">
+                    <table class="table table-hover">
+                        <?php if (!empty($lihat_nilai)): ?>
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Pertemuan</th>
+                                    <th>Nama</th>
+                                    <th>NIS</th>
+                                    <th>Kelas</th>
+                                    <th>Mapel</th>
+                                    <th>Nilai</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <?php $no = 1; ?>
+                                <?php foreach ($lihat_nilai as $w): ?>
+                                    <tr>
+                                        <td><?= $no++ ?></td>
+                                        <td>Pertemuan ke-<?= $w['pertemuan'] ?></td>
+                                        <td><?= $w['nama'] ?></td>
+                                        <td><?= $w['nis'] ?></td>
+                                        <td><?= $w['kelas'] ?></td>
+                                        <td><?= $w['nama_mapel'] ?? '-' ?></td>
+                                        <td><?= $w['nilai'] ?? '-' ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        <?php endif; ?>
+                    </table>
+                </div>
+            <?php endif; ?>
         </div>
 
 
