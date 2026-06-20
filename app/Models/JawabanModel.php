@@ -14,6 +14,7 @@ class JawabanModel extends Model
         'id_user',
         'pertemuan',
         'nama_siswa',
+        'nis',
         'jawaban',
         'nilai',
         'create_at'

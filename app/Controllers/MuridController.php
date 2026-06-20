@@ -52,7 +52,11 @@ class MuridController extends BaseController
             ->where('soal.pertemuan', session()->get('pertemuan'))
             ->findAll();
 
-        $data['mapel'] = $mapelModel->findAll();
+        $kelasUser = preg_replace('/[^0-9]/', '', session()->get('kelas'));
+
+        $data['mapel'] = $mapelModel
+            ->where('kelas', $kelasUser)
+            ->findAll();
 
         $data['materi'] = $materiModel->findAll();
 
@@ -229,6 +233,7 @@ class MuridController extends BaseController
                 ->with('error', 'Data soal tidak ditemukan.');
         }
 
+        $nis = session('nis');
         /*
     |--------------------------------------------------------------------------
     | SIMPAN KE DATABASE
@@ -239,6 +244,7 @@ class MuridController extends BaseController
             'id_mapel'   => $id_mapel,
             'id_user'    => $id_user,
             'nama_siswa' => $nama_siswa,
+            'nis' => $nis,
             'jawaban'    => $jawabanGabung,
             'nilai'      => $nilai,
             'create_at'  => date('Y-m-d H:i:s')

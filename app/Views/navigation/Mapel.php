@@ -452,10 +452,10 @@
 
         <h5>Soal PG ${nomorSoal}</h5>
 
-        <label class="mb-1">Gambar Soal (Opsional)</label>
+        <label class="form-control mb-2">Gambar Soal (Opsional)</label>
 
         <input
-            type="text"
+            type="hidden"
             class="id_mapel">
 
         <input

@@ -257,7 +257,7 @@
                             <th>Pertemuan</th>
                             <th>Status</th>
                             <th>Nilai</th>
-                            <?php if (session('role') == 'admin' || session('role') == 'guru' || session('role') == 'murid'): ?>
+                            <?php if (session('role') == 'admin' || session('role') == 'guru'): ?>
                                 <th>Aksi</th>
                             <?php endif; ?>
                         </tr>

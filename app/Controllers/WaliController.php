@@ -107,9 +107,15 @@ class WaliController extends BaseController
 
         $jawabanModel = new \App\Models\JawabanModel();
 
+        $data['wali'] = $model
+            ->where('nis', session('nis'))
+            ->where('nama !=', session('nama'))
+            ->findAll();
 
+        $data['jawabanSiswa'] = $jawabanModel
+            ->where('nis', session('nis'))
+            ->findAll();
 
-        $data['jawabanSiswa'] = $jawabanModel->findAll();
         return view('content/dashboard', $data);
     }
 }
