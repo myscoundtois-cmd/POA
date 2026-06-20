@@ -11,6 +11,10 @@ $routes->post('/regist', 'LoginController::regist');
 $routes->get('/logout', 'LoginController::logout');
 // ADMIN
 $routes->get('/admin/dashboard', 'AdminController::index');
+$routes->post('/edit_siswa', 'AdminController::edit_siswa');
+$routes->post('/delete_siswa/(:num)', 'AdminController::delete_siswa/$1');
+$routes->post('/tambah_siswa', 'AdminController::tambah_siswa');
+
 // GURU
 $routes->get('/guru/dashboard', 'GuruController::index');
 $routes->post('/koreksi', 'GuruController::koreksi');
