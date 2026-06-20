@@ -8,6 +8,18 @@
 
     <div class="sidebar" id="sidebar">
 
+        <!-- LOGO SIDEBAR -->
+        <div class="sidebar-brand">
+            <img
+                src="<?= base_url('image/unpam logo.png') ?>"
+                alt="Logo Sekolah">
+
+            <div class="sidebar-brand-text">
+                <h4>SMPN 2</h4>
+                <span>Pesisir Utara</span>
+            </div>
+        </div>
+
         <!-- MENU -->
         <ul class="menu-list">
 
@@ -111,6 +123,8 @@
 
     </div>
 
+    <div class="sidebar-overlay" onclick="toggleSidebar(false)"></div>
+
 
     <!-- =========================
         MAIN LAYOUT
@@ -170,7 +184,17 @@
     <script>
         const openMapel = <?= session()->getFlashdata('open_mapel') ? 'true' : 'false' ?>;
 
-        function toggleSidebar() {
+        function toggleSidebar(force = null) {
+            if (force === true) {
+                document.body.classList.add('sidebar-open');
+                return;
+            }
+
+            if (force === false) {
+                document.body.classList.remove('sidebar-open');
+                return;
+            }
+
             document.body.classList.toggle('sidebar-open');
         }
 
@@ -212,12 +236,11 @@
                     activeMenu.classList.add('active');
                 }
             }
-                const navbarProfile = document.getElementById('navbarProfile');
+            const navbarProfile = document.getElementById('navbarProfile');
 
-if (navbarProfile) {
-    navbarProfile.style.display =
-        pageId === 'profile' ? 'none' : 'flex';
-}
+            if (navbarProfile) {
+                navbarProfile.style.display = pageId === 'profile' ? 'none' : 'flex';
+            }
             updateNavbarTitle(pageId);
             closeSidebarMobile();
         }

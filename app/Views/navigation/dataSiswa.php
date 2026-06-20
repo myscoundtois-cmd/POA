@@ -135,14 +135,15 @@
 
                                                                 <button
                                                                     class="btn btn-sm btn-warning"
-                                                                    title="Edit Data">
+                                                                    title="Edit Data"
+                                                                    onclick="openEditSiswaModal(this)">
                                                                     <i class="fa-solid fa-pen"></i>
                                                                 </button>
 
                                                                 <button
                                                                     class="btn btn-sm btn-danger"
                                                                     title="Hapus Data"
-                                                                    onclick="confirmDelete('guru')">
+                                                                    onclick="confirmDelete('siswa')">
                                                                     <i class="fa-solid fa-trash"></i>
                                                                 </button>
 
@@ -500,7 +501,8 @@
                     dropdownRow.style.display = 'none';
 
                     if (icon) {
-                        icon.innerText = '∨';
+                        icon.classList.remove('fa-chevron-up');
+                        icon.classList.add('fa-chevron-down');
                     }
 
                     siswaRows.forEach(siswaRow => {
@@ -511,7 +513,8 @@
                     dropdownRow.style.display = 'table-row';
 
                     if (icon) {
-                        icon.innerText = '∧';
+                        icon.classList.remove('fa-chevron-down');
+                        icon.classList.add('fa-chevron-up');
                     }
                 } else {
                     kelasRow.style.display = 'none';

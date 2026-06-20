@@ -4,24 +4,12 @@
 
         <button type="button"
             class="sidebar-toggle"
-            onclick="toggleSidebar()">
+            onclick="toggleSidebar()"
+            aria-label="Buka menu sidebar">
 
             <i class="fa-solid fa-bars"></i>
 
         </button>
-
-        <div class="school-brand">
-
-            <img
-                src="<?= base_url('image/unpam logo.png') ?>"
-                alt="Logo Sekolah">
-
-            <div class="school-text">
-                <h4>SMPN 2</h4>
-                <span>Pesisir Utara</span>
-            </div>
-
-        </div>
 
         <div class="header-title-box">
 
@@ -38,9 +26,9 @@
     </div>
 
     <a href="#"
-    id="navbarProfile"
-    onclick="showPage('profile', document.querySelector('.menu-link[data-page=profile]'))"
-    class="navbar-profile">
+        id="navbarProfile"
+        onclick="showPage('profile', document.querySelector('.menu-link[data-page=profile]'))"
+        class="navbar-profile">
 
         <div class="profile-info">
             <span><?= session()->get('nama') ?? 'Toto Iswanto' ?></span>
