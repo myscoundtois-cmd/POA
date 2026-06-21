@@ -61,7 +61,7 @@ class ProfileController extends BaseController
                 $newName = $file->getRandomName();
 
                 // upload file
-                $file->move('uploads', $newName);
+                $file->move('uploads/foto', $newName);
 
                 // simpan ke database
                 $profileData['foto'] = $newName;
@@ -71,9 +71,9 @@ class ProfileController extends BaseController
 
                 if (
                     $oldPhoto &&
-                    file_exists('uploads/' . $oldPhoto)
+                    file_exists('uploads/foto/' . $oldPhoto)
                 ) {
-                    unlink('uploads/' . $oldPhoto);
+                    unlink('uploads/foto/' . $oldPhoto);
                 }
             } else {
 

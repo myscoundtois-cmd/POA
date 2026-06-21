@@ -36,7 +36,7 @@
         </div>
 
         <img
-            src="<?= base_url('uploads/' . session()->get('foto')); ?>"
+            src="<?= base_url('uploads/foto/' . session()->get('foto')); ?>"
             alt="Foto Profile">
 
     </a>

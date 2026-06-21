@@ -56,7 +56,7 @@
                                 <td>
                                     <?php if (!empty($row['foto'])): ?>
                                         <img
-                                            src="<?= base_url('uploads/' . $row['foto']); ?>"
+                                            src="<?= base_url('uploads/foto/' . $row['foto']); ?>"
                                             alt="Foto Guru"
                                             class="table-img">
                                     <?php else: ?>
@@ -92,16 +92,19 @@
                                         <button
                                             class="btn btn-sm btn-warning"
                                             title="Edit Data"
+                                            data-id="<?= $row['id_user'] ?>"
                                             onclick="openEditGuruModal(this)">
                                             <i class="fa-solid fa-pen"></i>
                                         </button>
 
-                                        <button
-                                            class="btn btn-sm btn-danger"
-                                            title="Hapus Data"
-                                            onclick="confirmDelete('guru')">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
+                                        <form action="<?= base_url('delete_guru/' . ($row['id_user'] ?? '')) ?>" method="post" style="display:inline;">
+                                            <button
+                                                class="btn btn-sm btn-danger"
+                                                type="submit"
+                                                onclick="return confirm('Yakin ingin menghapus data ini?')">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </form>
 
                                     </div>
                                 </td>
@@ -150,7 +153,7 @@
 
                 <div class="modal-body">
 
-                    <form id="formTambahGuru">
+                    <form id="formTambahGuru" action="<?= base_url('/tambah_guru') ?>" method="post" enctype="multipart/form-data">
 
                         <div class="profile-row">
                             <span class="label">Foto</span>
@@ -165,14 +168,6 @@
                             <span class="separator">:</span>
                             <span class="value">
                                 <input type="text" name="nama" class="form-control" placeholder="Masukkan nama guru">
-                            </span>
-                        </div>
-
-                        <div class="profile-row">
-                            <span class="label">Email</span>
-                            <span class="separator">:</span>
-                            <span class="value">
-                                <input type="email" name="email" class="form-control" placeholder="Masukkan email guru">
                             </span>
                         </div>
 
@@ -201,6 +196,22 @@
                             <span class="separator">:</span>
                             <span class="value">
                                 <textarea name="alamat" class="form-control" rows="3" placeholder="Masukkan alamat guru"></textarea>
+                            </span>
+                        </div>
+
+                        <div class="profile-row">
+                            <span class="label">Email</span>
+                            <span class="separator">:</span>
+                            <span class="value">
+                                <input type="email" name="email" class="form-control" placeholder="Masukkan email guru">
+                            </span>
+                        </div>
+
+                        <div class="profile-row">
+                            <span class="label">Password</span>
+                            <span class="separator">:</span>
+                            <span class="value">
+                                <input type="password" name="password" class="form-control" placeholder="Masukkan Password guru">
                             </span>
                         </div>
 
@@ -244,7 +255,8 @@
 
                 <div class="modal-body">
 
-                    <form id="formEditGuru">
+                    <form id="formEditGuru" method="post" action="<?= base_url('/edit_guru') ?>" enctype="multipart/form-data">
+                        <input type="hidden" name="id_user" id="editIdGuru">
 
                         <div class="profile-row">
                             <span class="label">Foto</span>
@@ -359,66 +371,30 @@
         }
 
         function submitTambahGuruFrontend() {
-            const form = document.getElementById('formTambahGuru');
-            form.reset();
-
-            const modalElement = document.getElementById('modalTambahGuru');
-            const modal = bootstrap.Modal.getInstance(modalElement);
-
-            modal.hide();
+            document.getElementById('formTambahGuru').submit();
         }
 
         function openEditGuruModal(button) {
             selectedEditGuruRow = button.closest('tr');
 
+            document.getElementById('editIdGuru').value =
+                button.dataset.id;
+
             const cells = selectedEditGuruRow.children;
 
-            const nama = normalizeEmptyValue(cells[2].innerText);
-            const email = normalizeEmptyValue(cells[3].innerText);
-            const jenisKelamin = normalizeEmptyValue(cells[4].innerText);
-            const alamat = normalizeEmptyValue(cells[5].innerText);
-            const tglLahir = normalizeEmptyValue(cells[6].innerText);
-            const role = normalizeEmptyValue(cells[7].innerText).toLowerCase();
+            document.getElementById('editNamaGuru').value = cells[2].innerText.trim();
+            document.getElementById('editEmailGuru').value = cells[3].innerText.trim();
+            document.getElementById('editJenisKelaminGuru').value = cells[4].innerText.trim();
+            document.getElementById('editAlamatGuru').value = cells[5].innerText.trim();
+            document.getElementById('editTglLahirGuru').value = cells[6].innerText.trim();
 
-            document.getElementById('editNamaGuru').value = nama;
-            document.getElementById('editEmailGuru').value = email;
-            document.getElementById('editJenisKelaminGuru').value = jenisKelamin;
-            document.getElementById('editAlamatGuru').value = alamat;
-            document.getElementById('editTglLahirGuru').value = tglLahir;
-            document.getElementById('editRoleGuru').value = role || 'guru';
-
-            const modalElement = document.getElementById('modalEditGuru');
-            const modal = new bootstrap.Modal(modalElement);
-
-            modal.show();
+            new bootstrap.Modal(
+                document.getElementById('modalEditGuru')
+            ).show();
         }
 
         function submitEditGuruFrontend() {
-            if (selectedEditGuruRow) {
-                const nama = document.getElementById('editNamaGuru').value;
-                const email = document.getElementById('editEmailGuru').value;
-                const jenisKelamin = document.getElementById('editJenisKelaminGuru').value;
-                const alamat = document.getElementById('editAlamatGuru').value;
-                const tglLahir = document.getElementById('editTglLahirGuru').value;
-                const role = document.getElementById('editRoleGuru').value;
-
-                setTableCellValue(selectedEditGuruRow.children[2], nama);
-                setTableCellValue(selectedEditGuruRow.children[3], email);
-                setTableCellValue(selectedEditGuruRow.children[4], jenisKelamin);
-                setTableCellValue(selectedEditGuruRow.children[5], alamat);
-                setTableCellValue(selectedEditGuruRow.children[6], tglLahir);
-
-                selectedEditGuruRow.children[7].innerHTML = `
-                    <span class="status aktif">
-                        ${role.charAt(0).toUpperCase() + role.slice(1)}
-                    </span>
-                `;
-            }
-
-            const modalElement = document.getElementById('modalEditGuru');
-            const modal = bootstrap.Modal.getInstance(modalElement);
-
-            modal.hide();
+            document.getElementById('formEditGuru').submit();
         }
     </script>
 

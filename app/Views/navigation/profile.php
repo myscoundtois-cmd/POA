@@ -44,7 +44,7 @@
             <div class="profile-header-left">
 
                 <div class="profile-img profile-img-large">
-                    <img src="<?= base_url('uploads/' . $fotoProfile); ?>" alt="Foto Profile">
+                    <img src="<?= base_url('uploads/foto/' . $fotoProfile); ?>" alt="Foto Profile">
                 </div>
 
                 <div class="profile-title-text">

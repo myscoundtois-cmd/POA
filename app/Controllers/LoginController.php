@@ -101,7 +101,7 @@ class LoginController extends BaseController
 
         $namaFoto = $foto->getRandomName();
 
-        $foto->move('uploads', $namaFoto);
+        $foto->move('uploads/foto', $namaFoto);
 
         // data tabel users
         $data1 = [

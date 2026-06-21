@@ -14,6 +14,11 @@ $routes->get('/admin/dashboard', 'AdminController::index');
 $routes->post('/edit_siswa', 'AdminController::edit_siswa');
 $routes->post('/delete_siswa/(:num)', 'AdminController::delete_siswa/$1');
 $routes->post('/tambah_siswa', 'AdminController::tambah_siswa');
+$routes->post('/edit_guru', 'AdminController::edit_guru');
+$routes->post('/delete_guru/(:num)', 'AdminController::delete_guru/$1');
+$routes->post('/tambah_guru', 'AdminController::tambah_guru');
+
+
 
 // GURU
 $routes->get('/guru/dashboard', 'GuruController::index');

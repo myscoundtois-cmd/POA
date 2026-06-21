@@ -199,10 +199,10 @@ class AdminController extends BaseController
         $dataUser = [
             'nama'          => $this->request->getPost('nama'),
             'nis'           => $this->request->getPost('nis'),
-            'kelas'         => $this->request->getPost('kelas'),
             'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
             'email'         => $this->request->getPost('email'),
             'alamat'        => $this->request->getPost('alamat'),
+            'kelas'         => $this->request->getPost('kelas'),
         ];
 
         // =========================
@@ -236,6 +236,52 @@ class AdminController extends BaseController
         return redirect()->back()->with('success', 'Data siswa berhasil diupdate');
     }
 
+    public function edit_guru()
+    {
+        $userModel = new UsersModel();
+        $dataUserModel = new DataUserModel();
+
+        $id_user = $this->request->getPost('id_user');
+
+        // ambil data dari form
+        $dataUser = [
+            'nama'          => $this->request->getPost('nama'),
+            'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
+            'email'         => $this->request->getPost('email'),
+            'alamat'        => $this->request->getPost('alamat'),
+        ];
+
+        // =========================
+        // CEK FOTO (opsional)
+        // =========================
+        $foto = $this->request->getFile('foto');
+
+        if ($foto && $foto->isValid() && !$foto->hasMoved()) {
+
+            $newName = $foto->getRandomName();
+            $foto->move('uploads/foto', $newName);
+
+            $dataUser['foto'] = $newName;
+        }
+
+        // =========================
+        // UPDATE users (email kalau perlu)
+        // =========================
+        $userModel->update($id_user, [
+            'email' => $dataUser['email']
+        ]);
+
+        // =========================
+        // UPDATE data_user
+        // =========================
+        $dataUserModel
+            ->where('id_user', $id_user)
+            ->set($dataUser)
+            ->update();
+
+        return redirect()->back()->with('success', 'Data siswa berhasil diupdate');
+    }
+
     public function delete_siswa($id_dataUser)
     {
         $userModel = new UsersModel();
@@ -245,6 +291,21 @@ class AdminController extends BaseController
 
         if ($dataUser) {
             $dataUserModel->delete($id_dataUser);
+            $userModel->delete($dataUser['id_user']);
+        }
+
+        return redirect()->back()->with('success', 'Data berhasil dihapus');
+    }
+
+    public function delete_guru($id_user)
+    {
+        $userModel = new UsersModel();
+        $dataUserModel = new DataUserModel();
+
+        $dataUser = $dataUserModel->find($id_user);
+
+        if ($dataUser) {
+            $dataUserModel->delete($id_user);
             $userModel->delete($dataUser['id_user']);
         }
 
@@ -302,6 +363,59 @@ class AdminController extends BaseController
             'jenis_kelamin' => $jk,
             'alamat'        => $alamat,
             'foto'          => $namaFoto
+        ]);
+
+        return redirect()->back()->with('success', 'Siswa berhasil ditambahkan');
+    }
+    public function tambah_Guru()
+    {
+        $userModel = new UsersModel();
+        $dataUserModel = new DataUserModel();
+
+        // =========================
+        // AMBIL INPUT FORM
+        // =========================
+        $nama   = $this->request->getPost('nama');
+        $jk     = $this->request->getPost('jenis_kelamin');
+        $alamat = $this->request->getPost('alamat');
+        $email  = $this->request->getPost('email');
+        $pass   = $this->request->getPost('password');
+        $tgll   = $this->request->getPost('tgl_lahir');
+
+        // =========================
+        // SIMPAN USER (LOGIN)
+        // =========================
+        $userModel->insert([
+            'email' => $email,
+            'password' => $pass,
+            'password_hash' => password_hash($pass, PASSWORD_DEFAULT),
+            'role' => 'guru'
+        ]);
+
+        $id_user = $userModel->insertID();
+
+        // =========================
+        // UPLOAD FOTO
+        // =========================
+        $foto = $this->request->getFile('foto');
+        $namaFoto = null;
+
+        if ($foto && $foto->isValid() && !$foto->hasMoved()) {
+            $namaFoto = $foto->getRandomName();
+            $foto->move('uploads/foto', $namaFoto);
+        }
+
+        // =========================
+        // SIMPAN DATA SISWA
+        // =========================
+        $dataUserModel->insert([
+            'id_user'       => $id_user,
+            'email'         => $email,
+            'nama'          => $nama,
+            'jenis_kelamin' => $jk,
+            'alamat'        => $alamat,
+            'foto'          => $namaFoto,
+            'tgl_lahir'     => $tgll
         ]);
 
         return redirect()->back()->with('success', 'Siswa berhasil ditambahkan');

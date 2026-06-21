@@ -113,7 +113,7 @@
                                                         <td>
                                                             <?php if (!empty($row['foto'])): ?>
                                                                 <img
-                                                                    src="<?= base_url('uploads/' . $row['foto']) ?>"
+                                                                    src="<?= base_url('uploads/foto/' . $row['foto']) ?>"
                                                                     width="50"
                                                                     class="img-thumbnail">
                                                             <?php else: ?>
@@ -323,7 +323,7 @@
 
                     <form id="formEditSiswa" action="<?= base_url('/edit_siswa') ?>" enctype="multipart/form-data" method="post">
 
-                        <input type="text" name="id_dataUser" id="editIdSiswa">
+                        <input type="hidden" name="id_dataUser" id="editIdSiswa">
 
                         <div class="profile-row">
                             <span class="label">Foto</span>
@@ -368,7 +368,7 @@
                             <span class="value">
                                 <input
                                     type="text"
-                                    name="nis"
+                                    name="kelas"
                                     id="editKelasSiswa"
                                     class="form-control"
                                     placeholder="Masukkan NIS">
