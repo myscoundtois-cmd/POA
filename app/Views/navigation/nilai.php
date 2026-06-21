@@ -83,20 +83,6 @@
                             Mata pelajaran yang tampil adalah mata pelajaran yang sudah memiliki nilai anak.
                         </small>
                     </div>
-
-                    <div class="toolbar-right">
-                        <input
-                            type="text"
-                            class="form-control"
-                            placeholder="Cari mapel..."
-                            onkeyup="searchNilaiWali(this)"
-                            style="max-width: 240px;">
-
-                        <button class="btn btn-secondary" type="button" onclick="resetNilaiWali()">
-                            <i class="fa-solid fa-rotate-left"></i>
-                            Reset
-                        </button>
-                    </div>
                 </div>
 
                 <div class="table-responsive mt-4">
@@ -398,19 +384,6 @@
                         grid-template-columns: 1fr;
                     }
 
-                    .table-toolbar {
-                        gap: 12px;
-                    }
-
-                    .toolbar-right {
-                        width: 100%;
-                    }
-
-                    .toolbar-right input,
-                    .toolbar-right button {
-                        width: 100%;
-                        max-width: 100% !important;
-                    }
                 }
             </style>
 
