@@ -1,7 +1,25 @@
 <div class="main-content">
 
+    <?php
+    $roleSoal = session()->get('role');
+    $canJawabSoal = $roleSoal === 'murid';
+    $canEditSoal = in_array($roleSoal, ['admin', 'guru']);
+    ?>
+
 
     <div class="table-section">
+
+        <div class="table-toolbar mb-4">
+            <div class="toolbar-left">
+                <button type="button" class="btn btn-secondary" onclick="history.back()">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Kembali
+                </button>
+            </div>
+            <div class="toolbar-right">
+                <small class="text-muted">Kelola soal dan kunci jawaban secara ringkas</small>
+            </div>
+        </div>
 
         <?php if (!empty($soal)): ?>
 
@@ -58,6 +76,7 @@
                                     <div class="view-mode">
                                         <input class="form-check-input"
                                             type="radio"
+                                            <?= !$canJawabSoal ? 'disabled' : '' ?>
                                             name="jawaban[<?= $row['id_soal'] ?>]"
                                             value="A">
 
@@ -68,7 +87,8 @@
 
                                     <input
                                         type="text"
-                                        class="form-control edit-mode d-none"
+                                        class="form-control edit-mode d-none bg-light"
+                                        readonly
                                         name="opsi_a[<?= $row['id_soal'] ?>]"
                                         value="<?= esc($row['opsi_a']) ?>">
                                 </div>
@@ -80,6 +100,7 @@
                                     <div class="view-mode">
                                         <input class="form-check-input"
                                             type="radio"
+                                            <?= !$canJawabSoal ? 'disabled' : '' ?>
                                             name="jawaban[<?= $row['id_soal'] ?>]"
                                             value="B">
 
@@ -90,7 +111,8 @@
 
                                     <input
                                         type="text"
-                                        class="form-control edit-mode d-none"
+                                        class="form-control edit-mode d-none bg-light"
+                                        readonly
                                         name="opsi_b[<?= $row['id_soal'] ?>]"
                                         value="<?= esc($row['opsi_b']) ?>">
                                 </div>
@@ -102,6 +124,7 @@
                                     <div class="view-mode">
                                         <input class="form-check-input"
                                             type="radio"
+                                            <?= !$canJawabSoal ? 'disabled' : '' ?>
                                             name="jawaban[<?= $row['id_soal'] ?>]"
                                             value="C">
 
@@ -112,7 +135,8 @@
 
                                     <input
                                         type="text"
-                                        class="form-control edit-mode d-none"
+                                        class="form-control edit-mode d-none bg-light"
+                                        readonly
                                         name="opsi_c[<?= $row['id_soal'] ?>]"
                                         value="<?= esc($row['opsi_c']) ?>">
                                 </div>
@@ -124,6 +148,7 @@
                                     <div class="view-mode">
                                         <input class="form-check-input"
                                             type="radio"
+                                            <?= !$canJawabSoal ? 'disabled' : '' ?>
                                             name="jawaban[<?= $row['id_soal'] ?>]"
                                             value="D">
 
@@ -134,7 +159,8 @@
 
                                     <input
                                         type="text"
-                                        class="form-control edit-mode d-none"
+                                        class="form-control edit-mode d-none bg-light"
+                                        readonly
                                         name="opsi_d[<?= $row['id_soal'] ?>]"
                                         value="<?= esc($row['opsi_d']) ?>">
                                 </div>
@@ -178,6 +204,7 @@
                                         class="form-control"
                                         rows="4"
                                         placeholder="Tulis jawaban Anda"
+                                        <?= !$canJawabSoal ? 'disabled' : '' ?>
                                         name="jawabanEssay[<?= $row['id_soal'] ?>]"></textarea>
                                 </div>
 
@@ -190,20 +217,31 @@
 
                 <div class="d-flex gap-2 mt-4">
 
-                    <button
-                        type="submit"
-                        id="btnJawab"
-                        class="btn btn-primary">
-                        Simpan Semua Jawaban
-                    </button>
+                    <?php if ($canJawabSoal): ?>
+                        <button
+                            type="submit"
+                            id="btnJawab"
+                            class="btn btn-primary">
+                            Simpan Semua Jawaban
+                        </button>
+                    <?php endif; ?>
 
-                    <?php if (session()->get('role') == 'admin'): ?>
+                    <?php if ($canEditSoal): ?>
 
                         <button
                             type="button"
                             id="btnEdit"
                             class="btn btn-warning">
-                            Edit Soal
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            Edit Soal dan Kunci
+                        </button>
+
+                        <button
+                            type="button"
+                            id="btnCancelEdit"
+                            class="btn btn-secondary d-none">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            Batal Edit
                         </button>
 
                         <button
@@ -211,6 +249,7 @@
                             id="btnUpdate"
                             formaction="<?= base_url('soal/update') ?>"
                             class="btn btn-success d-none">
+                            <i class="fa-solid fa-floppy-disk"></i>
                             Simpan Perubahan
                         </button>
 
@@ -235,6 +274,9 @@
     document.addEventListener('DOMContentLoaded', function() {
 
         const btnEdit = document.getElementById('btnEdit');
+        const btnCancelEdit = document.getElementById('btnCancelEdit');
+        const btnJawab = document.getElementById('btnJawab');
+        const btnUpdate = document.getElementById('btnUpdate');
 
         if (btnEdit) {
 
@@ -248,13 +290,44 @@
                     el.classList.remove('d-none');
                 });
 
-                document.getElementById('btnJawab').classList.add('d-none');
+                if (btnJawab) {
+                    btnJawab.classList.add('d-none');
+                }
 
-                document.getElementById('btnUpdate').classList.remove('d-none');
+                if (btnUpdate) {
+                    btnUpdate.classList.remove('d-none');
+                }
+
+                if (btnCancelEdit) {
+                    btnCancelEdit.classList.remove('d-none');
+                }
 
                 btnEdit.classList.add('d-none');
             });
 
+        }
+
+        if (btnCancelEdit) {
+            btnCancelEdit.addEventListener('click', function() {
+                document.querySelectorAll('.view-mode').forEach(el => {
+                    el.classList.remove('d-none');
+                });
+
+                document.querySelectorAll('.edit-mode').forEach(el => {
+                    el.classList.add('d-none');
+                });
+
+                if (btnJawab) {
+                    btnJawab.classList.remove('d-none');
+                }
+
+                if (btnUpdate) {
+                    btnUpdate.classList.add('d-none');
+                }
+
+                btnEdit.classList.remove('d-none');
+                btnCancelEdit.classList.add('d-none');
+            });
         }
 
     });
