@@ -136,12 +136,12 @@
                                                                 <button
                                                                     class="btn btn-sm btn-warning"
                                                                     title="Edit Data"
-                                                                    data-id="<?= $row['id_dataUser'] ?>"
+                                                                    data-id="<?= $row['id_dataUser'] ?? '' ?>"
                                                                     onclick="openEditSiswaModal(this)">
                                                                     <i class="fa-solid fa-pen"></i>
                                                                 </button>
 
-                                                                <form action="<?= base_url('delete_siswa/' . $row['id_dataUser']) ?>" method="post" style="display:inline;">
+                                                                <form action="<?= base_url('delete_siswa/' . ($row['id_dataUser'] ?? '')) ?>" method="post" style="display:inline;">
                                                                     <button
                                                                         class="btn btn-sm btn-danger"
                                                                         type="submit"
