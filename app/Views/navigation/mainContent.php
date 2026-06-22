@@ -610,6 +610,7 @@
         $totalMapel = count($mapelDinilai);
         $statusAkademik = $rataRata >= 75 ? 'Baik' : 'Perlu Pendampingan';
         $statusClass = $rataRata >= 75 ? 'aktif' : 'nonaktif';
+        $statusTextClass = $rataRata >= 75 ? 'wali-status-text-good' : 'wali-status-text-warning';
         $nilaiTerbaru = array_slice(array_reverse($nilaiAnak), 0, 5);
         ?>
 
@@ -624,7 +625,7 @@
 
                 <div class="wali-status <?= $statusClass === 'aktif' ? 'status-good' : 'status-warning' ?>">
                     <span>Status Akademik</span>
-                    <strong class="<?= $statusClass ?>"><?= esc($statusAkademik) ?></strong>
+                    <strong class="<?= $statusTextClass ?>"><?= esc($statusAkademik) ?></strong>
                 </div>
             </div>
 
@@ -850,7 +851,7 @@
             }
 
             .wali-status {
-                min-width: 180px;
+                min-width: 190px;
                 border-radius: 16px;
                 padding: 16px;
                 text-align: center;
@@ -870,15 +871,32 @@
                 display: block;
                 color: #475569;
                 font-size: 13px;
-                margin-bottom: 6px;
+                margin-bottom: 8px;
             }
 
-            .wali-status strong.aktif {
-                color: #16a34a;
+            .wali-status strong {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 34px;
+                padding: 8px 14px;
+                border-radius: 999px;
+                font-size: 14px;
+                font-weight: 800;
+                line-height: 1.2;
+                white-space: nowrap;
             }
 
-            .wali-status strong.nonaktif {
-                color: #dc2626;
+            .wali-status strong.wali-status-text-good {
+                background: #dcfce7;
+                border: 1px solid #86efac;
+                color: #15803d;
+            }
+
+            .wali-status strong.wali-status-text-warning {
+                background: #fffbeb;
+                border: 1px solid #fdba74;
+                color: #b45309;
             }
 
             .wali-anak-card {
@@ -1019,6 +1037,7 @@
         $nilaiTerakhir = !empty($nilaiTerbaru) ? (int)($nilaiTerbaru[0]['nilai'] ?? 0) : 0;
         $statusBelajar = $rataRata >= 75 ? 'Baik' : 'Perlu Ditingkatkan';
         $statusClass = $rataRata >= 75 ? 'aktif' : 'nonaktif';
+        $statusTextClass = $rataRata >= 75 ? 'murid-status-text-good' : 'murid-status-text-warning';
         ?>
 
         <div class="murid-dashboard">
@@ -1034,7 +1053,7 @@
 
                 <div class="murid-status-box <?= $statusClass === 'aktif' ? 'status-good' : 'status-warning' ?>">
                     <span>Status Belajar</span>
-                    <strong class="<?= $statusClass ?>">
+                    <strong class="<?= $statusTextClass ?>">
                         <?= esc($statusBelajar) ?>
                     </strong>
                 </div>
@@ -1353,7 +1372,7 @@
             }
 
             .murid-status-box {
-                min-width: 180px;
+                min-width: 190px;
                 border-radius: 16px;
                 padding: 16px;
                 text-align: center;
@@ -1373,15 +1392,32 @@
                 display: block;
                 color: #475569;
                 font-size: 13px;
-                margin-bottom: 6px;
+                margin-bottom: 8px;
             }
 
-            .murid-status-box strong.aktif {
-                color: #16a34a;
+            .murid-status-box strong {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 34px;
+                padding: 8px 14px;
+                border-radius: 999px;
+                font-size: 14px;
+                font-weight: 800;
+                line-height: 1.2;
+                white-space: nowrap;
             }
 
-            .murid-status-box strong.nonaktif {
-                color: #dc2626;
+            .murid-status-box strong.murid-status-text-good {
+                background: #dcfce7;
+                border: 1px solid #86efac;
+                color: #15803d;
+            }
+
+            .murid-status-box strong.murid-status-text-warning {
+                background: #fffbeb;
+                border: 1px solid #fdba74;
+                color: #b45309;
             }
 
             .murid-profile-card,
