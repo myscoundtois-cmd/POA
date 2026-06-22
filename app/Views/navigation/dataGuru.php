@@ -28,7 +28,7 @@
 
         <div class="table-responsive">
 
-            <table class="table table-hover" id="table-guru">
+            <table class="table table-hover has-sticky-action" id="table-guru">
 
                 <thead>
                     <tr>
@@ -58,7 +58,7 @@
                                         <img
                                             src="<?= base_url('uploads/foto/' . $row['foto']); ?>"
                                             alt="Foto Guru"
-                                            class="table-img">
+                                            class="table-img table-avatar">
                                     <?php else: ?>
                                         <span class="text-muted">Tidak ada foto</span>
                                     <?php endif; ?>
@@ -86,7 +86,7 @@
                                     </span>
                                 </td>
 
-                                <td>
+                                <td class="action-sticky-cell">
                                     <div class="action-table">
 
                                         <button

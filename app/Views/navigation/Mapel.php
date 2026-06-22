@@ -23,7 +23,7 @@
                                 data-id="<?= $m['id_mapel'] ?>"
                                 data-mapel="<?= esc($m['nama_mapel']) ?>"
                                 data-kelas="<?= esc($m['kelas']) ?>"
-                                data-guru="<?= esc(session('nama')) ?> "
+                                data-guru="<?= esc($m['created_by']) ?>"
                                 style="cursor:pointer;">
 
                                 <div class="card-wave"></div>
@@ -62,15 +62,9 @@
                         <span class="value">
                             <select name="kelas" class="form-control" required>
                                 <option value="">-- Pilih Kelas --</option>
-                                <option value="7A">7A</option>
-                                <option value="7B">7B</option>
-                                <option value="7C">7C</option>
-                                <option value="8A">8A</option>
-                                <option value="8B">8B</option>
-                                <option value="8C">8C</option>
-                                <option value="9A">9A</option>
-                                <option value="9B">9B</option>
-                                <option value="9C">9C</option>
+                                <option value="VII">VII</option>
+                                <option value="VIII">VIII</option>
+                                <option value="IX">IX</option>
                             </select>
                         </span>
                     </div>
@@ -125,7 +119,9 @@
                         <i class="fa-solid fa-plus"></i>
                         Tambah Pertemuan
                     </button>
+                <?php endif; ?>
 
+                <?php if (session('role') == 'guru'): ?>
                     <button class="btn action-btn action-success mb-4" id="btn-buat-soal">
                         <i class="fa-solid fa-clipboard-question"></i>
                         Buat Soal
@@ -342,9 +338,16 @@
                         </span>
                     </div>
 
-                    <button type="submit" class="btn btn-primary mt-3">
-                        Buat Ujian
-                    </button>
+                    <div class="d-flex gap-2 flex-wrap mt-3">
+                        <button type="button" class="btn btn-secondary" onclick="kembaliKePertemuanMapel()">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            Kembali
+                        </button>
+
+                        <button type="submit" class="btn btn-primary">
+                            Buat Ujian
+                        </button>
+                    </div>
 
                 </form>
             </div>
@@ -359,6 +362,12 @@
 
                 <div id="list-soal"></div>
 
+                <button type="button"
+                    class="btn btn-secondary mb-2"
+                    onclick="kembaliKeFormUjianMapel()">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Kembali ke Form Ujian
+                </button>
 
                 <button type="button"
                     class="btn btn-success"
@@ -458,10 +467,10 @@
 
         <h5>Soal PG ${nomorSoal}</h5>
 
-        <label class="form-control mb-2">Gambar Soal (Opsional)</label>
+        <label class="mb-1">Gambar Soal (Opsional)</label>
 
         <input
-            type="hidden"
+            type="text"
             class="id_mapel">
 
         <input
@@ -603,6 +612,28 @@
                     alert(result.message);
                 }
             });
+    }
+
+    function kembaliKePertemuanMapel() {
+        const conPertemuan = document.getElementById('con-pertemuan');
+        const conTambahPertemuan = document.getElementById('con-tambah-pertemuan');
+        const conBuatSoal = document.getElementById('con-buat-soal');
+        const containerSoal = document.getElementById('container-soal');
+        const formUjian = document.getElementById('formUjian');
+
+        if (conPertemuan) conPertemuan.style.display = 'block';
+        if (conTambahPertemuan) conTambahPertemuan.style.display = 'none';
+        if (conBuatSoal) conBuatSoal.style.display = 'none';
+        if (containerSoal) containerSoal.style.display = 'none';
+        if (formUjian) formUjian.style.display = 'block';
+    }
+
+    function kembaliKeFormUjianMapel() {
+        const containerSoal = document.getElementById('container-soal');
+        const formUjian = document.getElementById('formUjian');
+
+        if (containerSoal) containerSoal.style.display = 'none';
+        if (formUjian) formUjian.style.display = 'block';
     }
 
     document.addEventListener('DOMContentLoaded', function() {

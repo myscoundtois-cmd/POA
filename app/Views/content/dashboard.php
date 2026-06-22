@@ -183,6 +183,18 @@
 
     <script>
         const openMapel = <?= session()->getFlashdata('open_mapel') ? 'true' : 'false' ?>;
+        const successMessage = <?= json_encode(
+            session()->getFlashdata('success') ??
+            session()->getFlashdata('berhasil') ??
+            session()->getFlashdata('pesan') ??
+            session()->getFlashdata('message') ??
+            ''
+        ) ?>;
+        const errorMessage = <?= json_encode(
+            session()->getFlashdata('error') ??
+            session()->getFlashdata('gagal') ??
+            ''
+        ) ?>;
 
         function toggleSidebar(force = null) {
             if (force === true) {
@@ -242,6 +254,15 @@
                 navbarProfile.style.display = pageId === 'profile' ? 'none' : 'flex';
             }
             updateNavbarTitle(pageId);
+
+            if (pageId) {
+                localStorage.setItem('lastActiveDashboardPage', pageId);
+
+                if (window.location.hash.replace('#', '') !== pageId) {
+                    history.replaceState(null, '', '#' + pageId);
+                }
+            }
+
             closeSidebarMobile();
         }
 
@@ -282,9 +303,15 @@
                 return;
             }
 
+            const lastPage = localStorage.getItem('lastActiveDashboardPage');
+
             if (hash && document.getElementById(hash)) {
 
                 showPage(hash);
+
+            } else if (lastPage && document.getElementById(lastPage)) {
+
+                showPage(lastPage);
 
             } else {
 
@@ -294,7 +321,50 @@
 
             }
 
+            document.querySelectorAll('form').forEach(form => {
+                form.addEventListener('submit', function() {
+                    const activePage = document.querySelector('.content-page[style*="display: block"]');
+
+                    if (activePage && activePage.id) {
+                        localStorage.setItem('lastActiveDashboardPage', activePage.id);
+                    }
+                });
+            });
+
+            if (successMessage) {
+                showDashboardPopup(successMessage, 'success');
+            }
+
+            if (errorMessage) {
+                showDashboardPopup(errorMessage, 'error');
+            }
+
         });
+
+        function showDashboardPopup(message, type = 'success') {
+            const popup = document.createElement('div');
+            popup.className = 'dashboard-popup ' + (type === 'error' ? 'error' : 'success');
+            popup.innerHTML = `
+                <div class="dashboard-popup-icon">
+                    <i class="fa-solid ${type === 'error' ? 'fa-circle-xmark' : 'fa-circle-check'}"></i>
+                </div>
+                <div>
+                    <strong>${type === 'error' ? 'Gagal' : 'Berhasil'}</strong>
+                    <p>${message}</p>
+                </div>
+            `;
+
+            document.body.appendChild(popup);
+
+            setTimeout(() => {
+                popup.classList.add('show');
+            }, 100);
+
+            setTimeout(() => {
+                popup.classList.remove('show');
+                setTimeout(() => popup.remove(), 400);
+            }, 3200);
+        }
 
         function confirmLogout() {
 

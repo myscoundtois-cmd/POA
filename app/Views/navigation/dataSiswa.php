@@ -82,7 +82,7 @@
 
                                 <div class="table-responsive">
 
-                                    <table class="table table-hover">
+                                    <table class="table table-hover has-sticky-action">
 
                                         <thead>
                                             <tr>
@@ -113,7 +113,7 @@
                                                         <td>
                                                             <?php if (!empty($row['foto'])): ?>
                                                                 <img
-                                                                    src="<?= base_url('uploads/foto/' . $row['foto']) ?>"
+                                                                    src="<?= base_url('uploads/' . $row['foto']) ?>"
                                                                     width="50"
                                                                     class="img-thumbnail">
                                                             <?php else: ?>
@@ -130,25 +130,22 @@
                                                         <td><?= esc($row['email']) ?></td>
                                                         <td><?= esc($row['alamat']) ?></td>
 
-                                                        <td>
+                                                        <td class="action-sticky-cell">
                                                             <div class="action-table">
 
                                                                 <button
                                                                     class="btn btn-sm btn-warning"
                                                                     title="Edit Data"
-                                                                    data-id="<?= $row['id_dataUser'] ?? '' ?>"
                                                                     onclick="openEditSiswaModal(this)">
                                                                     <i class="fa-solid fa-pen"></i>
                                                                 </button>
 
-                                                                <form action="<?= base_url('delete_siswa/' . ($row['id_dataUser'] ?? '')) ?>" method="post" style="display:inline;">
-                                                                    <button
-                                                                        class="btn btn-sm btn-danger"
-                                                                        type="submit"
-                                                                        onclick="return confirm('Yakin ingin menghapus data ini?')">
-                                                                        <i class="fa-solid fa-trash"></i>
-                                                                    </button>
-                                                                </form>
+                                                                <button
+                                                                    class="btn btn-sm btn-danger"
+                                                                    title="Hapus Data"
+                                                                    onclick="confirmDelete('siswa')">
+                                                                    <i class="fa-solid fa-trash"></i>
+                                                                </button>
 
                                                             </div>
                                                         </td>
@@ -200,7 +197,7 @@
 
                 <div class="modal-body">
 
-                    <form id="formTambahSiswa" action="<?= base_url('/tambah_siswa') ?>" method="post" enctype="multipart/form-data">
+                    <form id="formTambahSiswa">
 
                         <div class="profile-row">
                             <span class="label">Foto</span>
@@ -232,15 +229,9 @@
                             <span class="value">
                                 <select name="kelas" class="form-control">
                                     <option value="">-- Pilih Kelas --</option>
-                                    <option value="7A">7A</option>
-                                    <option value="7B">7B</option>
-                                    <option value="7C">7C</option>
-                                    <option value="8A">8A</option>
-                                    <option value="8B">8B</option>
-                                    <option value="8C">8C</option>
-                                    <option value="9A">9A</option>
-                                    <option value="9B">9B</option>
-                                    <option value="9C">9C</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
                                 </select>
                             </span>
                         </div>
@@ -258,14 +249,6 @@
                         </div>
 
                         <div class="profile-row">
-                            <span class="label">Alamat</span>
-                            <span class="separator">:</span>
-                            <span class="value">
-                                <textarea name="alamat" class="form-control" rows="3" placeholder="Masukkan alamat siswa"></textarea>
-                            </span>
-                        </div>
-
-                        <div class="profile-row">
                             <span class="label">Email</span>
                             <span class="separator">:</span>
                             <span class="value">
@@ -274,10 +257,10 @@
                         </div>
 
                         <div class="profile-row">
-                            <span class="label">Password</span>
+                            <span class="label">Alamat</span>
                             <span class="separator">:</span>
                             <span class="value">
-                                <input type="text" name="password" class="form-control" placeholder="Masukkan password sementara">
+                                <textarea name="alamat" class="form-control" rows="3" placeholder="Masukkan alamat siswa"></textarea>
                             </span>
                         </div>
 
@@ -323,7 +306,7 @@
 
                     <form id="formEditSiswa" action="<?= base_url('/edit_siswa') ?>" enctype="multipart/form-data" method="post">
 
-                        <input type="hidden" name="id_dataUser" id="editIdSiswa">
+                        <input type="text" name="id_dataUser" id="editIdSiswa">
 
                         <div class="profile-row">
                             <span class="label">Foto</span>
@@ -368,7 +351,7 @@
                             <span class="value">
                                 <input
                                     type="text"
-                                    name="kelas"
+                                    name="nis"
                                     id="editKelasSiswa"
                                     class="form-control"
                                     placeholder="Masukkan NIS">
@@ -556,32 +539,59 @@
         }
 
         function submitTambahSiswaFrontend() {
-            document.getElementById('formTambahSiswa').submit();
+
+            const form = document.getElementById('formTambahSiswa');
+            form.reset();
+
+            const modalElement = document.getElementById('modalTambahSiswa');
+            const modal = bootstrap.Modal.getInstance(modalElement);
+
+            modal.hide();
         }
 
         function openEditSiswaModal(button) {
 
             selectedEditRow = button.closest('tr');
 
-            document.getElementById('editIdSiswa').value =
-                button.dataset.id;
-
             const cells = selectedEditRow.children;
 
-            document.getElementById('editNamaSiswa').value = cells[2].innerText.trim();
-            document.getElementById('editNisSiswa').value = cells[3].innerText.trim();
-            document.getElementById('editKelasSiswa').value = cells[4].innerText.trim();
-            document.getElementById('editJenisKelaminSiswa').value = cells[5].innerText.trim();
-            document.getElementById('editEmailSiswa').value = cells[6].innerText.trim();
-            document.getElementById('editAlamatSiswa').value = cells[7].innerText.trim();
+            const nama = cells[2].innerText.trim();
+            const nis = cells[3].innerText.trim();
+            const kelas = cells[4].innerText.trim();
+            const jenisKelamin = cells[5].innerText.trim();
+            const email = cells[6].innerText.trim();
+            const alamat = cells[7].innerText.trim();
 
-            new bootstrap.Modal(
-                document.getElementById('modalEditSiswa')
-            ).show();
+            document.getElementById('editNamaSiswa').value = nama;
+            document.getElementById('editNisSiswa').value = nis;
+            document.getElementById('editKelasSiswa').value = kelas;
+            document.getElementById('editJenisKelaminSiswa').value = jenisKelamin;
+            document.getElementById('editEmailSiswa').value = email;
+            document.getElementById('editAlamatSiswa').value = alamat;
+
+            const modalElement = document.getElementById('modalEditSiswa');
+            const modal = new bootstrap.Modal(modalElement);
+
+            modal.show();
         }
 
         function submitEditSiswaFrontend() {
-            document.getElementById('formEditSiswa').submit();
+
+            if (selectedEditRow) {
+
+                selectedEditRow.children[2].innerText = document.getElementById('editNamaSiswa').value;
+                selectedEditRow.children[3].innerText = document.getElementById('editNisSiswa').value;
+                selectedEditRow.children[4].innerText = document.getElementById('editKelasSiswa').value;
+                selectedEditRow.children[5].innerText = document.getElementById('editJenisKelaminSiswa').value;
+                selectedEditRow.children[6].innerText = document.getElementById('editEmailSiswa').value;
+                selectedEditRow.children[7].innerText = document.getElementById('editAlamatSiswa').value;
+
+            }
+
+            const modalElement = document.getElementById('modalEditSiswa');
+            const modal = bootstrap.Modal.getInstance(modalElement);
+
+            modal.hide();
         }
     </script>
 
