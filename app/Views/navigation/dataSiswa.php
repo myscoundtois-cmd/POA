@@ -113,7 +113,7 @@
                                                         <td>
                                                             <?php if (!empty($row['foto'])): ?>
                                                                 <img
-                                                                    src="<?= base_url('uploads/' . $row['foto']) ?>"
+                                                                    src="<?= base_url('uploads/foto/' . $row['foto']) ?>"
                                                                     width="50"
                                                                     class="img-thumbnail">
                                                             <?php else: ?>
