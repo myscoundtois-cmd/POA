@@ -136,7 +136,7 @@
                                                                 <button
                                                                     class="btn btn-sm btn-warning"
                                                                     title="Edit Data"
-                                                                    data-id="<?= $row['id_dataUser'] ?>"
+                                                                    data-id="<?= $row['id_dataUser'] ?? '' ?>"
                                                                     onclick="openEditSiswaModal(this)">
                                                                     <i class="fa-solid fa-pen"></i>
                                                                 </button>
