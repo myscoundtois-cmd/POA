@@ -371,7 +371,7 @@
                                     name="kelas"
                                     id="editKelasSiswa"
                                     class="form-control"
-                                    placeholder="Masukkan NIS">
+                                    placeholder="Masukkan kelas siswa">
                             </span>
                         </div>
 
