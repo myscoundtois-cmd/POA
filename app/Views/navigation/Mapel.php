@@ -279,83 +279,141 @@
 
             <div id="con-buat-soal">
 
-                <form id="formUjian">
+                <div class="col-lg-5">
+                    <form id="formUjian">
 
-                    <input type="hidden"
-                        name="id_mapel"
-                        class="detail_id_mapel">
+                        <input type="hidden"
+                            name="id_mapel"
+                            class="detail_id_mapel">
 
-                    <div class="profile-row">
-                        <span class="label">Judul Ujian</span>
-                        <span class="separator">:</span>
-                        <span class="value">
-                            <input type="text"
-                                name="judul"
-                                class="form-control"
-                                required>
-                        </span>
+                        <div class="profile-row">
+                            <span class="label">Judul Ujian</span>
+                            <span class="separator">:</span>
+                            <span class="value">
+                                <input type="text"
+                                    name="judul"
+                                    class="form-control"
+                                    required>
+                            </span>
+                        </div>
+
+                        <div class="profile-row">
+                            <span class="label">Tipe Soal</span>
+                            <span class="separator">:</span>
+                            <span class="value">
+                                <select name="tipe_soal"
+                                    class="form-control"
+                                    required>
+
+                                    <option value="">-- Pilih Tipe Soal --</option>
+                                    <option value="pg">Pilihan Ganda</option>
+                                    <option value="esai">Esai</option>
+
+                                </select>
+                            </span>
+                        </div>
+
+                        <div class="profile-row">
+                            <span class="label">Pertemuan</span>
+                            <span class="separator">:</span>
+                            <span class="value">
+                                <select name="pertemuan"
+                                    class="form-control"
+                                    required>
+
+                                    <option value="">-- Pilih Pertemuan --</option>
+
+                                    <?php for ($i = 1; $i <= 23; $i++): ?>
+                                        <option value="<?= $i ?>">
+                                            Pertemuan <?= $i ?>
+                                        </option>
+                                    <?php endfor; ?>
+
+                                </select>
+                            </span>
+                        </div>
+
+                        <div class="profile-row">
+                            <span class="label">Durasi</span>
+                            <span class="separator">:</span>
+                            <span class="value">
+                                <input type="number"
+                                    name="durasi"
+                                    class="form-control"
+                                    min="1"
+                                    required>
+                            </span>
+                        </div>
+
+                        <div class="d-flex gap-2 flex-wrap mt-3">
+                            <button type="button" class="btn btn-secondary" onclick="kembaliKePertemuanMapel()">
+                                <i class="fa-solid fa-arrow-left"></i>
+                                Kembali
+                            </button>
+
+                            <button type="submit" class="btn btn-primary">
+                                Buat Ujian
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="col-lg-7">
+                    <div class="table-section guru-mapel-card">
+                        <div class="table-toolbar">
+                            <div class="toolbar-left">
+                                <h5 class="mb-0">Mata Pelajaran yang Dikelola</h5>
+                            </div>
+                            <div class="toolbar-right">
+                                <small class="text-muted">Ringkasan mapel dan kelas</small>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive mt-3">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Judul Soal</th>
+                                        <th>Pertemuan</th>
+                                        <th>Tipe Soal</th>
+                                        <th>Durasi</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <?php if (!empty($JudulTugas)): ?>
+                                        <?php foreach ($JudulTugas as $i => $row): ?>
+                                            <tr>
+                                                <td><?= $i + 1 ?></td>
+                                                <td><?= esc($row['judul']) ?></td>
+                                                <td>Pertemuan <?= esc($row['pertemuan']) ?></td>
+                                                <td><?= esc($row['tipe_soal']) ?></td>
+                                                <td><?= esc($row['durasi']) ?> Menit</td>
+                                                <td>
+                                                    <button class="btn btn-primary btn-sm">
+                                                        <i class="fa-solid fa-plus"></i>
+                                                        Buat Soal
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <tr>
+                                            <td colspan="5">
+                                                <div class="empty-state">
+                                                    <i class="fa-solid fa-clipboard-check"></i>
+                                                    <p>Belum ada soal yang dibuat.</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-
-                    <div class="profile-row">
-                        <span class="label">Tipe Soal</span>
-                        <span class="separator">:</span>
-                        <span class="value">
-                            <select name="tipe_soal"
-                                class="form-control"
-                                required>
-
-                                <option value="">-- Pilih Tipe Soal --</option>
-                                <option value="pg">Pilihan Ganda</option>
-                                <option value="esai">Esai</option>
-
-                            </select>
-                        </span>
-                    </div>
-
-                    <div class="profile-row">
-                        <span class="label">Pertemuan</span>
-                        <span class="separator">:</span>
-                        <span class="value">
-                            <select name="pertemuan"
-                                class="form-control"
-                                required>
-
-                                <option value="">-- Pilih Pertemuan --</option>
-
-                                <?php for ($i = 1; $i <= 23; $i++): ?>
-                                    <option value="<?= $i ?>">
-                                        Pertemuan <?= $i ?>
-                                    </option>
-                                <?php endfor; ?>
-
-                            </select>
-                        </span>
-                    </div>
-
-                    <div class="profile-row">
-                        <span class="label">Durasi</span>
-                        <span class="separator">:</span>
-                        <span class="value">
-                            <input type="number"
-                                name="durasi"
-                                class="form-control"
-                                min="1"
-                                required>
-                        </span>
-                    </div>
-
-                    <div class="d-flex gap-2 flex-wrap mt-3">
-                        <button type="button" class="btn btn-secondary" onclick="kembaliKePertemuanMapel()">
-                            <i class="fa-solid fa-arrow-left"></i>
-                            Kembali
-                        </button>
-
-                        <button type="submit" class="btn btn-primary">
-                            Buat Ujian
-                        </button>
-                    </div>
-
-                </form>
+                </div>
             </div>
 
             <div id="container-soal" style="display:none;">
@@ -389,9 +447,7 @@
                     Simpan Semua Soal
                 </button>
             </div>
-
         </div>
-
     </div>
 </div>
 <script>

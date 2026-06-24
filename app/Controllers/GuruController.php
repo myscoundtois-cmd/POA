@@ -189,6 +189,9 @@ class GuruController extends BaseController
             $data['detailSoal'] = [];
             $data['jawabanParsed'] = [];
         }
+        $judulSoal = new TugasUjiModel();
+
+        $data['JudulTugas'] = $judulSoal->findAll();
 
         $data['jawabanSiswa'] = $jawabanModel->findAll();
         return view('content/dashboard', $data);
