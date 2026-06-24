@@ -193,6 +193,9 @@ class MapelController extends BaseController
         } elseif ($role == 'admin') {
 
             return redirect()->to(base_url('admin/dashboard#nilai-murid'));
+        } elseif ($role == 'murid') {
+
+            return redirect()->to(base_url('murid/dashboard#nilai-murid'));
         } else {
 
             return redirect()->to(base_url('dashboard'));
