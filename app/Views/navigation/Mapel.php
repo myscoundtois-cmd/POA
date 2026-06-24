@@ -23,8 +23,7 @@
                                 data-id="<?= $m['id_mapel'] ?>"
                                 data-mapel="<?= esc($m['nama_mapel']) ?>"
                                 data-kelas="<?= esc($m['kelas']) ?>"
-                                data-guru="<?= esc($m['created_by']) ?>"
-                                style="cursor:pointer;">
+                                data-guru="<?= esc($m['created_by']) ?>">
 
                                 <div class="card-wave"></div>
 
@@ -106,7 +105,7 @@
         </div>
 
         <!-- DETAIL MAPEL -->
-        <div id="mapel-detail" style="display:none;">
+        <div id="mapel-detail" class="is-hidden">
 
             <div class="navbar-pertemuan">
 
@@ -174,18 +173,20 @@
                                             <?= esc($m['kelas']) ?>
                                         </p>
 
-                                        <a href="<?= site_url('materi/' . $m['file_mapel']) ?>"
-                                            target="_blank"
-                                            class="btn btn-warning btn-sm" style="color: white;">
-                                            <i class="fa-solid fa-file-arrow-down"></i>
-                                            Download Materi
-                                        </a>
+                                        <div class="mapel-action-group">
+                                            <a href="<?= site_url('materi/' . $m['file_mapel']) ?>"
+                                                target="_blank"
+                                                class="btn btn-warning btn-sm text-white mapel-mini-action">
+                                                <i class="fa-solid fa-file-arrow-down"></i>
+                                                Download Materi
+                                            </a>
 
-                                        <a href="<?= base_url('ReadSoal/' . $m['id_mapel']) . '/' . $m['pertemuan'] ?>"
-                                            class="menu-link btn btn-primary btn-sm">
-                                            <i class="fa-solid fa-list"></i>
-                                            Lihat Soal
-                                        </a>
+                                            <a href="<?= base_url('ReadSoal/' . $m['id_mapel']) . '/' . $m['pertemuan'] ?>"
+                                                class="btn btn-primary btn-sm mapel-mini-action mapel-lihat-soal-btn">
+                                                <i class="fa-solid fa-list"></i>
+                                                Lihat Soal
+                                            </a>
+                                        </div>
 
                                     </div>
 
@@ -416,7 +417,7 @@
                 </div>
             </div>
 
-            <div id="container-soal" style="display:none;">
+            <div id="container-soal" class="is-hidden">
 
                 <hr>
 

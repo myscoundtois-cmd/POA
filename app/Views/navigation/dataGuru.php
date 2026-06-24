@@ -13,10 +13,9 @@
             <div class="toolbar-right">
                 <input
                     type="text"
-                    class="form-control"
+                    class="form-control data-search-input"
                     placeholder="Cari guru..."
-                    onkeyup="searchTable(this, 'table-guru')"
-                    style="max-width: 220px;">
+                    onkeyup="searchTable(this, 'table-guru')">
 
                 <button class="btn btn-primary" type="button" onclick="openTambahGuruModal()">
                     <i class="fa-solid fa-user-plus"></i>
@@ -97,7 +96,7 @@
                                             <i class="fa-solid fa-pen"></i>
                                         </button>
 
-                                        <form action="<?= base_url('delete_guru/' . ($row['id_user'] ?? '')) ?>" method="post" style="display:inline;">
+                                        <form action="<?= base_url('delete_guru/' . ($row['id_user'] ?? '')) ?>" method="post" class="inline-delete-form">
                                             <button
                                                 class="btn btn-sm btn-danger"
                                                 type="submit"

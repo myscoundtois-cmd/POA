@@ -44,7 +44,7 @@
             <div class="profile-header-left">
 
                 <div class="profile-img profile-img-large">
-                    <img src="<?= base_url('uploads/foto/' . $fotoProfile); ?>" alt="Foto Profile">
+                    <img src="<?= base_url('uploads/foto/' . $fotoProfile); ?>" alt="Foto Profile" onerror="this.onerror=null;this.src='<?= base_url('image/unpam logo.png'); ?>';">
                 </div>
 
                 <div class="profile-title-text">
@@ -65,10 +65,10 @@
                 </button>
 
                 <button
-                    class="btn btn-primary btn-sm color-button save-btn"
+                    class="btn btn-primary btn-sm color-button save-btn is-hidden"
                     type="submit"
                     form="profile-form"
-                    style="display:none;"
+                    
                     title="Simpan Perubahan">
                     <i class="fa-regular fa-paper-plane"></i>
                 </button>
@@ -101,7 +101,7 @@
                     enctype="multipart/form-data"
                     id="profile-form">
 
-                    <div class="upload-wrapper" style="display:none;">
+                    <div class="upload-wrapper is-hidden" >
                         <div class="profile-row">
                             <span class="label">Foto Profile</span>
                             <span class="separator">:</span>
@@ -145,7 +145,7 @@
 
             </div>
 
-            <div class="profile-list" id="password-edit" style="display:none;">
+            <div class="profile-list is-hidden" id="password-edit" >
 
                 <div class="profile-section-title">
                     <h5>Ubah Password</h5>
@@ -227,215 +227,6 @@
     </div>
 
 </div>
-
-<style>
-    .profile-page-section {
-        padding: 22px;
-    }
-
-    .profile-header-card {
-        background: linear-gradient(135deg, #eff6ff, #ffffff);
-        border: 1px solid #e5e7eb;
-        border-radius: 18px;
-        padding: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 18px;
-        margin-bottom: 22px;
-    }
-
-    .profile-header-left {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        min-width: 0;
-    }
-
-    .profile-img-large {
-        width: 86px;
-        height: 86px;
-        flex: 0 0 86px;
-        border-radius: 50%;
-        overflow: hidden;
-        border: 4px solid #ffffff;
-        box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
-    }
-
-    .profile-img-large img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .profile-title-text {
-        min-width: 0;
-    }
-
-    .profile-title-text h5 {
-        margin: 8px 0 4px;
-        color: #0f172a;
-        font-size: 20px;
-        font-weight: 700;
-        word-break: break-word;
-    }
-
-    .profile-title-text p {
-        margin: 0;
-        color: #64748b;
-        font-size: 14px;
-        word-break: break-word;
-    }
-
-    .profile-badge {
-        display: inline-block;
-        background: #dbeafe;
-        color: #1d4ed8;
-        border-radius: 999px;
-        padding: 5px 12px;
-        font-size: 12px;
-        font-weight: 700;
-    }
-
-    .profile-body-revisi {
-        display: block;
-    }
-
-    .profile-section-title {
-        margin-bottom: 18px;
-    }
-
-    .profile-section-title h5 {
-        margin: 0 0 4px;
-        color: #0f172a;
-        font-weight: 700;
-    }
-
-    .profile-list {
-        background: #ffffff;
-        border: 1px solid #e5e7eb;
-        border-radius: 18px;
-        padding: 20px;
-    }
-
-    .readonly-value {
-        color: #0f172a;
-        font-weight: 600;
-    }
-
-    .profile-password-submit {
-        margin-top: 18px;
-        display: flex;
-        justify-content: flex-end;
-    }
-
-    .password-box {
-        position: relative;
-        display: flex;
-        align-items: center;
-    }
-
-    .password-box .form-control {
-        padding-right: 46px;
-    }
-
-    .toggle-password {
-        position: absolute;
-        right: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-        border: none;
-        background: transparent;
-        color: #64748b;
-        cursor: pointer;
-    }
-
-    @media (max-width: 768px) {
-        .profile-page-section {
-            padding: 14px;
-        }
-
-        .profile-header-card {
-            flex-direction: column;
-            align-items: stretch;
-            padding: 16px;
-        }
-
-        .profile-header-left {
-            align-items: flex-start;
-        }
-
-        .profile-img-large {
-            width: 68px;
-            height: 68px;
-            flex-basis: 68px;
-        }
-
-        .profile-title-text h5 {
-            font-size: 17px;
-        }
-
-        .profile-title-text p {
-            font-size: 13px;
-        }
-
-        .profile-action {
-            width: 100%;
-            display: flex;
-            gap: 8px;
-        }
-
-        .profile-action .btn {
-            flex: 1;
-        }
-
-        .profile-list {
-            padding: 16px;
-            border-radius: 14px;
-        }
-
-        .profile-row {
-            display: block;
-        }
-
-        .profile-row .label,
-        .profile-row .separator,
-        .profile-row .value {
-            display: block;
-            width: 100%;
-        }
-
-        .profile-row .separator {
-            display: none;
-        }
-
-        .profile-row .label {
-            margin-bottom: 6px;
-            font-weight: 600;
-            color: #334155;
-        }
-
-        .profile-password-submit .btn {
-            width: 100%;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .profile-header-left {
-            flex-direction: column;
-        }
-
-        .profile-img-large {
-            margin: 0 auto;
-        }
-
-        .profile-title-text {
-            width: 100%;
-            text-align: center;
-        }
-    }
-</style>
-
 <script>
     const editBtn = document.querySelector('.edit-btn');
     const saveBtn = document.querySelector('.save-btn');

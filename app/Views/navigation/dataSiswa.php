@@ -19,10 +19,9 @@
             <div class="toolbar-right">
                 <input
                     type="text"
-                    class="form-control"
+                    class="form-control data-search-input"
                     placeholder="Cari siswa..."
-                    onkeyup="searchSiswaDropdown(this)"
-                    style="max-width: 220px;">
+                    onkeyup="searchSiswaDropdown(this)">
 
                 <button class="btn btn-primary" type="button" onclick="openTambahSiswaModal()">
                     <i class="fa-solid fa-user-plus"></i>
@@ -51,13 +50,12 @@
 
                         <tr
                             class="kelas-row"
-                            onclick="toggleSiswaKelas(this, 'siswa-kelas-<?= $k['kelas'] ?>')"
-                            style="cursor:pointer;">
+                            onclick="toggleSiswaKelas(this, 'siswa-kelas-<?= $k['kelas'] ?>')">
 
                             <td><?= $index + 1 ?></td>
 
                             <td>
-                                <div style="display:flex; align-items:center; justify-content:space-between;">
+                                <div class="kelas-cell-toggle">
                                     <strong>Kelas <?= esc($k['kelas']) ?></strong>
                                     <i class="fa-solid fa-chevron-down dropdown-icon"></i>
                                 </div>
@@ -75,14 +73,13 @@
 
                         <tr
                             id="siswa-kelas-<?= $k['kelas'] ?>"
-                            class="siswa-dropdown-row"
-                            style="display:none;">
+                            class="siswa-dropdown-row is-hidden">
 
                             <td colspan="4">
 
-                                <div class="table-responsive">
+                                <div class="table-responsive siswa-detail-scroll">
 
-                                    <table class="table table-hover has-sticky-action">
+                                    <table class="table table-hover has-sticky-action siswa-detail-table">
 
                                         <thead>
                                             <tr>
@@ -114,8 +111,9 @@
                                                             <?php if (!empty($row['foto'])): ?>
                                                                 <img
                                                                     src="<?= base_url('uploads/foto/' . $row['foto']) ?>"
-                                                                    width="50"
-                                                                    class="img-thumbnail">
+                                                                    alt="Foto Siswa"
+                                                                    class="table-img table-avatar"
+                                                                    onerror="this.style.display='none';">
                                                             <?php else: ?>
                                                                 <span class="text-muted">
                                                                     Tidak ada foto
@@ -141,7 +139,7 @@
                                                                     <i class="fa-solid fa-pen"></i>
                                                                 </button>
 
-                                                                <form action="<?= base_url('delete_siswa/' . ($row['id_dataUser'] ?? '')) ?>" method="post" style="display:inline;">
+                                                                <form action="<?= base_url('delete_siswa/' . ($row['id_dataUser'] ?? '')) ?>" method="post" class="inline-delete-form">
                                                                     <button
                                                                         class="btn btn-sm btn-danger"
                                                                         type="submit"
@@ -371,7 +369,7 @@
                                     name="kelas"
                                     id="editKelasSiswa"
                                     class="form-control"
-                                    placeholder="Masukkan kelas siswa">
+                                    placeholder="Masukkan NIS">
                             </span>
                         </div>
 

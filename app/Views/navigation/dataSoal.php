@@ -62,7 +62,7 @@
                                 <img
                                     src="<?= base_url('uploads/soal/' . $row['gambar']) ?>"
                                     class="img-fluid rounded mb-3"
-                                    style="max-width:500px;">
+                                    >
                             <?php endif; ?>
 
                             <!-- PILIHAN GANDA -->
