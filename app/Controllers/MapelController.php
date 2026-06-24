@@ -17,10 +17,6 @@ class MapelController extends BaseController
 
         if ($role == 'admin') {
             return redirect()->to(base_url('/admin/dashboard#data_soal'));
-        } elseif ($role == 'guru') {
-            return redirect()->to(base_url('/guru/dashboard#data_soal'));
-        } else {
-            return redirect()->to(base_url('/murid/dashboard#data_soal'));
         }
 
         return redirect()->back()->with('error', 'Role tidak dikenali');

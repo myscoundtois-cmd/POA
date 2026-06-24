@@ -20,8 +20,6 @@ class MuridController extends BaseController
 
         if (session()->get('role') != 'murid') {
             return redirect()->to('/');
-        } elseif (session()->get('role') == 'admin') {
-            return redirect()->to('/murid/dashboard');
         }
 
         $mapelModel = new MapelModel();
