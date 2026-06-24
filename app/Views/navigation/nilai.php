@@ -653,7 +653,7 @@
         data.forEach((item, index) => {
             const nilai = Number(item.nilai ?? 0);
             const status = nilai >= 75 ? 'Cukup' : 'Perlu Ditingkatkan';
-            const statusClass = nilai >= 75 ? 'aktif' : 'nonaktif';
+            const statusClass = nilai >= 75 ? 'is-good' : 'is-warning';
             const nama = item.nama_siswa ?? item.nama ?? '-';
             const kelasSiswa = item.kelas ?? kelas;
 
@@ -682,7 +682,7 @@
                     <td>${mapel}</td>
                     <td>Pertemuan ${pertemuan}</td>
                     <td>
-                        <span class="status ${statusClass}">
+                        <span class="nilai-status-badge ${statusClass}">
                             ${status}
                         </span>
                     </td>

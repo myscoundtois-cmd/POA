@@ -205,215 +205,241 @@
                 </div>
             </div>
 
-            <div id="con-tambah-pertemuan">
+            <div id="con-tambah-pertemuan" class="mapel-pertemuan-layout">
 
                 <form action="<?= base_url('materi') ?>"
                     method="post"
-                    enctype="multipart/form-data">
+                    enctype="multipart/form-data"
+                    class="mapel-pertemuan-form-card">
 
                     <input type="hidden"
                         name="id_mapel"
                         class="detail_id_mapel">
 
-                    <div class="profile-row">
-                        <span class="label">Nama Mapel</span>
-                        <span class="separator">:</span>
-                        <span class="value">
-                            <input type="text"
-                                name="nama_mapel"
-                                class="form-control detail_mapel"
-                                readonly>
-                        </span>
+                    <div class="mapel-pertemuan-form-grid">
+                        <div class="mapel-pertemuan-column">
+                            <div class="profile-row">
+                                <span class="label">Nama Mapel</span>
+                                <span class="separator">:</span>
+                                <span class="value">
+                                    <input type="text"
+                                        name="nama_mapel"
+                                        class="form-control detail_mapel"
+                                        readonly>
+                                </span>
+                            </div>
+
+                            <div class="profile-row">
+                                <span class="label">Pengajar</span>
+                                <span class="separator">:</span>
+                                <span class="value">
+                                    <input type="text"
+                                        name="guru"
+                                        class="form-control detail_guru"
+                                        readonly>
+                                </span>
+                            </div>
+
+                            <div class="profile-row">
+                                <span class="label">Kelas</span>
+                                <span class="separator">:</span>
+                                <span class="value">
+                                    <input type="text"
+                                        name="kelas"
+                                        class="form-control detail_kelas"
+                                        readonly>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="mapel-pertemuan-column mapel-pertemuan-column-right">
+                            <div class="profile-row">
+                                <span class="label">Pertemuan</span>
+                                <span class="separator">:</span>
+                                <span class="value">
+                                    <input type="number"
+                                        name="pertemuan"
+                                        class="form-control"
+                                        min="1"
+                                        step="1"
+                                        inputmode="numeric"
+                                        required>
+                                </span>
+                            </div>
+
+                            <div class="profile-row">
+                                <span class="label">File Materi</span>
+                                <span class="separator">:</span>
+                                <span class="value">
+                                    <input type="file"
+                                        name="file_mapel"
+                                        class="form-control"
+                                        required>
+                                </span>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="profile-row">
-                        <span class="label">Pengajar</span>
-                        <span class="separator">:</span>
-                        <span class="value">
-                            <input type="text"
-                                name="guru"
-                                class="form-control detail_guru"
-                                readonly>
-                        </span>
+                    <div class="mapel-pertemuan-actions">
+                        <button type="submit"
+                            class="btn btn-primary">
+                            Simpan Materi
+                        </button>
                     </div>
-
-                    <div class="profile-row">
-                        <span class="label">Kelas</span>
-                        <span class="separator">:</span>
-                        <span class="value">
-                            <input type="text"
-                                name="kelas"
-                                class="form-control detail_kelas"
-                                readonly>
-                        </span>
-                    </div>
-
-                    <div class="profile-row">
-                        <span class="label">Pertemuan</span>
-                        <span class="separator">:</span>
-                        <span class="value">
-                            <input type="text"
-                                name="pertemuan"
-                                class="form-control"
-                                required>
-                        </span>
-                    </div>
-
-                    <div class="profile-row">
-                        <span class="label">File Materi</span>
-                        <span class="separator">:</span>
-                        <span class="value">
-                            <input type="file"
-                                name="file_mapel"
-                                class="form-control"
-                                required>
-                        </span>
-                    </div>
-
-                    <button type="submit"
-                        class="btn btn-primary mt-3">
-                        Simpan Materi
-                    </button>
 
                 </form>
             </div>
 
-            <div id="con-buat-soal">
+            <div id="con-buat-soal" class="mapel-soal-layout">
 
-                <div class="col-lg-5">
-                    <form id="formUjian">
+                <div class="mapel-soal-grid">
 
-                        <input type="hidden"
-                            name="id_mapel"
-                            class="detail_id_mapel">
+                    <div class="mapel-soal-form-card">
+                        <form id="formUjian" class="mapel-soal-form">
 
-                        <div class="profile-row">
-                            <span class="label">Judul Ujian</span>
-                            <span class="separator">:</span>
-                            <span class="value">
-                                <input type="text"
-                                    name="judul"
-                                    class="form-control"
-                                    required>
-                            </span>
-                        </div>
+                            <input type="hidden"
+                                name="id_mapel"
+                                class="detail_id_mapel">
 
-                        <div class="profile-row">
-                            <span class="label">Tipe Soal</span>
-                            <span class="separator">:</span>
-                            <span class="value">
-                                <select name="tipe_soal"
-                                    class="form-control"
-                                    required>
+                            <div class="mapel-soal-form-grid">
+                                <div class="mapel-soal-column">
+                                    <div class="profile-row">
+                                        <span class="label">Judul Materi</span>
+                                        <span class="separator">:</span>
+                                        <span class="value">
+                                            <input type="text"
+                                                name="judul"
+                                                class="form-control"
+                                                required>
+                                        </span>
+                                    </div>
 
-                                    <option value="">-- Pilih Tipe Soal --</option>
-                                    <option value="pg">Pilihan Ganda</option>
-                                    <option value="esai">Esai</option>
+                                    <div class="profile-row">
+                                        <span class="label">Tipe Soal</span>
+                                        <span class="separator">:</span>
+                                        <span class="value">
+                                            <select name="tipe_soal"
+                                                class="form-control"
+                                                required>
 
-                                </select>
-                            </span>
-                        </div>
+                                                <option value="">-- Pilih Tipe Soal --</option>
+                                                <option value="pg">Pilihan Ganda</option>
+                                                <option value="esai">Esai</option>
 
-                        <div class="profile-row">
-                            <span class="label">Pertemuan</span>
-                            <span class="separator">:</span>
-                            <span class="value">
-                                <select name="pertemuan"
-                                    class="form-control"
-                                    required>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
 
-                                    <option value="">-- Pilih Pertemuan --</option>
+                                <div class="mapel-soal-column mapel-soal-column-right">
+                                    <div class="profile-row">
+                                        <span class="label">Pertemuan</span>
+                                        <span class="separator">:</span>
+                                        <span class="value">
+                                            <select name="pertemuan"
+                                                class="form-control"
+                                                required>
 
-                                    <?php for ($i = 1; $i <= 23; $i++): ?>
-                                        <option value="<?= $i ?>">
-                                            Pertemuan <?= $i ?>
-                                        </option>
-                                    <?php endfor; ?>
+                                                <option value="">-- Pilih Pertemuan --</option>
 
-                                </select>
-                            </span>
-                        </div>
+                                                <?php for ($i = 1; $i <= 23; $i++): ?>
+                                                    <option value="<?= $i ?>">
+                                                        Pertemuan <?= $i ?>
+                                                    </option>
+                                                <?php endfor; ?>
 
-                        <div class="profile-row">
-                            <span class="label">Durasi</span>
-                            <span class="separator">:</span>
-                            <span class="value">
-                                <input type="number"
-                                    name="durasi"
-                                    class="form-control"
-                                    min="1"
-                                    required>
-                            </span>
-                        </div>
+                                            </select>
+                                        </span>
+                                    </div>
 
-                        <div class="d-flex gap-2 flex-wrap mt-3">
-                            <button type="button" class="btn btn-secondary" onclick="kembaliKePertemuanMapel()">
-                                <i class="fa-solid fa-arrow-left"></i>
-                                Kembali
-                            </button>
-
-                            <button type="submit" class="btn btn-primary">
-                                Buat Ujian
-                            </button>
-                        </div>
-
-                    </form>
-                </div>
-                <div class="col-lg-7">
-                    <div class="table-section guru-mapel-card">
-                        <div class="table-toolbar">
-                            <div class="toolbar-left">
-                                <h5 class="mb-0">Mata Pelajaran yang Dikelola</h5>
+                                    <div class="profile-row">
+                                        <span class="label">Durasi</span>
+                                        <span class="separator">:</span>
+                                        <span class="value">
+                                            <input type="number"
+                                                name="durasi"
+                                                class="form-control"
+                                                min="1"
+                                                inputmode="numeric"
+                                                required>
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="toolbar-right">
-                                <small class="text-muted">Ringkasan mapel dan kelas</small>
+
+                            <div class="mapel-soal-actions">
+                                <button type="button" class="btn btn-secondary" onclick="kembaliKePertemuanMapel()">
+                                    <i class="fa-solid fa-arrow-left"></i>
+                                    Kembali
+                                </button>
+
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa-solid fa-keyboard"></i>
+                                    Input Soal
+                                </button>
                             </div>
-                        </div>
 
-                        <div class="table-responsive mt-3">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Judul Soal</th>
-                                        <th>Pertemuan</th>
-                                        <th>Tipe Soal</th>
-                                        <th>Durasi</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
+                        </form>
+                    </div>
 
-                                <tbody>
-                                    <?php if (!empty($JudulTugas)): ?>
-                                        <?php foreach ($JudulTugas as $i => $row): ?>
+                    <div class="mapel-soal-list-card" id="judul-tugas-panel">
+                        <div class="table-section guru-mapel-card mapel-managed-question-card">
+                            <div class="table-toolbar">
+                                <div class="toolbar-left">
+                                    <h5 class="mb-0">Mata Pelajaran yang Dikelola</h5>
+                                </div>
+                                <div class="toolbar-right">
+                                    <small class="text-muted">Ringkasan soal, pertemuan, dan durasi</small>
+                                </div>
+                            </div>
+
+                            <div class="table-responsive mapel-question-scroll mt-3">
+                                <table class="table table-hover mapel-task-table">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Judul Soal</th>
+                                            <th>Pertemuan</th>
+                                            <th>Tipe Soal</th>
+                                            <th>Durasi</th>
+                                            <th class="mapel-mobile-action-col">Aksi</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <?php if (!empty($JudulTugas)): ?>
+                                            <?php foreach ($JudulTugas as $i => $row): ?>
+                                                <tr>
+                                                    <td><?= $i + 1 ?></td>
+                                                    <td><?= esc($row['judul']) ?></td>
+                                                    <td>Pertemuan <?= esc($row['pertemuan']) ?></td>
+                                                    <td><?= esc($row['tipe_soal']) ?></td>
+                                                    <td><?= esc($row['durasi']) ?> Menit</td>
+                                                    <td class="mapel-mobile-action-col">
+                                                        <button class="btn btn-primary btn-sm mapel-edit-soal-btn">
+                                                            <i class="fa-solid fa-pen-to-square"></i>
+                                                            Edit Soal
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
                                             <tr>
-                                                <td><?= $i + 1 ?></td>
-                                                <td><?= esc($row['judul']) ?></td>
-                                                <td>Pertemuan <?= esc($row['pertemuan']) ?></td>
-                                                <td><?= esc($row['tipe_soal']) ?></td>
-                                                <td><?= esc($row['durasi']) ?> Menit</td>
-                                                <td>
-                                                    <button class="btn btn-primary btn-sm">
-                                                        <i class="fa-solid fa-plus"></i>
-                                                        Buat Soal
-                                                    </button>
+                                                <td colspan="6">
+                                                    <div class="empty-state">
+                                                        <i class="fa-solid fa-clipboard-check"></i>
+                                                        <p>Belum ada soal yang dibuat.</p>
+                                                    </div>
                                                 </td>
                                             </tr>
-                                        <?php endforeach; ?>
-                                    <?php else: ?>
-                                        <tr>
-                                            <td colspan="5">
-                                                <div class="empty-state">
-                                                    <i class="fa-solid fa-clipboard-check"></i>
-                                                    <p>Belum ada soal yang dibuat.</p>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    <?php endif; ?>
-                                </tbody>
-                            </table>
+                                        <?php endif; ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
+
+
                 </div>
             </div>
 
@@ -455,6 +481,25 @@
     let nomorSoal = 0;
     let tipeSoalAktif = '';
 
+    function aturTabelKelolaMapelDiBuatSoal(tampilkan = true) {
+        const judulTugasPanel = document.getElementById('judul-tugas-panel');
+
+        if (!judulTugasPanel) {
+            return;
+        }
+
+        if (tampilkan) {
+            judulTugasPanel.hidden = false;
+            judulTugasPanel.classList.remove('input-soal-table-hidden');
+            judulTugasPanel.style.removeProperty('display');
+            return;
+        }
+
+        judulTugasPanel.hidden = true;
+        judulTugasPanel.classList.add('input-soal-table-hidden');
+        judulTugasPanel.style.setProperty('display', 'none', 'important');
+    }
+
     document.getElementById('formUjian').addEventListener('submit', function(e) {
 
         e.preventDefault();
@@ -480,9 +525,16 @@
                     tipeSoalAktif =
                         formData.get('tipe_soal');
 
-                    // sembunyikan form ujian
+                    // sembunyikan form ujian dan tabel ringkasan soal
                     document.getElementById('formUjian')
                         .style.display = 'none';
+
+                    aturTabelKelolaMapelDiBuatSoal(false);
+
+                    const conBuatSoal = document.getElementById('con-buat-soal');
+                    if (conBuatSoal) {
+                        conBuatSoal.classList.add('input-soal-mode');
+                    }
 
                     // tampilkan container soal
                     document.getElementById('container-soal')
@@ -683,20 +735,23 @@
         const conBuatSoal = document.getElementById('con-buat-soal');
         const containerSoal = document.getElementById('container-soal');
         const formUjian = document.getElementById('formUjian');
-
         if (conPertemuan) conPertemuan.style.display = 'block';
         if (conTambahPertemuan) conTambahPertemuan.style.display = 'none';
         if (conBuatSoal) conBuatSoal.style.display = 'none';
         if (containerSoal) containerSoal.style.display = 'none';
         if (formUjian) formUjian.style.display = 'block';
+        aturTabelKelolaMapelDiBuatSoal(true);
+        if (conBuatSoal) conBuatSoal.classList.remove('input-soal-mode');
     }
 
     function kembaliKeFormUjianMapel() {
         const containerSoal = document.getElementById('container-soal');
         const formUjian = document.getElementById('formUjian');
-
+        const conBuatSoal = document.getElementById('con-buat-soal');
         if (containerSoal) containerSoal.style.display = 'none';
         if (formUjian) formUjian.style.display = 'block';
+        aturTabelKelolaMapelDiBuatSoal(true);
+        if (conBuatSoal) conBuatSoal.classList.remove('input-soal-mode');
     }
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -775,7 +830,21 @@
 
                 if (conBuatSoal) {
                     conBuatSoal.style.display = 'block';
+                    conBuatSoal.classList.remove('input-soal-mode');
                 }
+
+                const formUjian = document.getElementById('formUjian');
+                const containerSoal = document.getElementById('container-soal');
+
+                if (formUjian) {
+                    formUjian.style.display = 'block';
+                }
+
+                if (containerSoal) {
+                    containerSoal.style.display = 'none';
+                }
+
+                aturTabelKelolaMapelDiBuatSoal(true);
 
             });
         }

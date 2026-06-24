@@ -123,20 +123,16 @@
         }
 
         $totalNilaiGuru = count($nilaiListGuru);
-        $jumlahNilaiGuru = 0;
         $nilaiRendahGuru = 0;
         $nilaiTerbaruGuru = array_slice(array_reverse($nilaiListGuru), 0, 5);
 
         foreach ($nilaiListGuru as $n) {
             $nilai = (int)($n['nilai'] ?? 0);
-            $jumlahNilaiGuru += $nilai;
-
             if ($nilai > 0 && $nilai < 75) {
                 $nilaiRendahGuru++;
             }
         }
 
-        $rataNilaiGuru = $totalNilaiGuru > 0 ? round($jumlahNilaiGuru / $totalNilaiGuru) : 0;
         $totalMateriGuru = count($materiListGuru);
         ?>
 
@@ -150,10 +146,6 @@
                     </p>
                 </div>
 
-                <div class="guru-status-box">
-                    <span>Rata-rata Nilai</span>
-                    <strong><?= $rataNilaiGuru ?></strong>
-                </div>
             </div>
 
             <div class="row mt-4 g-4">
