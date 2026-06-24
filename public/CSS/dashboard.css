@@ -1192,6 +1192,7 @@ body.sidebar-open .layout-content {
   }
 }
 
+
 /* =========================
    FINAL RESPONSIVE FIX
 ========================= */
@@ -1328,281 +1329,1531 @@ img.table-avatar,
   }
 }
 
-.nilai-hero {
-  background: linear-gradient(135deg, #eff6ff, #ffffff);
-  border: 1px solid #dbeafe;
-  border-radius: 18px;
-  padding: 20px;
+/* =========================
+   FINAL UI POLISH 2026-06-24
+========================= */
+:root {
+  --poa-bg: #f4f7fe;
+  --poa-card: #ffffff;
+  --poa-border: #e5e7eb;
+  --poa-text: #0f172a;
+  --poa-muted: #64748b;
+  --poa-primary: #2563eb;
+  --poa-primary-dark: #1e3a8a;
+  --poa-soft: #eff6ff;
+  --poa-shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
+  --poa-shadow-soft: 0 6px 16px rgba(15, 23, 42, 0.06);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--poa-bg) !important;
+  color: var(--poa-text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.layout-content {
+  width: 100%;
+  max-width: 100%;
+}
+
+.top-header,
+.table-section,
+.profile-list,
+.profile-header-card,
+.guru-hero,
+.wali-hero,
+.murid-hero,
+.admin-purpose-head,
+.admin-purpose-card,
+.guru-info-item,
+.murid-note-item {
+  box-shadow: var(--poa-shadow-soft) !important;
+}
+
+.top-header {
+  backdrop-filter: blur(12px);
+}
+
+.header-title-box h4,
+.table-section h5,
+.profile-section-title h5,
+.admin-purpose-head h5,
+.guru-hero h4,
+.wali-hero h4,
+.murid-hero h4 {
+  letter-spacing: -0.015em;
+}
+
+/* Foto harus selalu bulat dan tidak berubah oval di Android */
+.navbar-profile img,
+.profile-avatar-img,
+.sidebar-brand img,
+.school-brand img,
+.profile-img img,
+.profile-img-large,
+.profile-img-large img,
+.table-img,
+.table-avatar,
+.table .img-thumbnail {
+  width: 50px !important;
+  height: 50px !important;
+  min-width: 50px !important;
+  max-width: 50px !important;
+  aspect-ratio: 1 / 1 !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  display: inline-block !important;
+  flex: 0 0 50px !important;
+  padding: 0 !important;
+  background: #ffffff !important;
+  overflow: hidden !important;
+}
+
+.navbar-profile img,
+.profile-avatar-img {
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  max-width: 44px !important;
+  flex-basis: 44px !important;
+  border: 3px solid #e5e7eb !important;
+}
+
+.sidebar-brand img,
+.school-brand img {
+  width: 48px !important;
+  height: 48px !important;
+  min-width: 48px !important;
+  max-width: 48px !important;
+  flex-basis: 48px !important;
+}
+
+.profile-img-large,
+.profile-img-large img,
+.profile-img img {
+  width: 86px !important;
+  height: 86px !important;
+  min-width: 86px !important;
+  max-width: 86px !important;
+  flex-basis: 86px !important;
+}
+
+/* Dashboard semua role */
+#dashboard .row.g-4 {
+  --bs-gutter-x: 1rem;
+  --bs-gutter-y: 1rem;
+}
+
+.dashboard-card {
+  min-height: 150px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  isolation: isolate;
 }
 
-.nilai-hero-label {
-  display: inline-block;
-  background: #ffffff;
-  color: #2563eb;
-  border: 1px solid #dbeafe;
-  border-radius: 999px;
-  padding: 6px 12px;
-  font-size: 13px;
-  font-weight: 600;
-  margin-bottom: 10px;
+.dashboard-card h5,
+.dashboard-card h2 {
+  position: relative;
+  z-index: 2;
 }
 
-.nilai-hero h5 {
-  margin: 0 0 6px;
-  color: #0f172a;
-  font-weight: 700;
+.dashboard-card h5 {
+  margin-bottom: 6px;
+  line-height: 1.35;
 }
 
-.nilai-hero p {
+.dashboard-card h2 {
   margin: 0;
-  color: #64748b;
-  font-size: 14px;
-  line-height: 1.6;
+  line-height: 1;
 }
 
-.nilai-hero-icon {
-  width: 58px;
-  height: 58px;
-  min-width: 58px;
-  border-radius: 18px;
-  background: #2563eb;
-  color: #ffffff;
-  display: flex;
+.dashboard-card i {
+  z-index: 1;
+}
+
+.admin-purpose-section,
+.guru-dashboard,
+.wali-dashboard,
+.murid-dashboard {
+  min-width: 0;
+}
+
+.admin-purpose-card,
+.guru-info-item,
+.murid-note-item {
+  min-width: 0;
+}
+
+.guru-hero,
+.wali-hero,
+.murid-hero {
+  background: linear-gradient(135deg, #ffffff, #f8fbff) !important;
+}
+
+.guru-status-box,
+.wali-status,
+.murid-status-box {
+  flex: 0 0 auto;
+}
+
+/* Tabel lebih rapi dan mudah digeser di mobile */
+.table-section {
+  overflow: visible;
+}
+
+.table-responsive {
+  position: relative;
+  border-radius: 14px;
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table {
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+}
+
+.table thead th {
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.table tbody td {
+  vertical-align: middle;
+}
+
+.table tbody tr:hover {
+  transform: none !important;
+}
+
+/* Kolom aksi tetap menempel di kanan saat tabel digeser */
+.has-sticky-action {
+  min-width: max(820px, 100%);
+}
+
+.has-sticky-action th:last-child,
+.has-sticky-action td:last-child,
+.action-sticky-cell {
+  position: sticky !important;
+  right: 0 !important;
+  z-index: 6;
+  background: #ffffff !important;
+  box-shadow: -10px 0 18px rgba(15, 23, 42, 0.10);
+}
+
+.has-sticky-action thead th:last-child {
+  z-index: 10;
+  background: #f8fafc !important;
+}
+
+.action-sticky-cell {
+  min-width: 108px;
+  width: 108px;
+  text-align: center;
+}
+
+.action-table {
+  display: inline-flex !important;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
+  gap: 8px;
+  flex-wrap: nowrap !important;
+  white-space: nowrap;
 }
 
-.nilai-summary-box {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
+.action-table form {
+  margin: 0 !important;
+  display: inline-flex !important;
 }
 
-.nilai-summary-box div {
-  background: #f8fafc;
-  border: 1px solid #e5e7eb;
-  border-radius: 14px;
-  padding: 14px;
-}
-
-.nilai-summary-box span {
-  display: block;
-  color: #64748b;
-  font-size: 13px;
-  margin-bottom: 4px;
-}
-
-.nilai-summary-box strong {
-  color: #0f172a;
-  font-size: 15px;
-  font-weight: 700;
-}
-
-.nilai-toolbar-clean {
-  background: #f8fafc;
-  border: 1px solid #e5e7eb;
-  border-radius: 14px;
-  padding: 14px;
-}
-
-.nilai-kelas-row,
-.nilai-mapel-row,
-.nilai-mapel-pribadi-row {
-  cursor: pointer;
-  background: #ffffff;
-}
-
-.nilai-kelas-row:hover,
-.nilai-mapel-row:hover,
-.nilai-mapel-pribadi-row:hover {
-  background: #f8fafc;
-}
-
-.nilai-row-title,
-.nilai-mapel-title {
-  display: flex;
+.action-table .btn,
+.nilai-action-btn {
+  min-width: 36px;
+  min-height: 36px;
+  display: inline-flex !important;
   align-items: center;
-  gap: 9px;
-}
-
-.nilai-row-title strong,
-.nilai-mapel-title strong {
-  color: #0f172a;
-  font-size: 14px;
-}
-
-.nilai-row-title .dropdown-icon,
-.nilai-mapel-title .dropdown-icon {
-  margin-left: auto;
-  color: #64748b;
-}
-
-.nilai-badge {
-  background: #e0f2fe;
-  color: #0369a1;
-  border: 1px solid #bae6fd;
-  border-radius: 999px;
-  padding: 4px 10px;
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.nilai-mapel-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #2563eb;
-  display: inline-block;
-}
-
-.nilai-total-badge {
-  display: inline-flex;
-  align-items: center;
-  background: #eef4ff;
-  color: #2563eb;
-  border: 1px solid #dbeafe;
-  border-radius: 999px;
-  padding: 5px 10px;
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.nilai-mapel-dropdown-row > td,
-.nilai-pertemuan-dropdown-row > td,
-.nilai-pertemuan-pribadi-row > td {
-  background: #f8fafc;
-  padding: 14px;
-}
-
-.nilai-inner-box {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-left: 4px solid #2563eb;
-  border-radius: 14px;
-  padding: 14px;
-}
-
-.nilai-inner-head {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 0 0 12px;
-}
-
-.nilai-inner-head strong {
-  display: block;
-  color: #0f172a;
-  font-size: 15px;
-  margin-bottom: 2px;
-}
-
-.nilai-inner-head small {
-  color: #64748b;
-  font-size: 13px;
-}
-
-.nilai-pertemuan-box {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 14px;
-  padding: 14px;
-}
-
-.nilai-pertemuan-title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.nilai-pertemuan-title strong {
-  color: #0f172a;
-  font-size: 14px;
-}
-
-.nilai-pertemuan-title span {
-  color: #64748b;
-  font-size: 13px;
-}
-
-.nilai-pertemuan-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 9px;
-}
-
-.nilai-pertemuan-list button {
-  border: 1px solid #dbeafe;
-  background: #eef4ff;
-  color: #2563eb;
-  padding: 8px 13px;
-  border-radius: 9px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.nilai-pertemuan-list button:hover {
-  background: #2563eb;
-  color: #ffffff;
+  justify-content: center;
 }
 
 .nilai-action-btn {
+  min-width: 92px;
+}
+
+/* Toolbar */
+.table-toolbar {
+  row-gap: 12px;
+}
+
+.toolbar-right .form-control {
+  min-height: 40px;
+}
+
+.toolbar-right .btn,
+.toolbar-left .btn,
+.profile-action .btn {
+  min-height: 38px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
-  padding: 7px 12px;
-  border-radius: 10px;
-  background: #eff6ff;
-  color: #2563eb !important;
-  border: 1px solid #dbeafe;
-  font-size: 13px;
-  font-weight: 700;
-  text-decoration: none;
-  white-space: nowrap;
-  transition: 0.2s;
+  gap: 8px;
 }
 
-.nilai-action-btn:hover {
-  background: #2563eb;
-  color: #ffffff !important;
-  transform: translateY(-1px);
+/* Profile */
+.profile-header-left,
+.profile-title-text,
+.profile-row,
+.value {
+  min-width: 0;
 }
 
-.nilai-action-btn i {
-  font-size: 13px;
+.profile-row .value {
+  word-break: break-word;
 }
 
-.dropdown-icon {
-  font-size: 13px;
-  transition: 0.2s;
+.gender-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.gender-group label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+}
+
+/* Mobile */
+@media (max-width: 992px) {
+  .dashboard-card {
+    min-height: 138px;
+  }
 }
 
 @media (max-width: 768px) {
-  .nilai-hero {
-    align-items: flex-start;
+  .layout-content {
+    padding: 10px !important;
   }
 
-  .nilai-hero-icon {
-    display: none;
+  .top-header {
+    margin-bottom: 16px;
+    border-radius: 16px;
   }
 
-  .nilai-summary-box {
-    grid-template-columns: 1fr;
+  .table-section {
+    padding: 14px !important;
+    border-radius: 16px !important;
   }
 
-  .nilai-inner-head,
-  .nilai-pertemuan-title {
-    flex-direction: column;
-    align-items: flex-start;
+  #dashboard .row.mt-4,
+  #dashboard .row.g-4 {
+    margin-top: 12px !important;
+  }
+
+  .dashboard-card {
+    min-height: 126px;
+    padding: 18px !important;
+  }
+
+  .dashboard-card h5 {
+    font-size: 14px !important;
+  }
+
+  .dashboard-card h2 {
+    font-size: 30px !important;
+  }
+
+  .dashboard-card i {
+    font-size: 38px !important;
+  }
+
+  .guru-hero,
+  .wali-hero,
+  .murid-hero,
+  .admin-purpose-head,
+  .profile-header-card {
+    padding: 16px !important;
+    border-radius: 16px !important;
+  }
+
+  .guru-status-box,
+  .wali-status,
+  .murid-status-box {
+    width: 100% !important;
+  }
+
+  .table-responsive .table {
+    min-width: 760px;
+  }
+
+  .has-sticky-action {
+    min-width: 860px !important;
+  }
+
+  .has-sticky-action th:last-child,
+  .has-sticky-action td:last-child,
+  .action-sticky-cell {
+    right: 0 !important;
+    box-shadow: -12px 0 18px rgba(15, 23, 42, 0.14);
+  }
+
+  .action-sticky-cell {
+    min-width: 92px;
+    width: 92px;
+  }
+
+  .action-table {
+    gap: 6px;
+  }
+
+  .action-table .btn {
+    width: 36px !important;
+    height: 36px !important;
+    padding: 0 !important;
+  }
+
+  .nilai-action-btn {
+    min-width: 38px !important;
+    width: 38px !important;
+    height: 38px !important;
+  }
+
+  .nilai-action-btn span {
+    display: none !important;
+  }
+
+  .navbar-profile img,
+  .profile-avatar-img {
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+    max-width: 40px !important;
+    flex-basis: 40px !important;
+  }
+
+  .profile-img-large,
+  .profile-img-large img,
+  .profile-img img {
+    width: 72px !important;
+    height: 72px !important;
+    min-width: 72px !important;
+    max-width: 72px !important;
+    flex-basis: 72px !important;
+  }
+
+  .profile-action .btn {
+    min-height: 42px;
+  }
+}
+
+@media (max-width: 480px) {
+  .layout-content {
+    padding: 8px !important;
+  }
+
+  .top-header {
+    top: 6px;
+    padding: 10px !important;
+  }
+
+  .header-title-box h4 {
+    max-width: 180px;
+  }
+
+  .header-title-box span {
+    max-width: 170px !important;
+  }
+
+  .table-section {
+    padding: 12px !important;
+  }
+
+  .dashboard-card {
+    min-height: 118px;
+    border-radius: 16px !important;
+  }
+
+  .profile-header-left {
+    align-items: center !important;
+  }
+
+  .profile-title-text {
+    text-align: center;
+  }
+
+  .dashboard-popup {
+    left: 10px !important;
+    right: 10px !important;
+    top: 10px !important;
+  }
+}
+
+/* =========================================================
+   FINAL FIX: layout mengikuti ukuran browser
+   Penyebab sebelumnya: .layout-content memakai width:100% + margin-left sidebar.
+   Di desktop hal itu membuat lebar aktual menjadi lebih dari viewport.
+========================================================= */
+html,
+body {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+}
+
+body {
+  min-width: 0 !important;
+}
+
+.layout-content {
+  width: auto !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  margin-left: 0 !important;
+}
+
+body.sidebar-open .layout-content {
+  margin-left: 260px !important;
+  width: calc(100% - 260px) !important;
+  max-width: calc(100% - 260px) !important;
+}
+
+.content-page,
+.content-page .main-content,
+.top-header,
+.table-section,
+.profile-header-card,
+.profile-list,
+.admin-purpose-section,
+.guru-dashboard,
+.wali-dashboard,
+.murid-dashboard {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
+
+.row {
+  min-width: 0 !important;
+}
+
+.table-responsive {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  overflow-y: visible !important;
+}
+
+.table-responsive > .table {
+  margin-bottom: 0 !important;
+}
+
+@media (max-width: 992px) and (min-width: 769px) {
+  body.sidebar-open .layout-content {
+    margin-left: 240px !important;
+    width: calc(100% - 240px) !important;
+    max-width: calc(100% - 240px) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .layout-content,
+  body.sidebar-open .layout-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .top-header {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .table-responsive {
+    max-width: calc(100vw - 20px) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .table-responsive {
+    max-width: calc(100vw - 16px) !important;
+  }
+}
+
+/* =========================================================
+   FINAL FIX: dashboard cards sejajar dan lebih rapi
+   Berlaku untuk dashboard murid, guru, wali, dan admin.
+========================================================= */
+.guru-dashboard .row.g-4,
+.wali-dashboard .row.g-4,
+.murid-dashboard .row.g-4,
+.admin-purpose-section .row.g-3 {
+  align-items: stretch !important;
+}
+
+.guru-dashboard .row.g-4 > [class*="col-"],
+.wali-dashboard .row.g-4 > [class*="col-"],
+.murid-dashboard .row.g-4 > [class*="col-"],
+.admin-purpose-section .row.g-3 > [class*="col-"] {
+  display: flex !important;
+  min-width: 0 !important;
+}
+
+.guru-dashboard .row.g-4 > [class*="col-"] > .dashboard-card,
+.wali-dashboard .row.g-4 > [class*="col-"] > .dashboard-card,
+.murid-dashboard .row.g-4 > [class*="col-"] > .dashboard-card,
+.guru-dashboard .row.g-4 > [class*="col-"] > .table-section,
+.wali-dashboard .row.g-4 > [class*="col-"] > .table-section,
+.murid-dashboard .row.g-4 > [class*="col-"] > .table-section,
+.admin-purpose-section .row.g-3 > [class*="col-"] > .admin-purpose-card {
+  width: 100% !important;
+  height: 100% !important;
+  flex: 1 1 auto !important;
+}
+
+.guru-dashboard .table-section,
+.wali-dashboard .table-section,
+.murid-dashboard .table-section,
+.admin-purpose-section {
+  position: relative;
+  border: 1px solid #e6edf8 !important;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%) !important;
+}
+
+.guru-dashboard .table-section::before,
+.wali-dashboard .table-section::before,
+.murid-dashboard .table-section::before,
+.admin-purpose-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 20px;
+  right: 20px;
+  height: 4px;
+  border-radius: 0 0 999px 999px;
+  background: linear-gradient(90deg, #2563eb, #60a5fa, #dbeafe);
+}
+
+.guru-dashboard .table-section h5,
+.wali-dashboard .table-section h5,
+.murid-dashboard .table-section h5,
+.admin-purpose-section h5 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 30px;
+}
+
+.guru-dashboard .table-section h5::before,
+.wali-dashboard .table-section h5::before,
+.murid-dashboard .table-section h5::before,
+.admin-purpose-section h5::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #2563eb;
+  box-shadow: 0 0 0 5px #eff6ff;
+  flex: 0 0 9px;
+}
+
+.guru-dashboard .table-toolbar,
+.wali-dashboard .table-toolbar,
+.murid-dashboard .table-toolbar {
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eef2f7;
+}
+
+.guru-dashboard .table-responsive,
+.wali-dashboard .table-responsive,
+.murid-dashboard .table-responsive {
+  border: 1px solid #edf2f7;
+  background: #ffffff;
+}
+
+.guru-dashboard .table thead th,
+.wali-dashboard .table thead th,
+.murid-dashboard .table thead th {
+  background: #f8fbff !important;
+  color: #334155 !important;
+}
+
+.guru-info-list,
+.murid-note-list {
+  flex: 1 1 auto;
+}
+
+.murid-note-card {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.murid-note-list {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+}
+
+.murid-note-item,
+.guru-info-item {
+  transition: 0.2s ease;
+}
+
+.murid-note-item:hover,
+.guru-info-item:hover {
+  transform: translateY(-2px);
+  border-color: #bfdbfe;
+  background: #ffffff;
+}
+
+.wali-anak-card,
+.murid-profile-card,
+.guru-info-card {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.wali-info-row:last-child,
+.murid-info-row:last-child {
+  border-bottom: none !important;
+}
+
+.wali-info-row strong,
+.murid-info-row strong {
+  max-width: 58%;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 768px) {
+  .guru-dashboard .row.g-4 > [class*="col-"],
+  .wali-dashboard .row.g-4 > [class*="col-"],
+  .murid-dashboard .row.g-4 > [class*="col-"],
+  .admin-purpose-section .row.g-3 > [class*="col-"] {
+    display: block !important;
+  }
+
+  .guru-dashboard .row.g-4 > [class*="col-"] > .dashboard-card,
+  .wali-dashboard .row.g-4 > [class*="col-"] > .dashboard-card,
+  .murid-dashboard .row.g-4 > [class*="col-"] > .dashboard-card,
+  .guru-dashboard .row.g-4 > [class*="col-"] > .table-section,
+  .wali-dashboard .row.g-4 > [class*="col-"] > .table-section,
+  .murid-dashboard .row.g-4 > [class*="col-"] > .table-section {
+    height: auto !important;
+  }
+
+  .guru-dashboard .table-section::before,
+  .wali-dashboard .table-section::before,
+  .murid-dashboard .table-section::before,
+  .admin-purpose-section::before {
+    left: 14px;
+    right: 14px;
+  }
+
+  .murid-note-list {
+    justify-content: flex-start !important;
+  }
+}
+
+/* =========================================================
+   FINAL FIX 2026-06-24: transisi sidebar lebih halus
+   Prinsip: sidebar bergerak memakai transform, sedangkan konten hanya
+   mengubah margin-left dengan width auto agar tidak terpental saat dibuka.
+========================================================= */
+.sidebar {
+  left: 0 !important;
+  transform: translate3d(-100%, 0, 0) !important;
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1) !important;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+body.sidebar-open .sidebar {
+  left: 0 !important;
+  transform: translate3d(0, 0, 0) !important;
+}
+
+.layout-content {
+  margin-left: 0 !important;
+  width: auto !important;
+  max-width: none !important;
+  transform: translate3d(0, 0, 0);
+  transition:
+    margin-left 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+    padding 0.25s ease !important;
+  will-change: margin-left;
+  backface-visibility: hidden;
+}
+
+@media (min-width: 993px) {
+  body.sidebar-open .layout-content {
+    margin-left: 260px !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+}
+
+@media (max-width: 992px) and (min-width: 769px) {
+  body.sidebar-open .layout-content {
+    margin-left: 240px !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .layout-content,
+  body.sidebar-open .layout-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .sidebar-overlay {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.28s ease !important;
+  }
+
+  body.sidebar-open .sidebar-overlay {
+    display: block !important;
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+/* =========================================================
+   FINAL FIX 2026-06-24: dashboard guru lebih lega dan rapi
+========================================================= */
+.guru-dashboard {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 24px !important;
+  padding-bottom: 28px !important;
+}
+
+.guru-dashboard > .row,
+.guru-dashboard > .table-section {
+  margin-top: 0 !important;
+}
+
+.guru-dashboard .guru-hero {
+  border-radius: 22px !important;
+  padding: 26px !important;
+  border: 1px solid #dbeafe !important;
+  background:
+    radial-gradient(circle at top right, rgba(37, 99, 235, 0.10), transparent 34%),
+    linear-gradient(135deg, #ffffff 0%, #f8fbff 100%) !important;
+}
+
+.guru-dashboard .dashboard-card {
+  min-height: 164px !important;
+  padding: 26px !important;
+}
+
+.guru-dashboard .table-section {
+  margin-top: 0 !important;
+  padding: 22px 18px !important;
+  border-radius: 22px !important;
+}
+
+.guru-dashboard .guru-info-card,
+.guru-dashboard .guru-mapel-card,
+.guru-dashboard .guru-nilai-card {
+  min-height: 100% !important;
+}
+
+.guru-dashboard .guru-info-list {
+  gap: 14px !important;
+  margin-top: 18px !important;
+}
+
+.guru-dashboard .guru-info-item {
+  padding: 16px !important;
+  border-radius: 16px !important;
+}
+
+.guru-dashboard .table-toolbar {
+  margin-bottom: 18px !important;
+  padding-bottom: 14px !important;
+}
+
+.guru-dashboard .table-responsive {
+  margin-top: 0 !important;
+  border-radius: 16px !important;
+}
+
+.guru-dashboard .guru-nilai-card {
+  padding-bottom: 18px !important;
+}
+
+.guru-dashboard .guru-nilai-card .table tbody td,
+.guru-dashboard .guru-mapel-card .table tbody td {
+  padding-top: 17px !important;
+  padding-bottom: 17px !important;
+}
+
+@media (max-width: 768px) {
+  .guru-dashboard {
+    gap: 18px !important;
+    padding-bottom: 18px !important;
+  }
+
+  .guru-dashboard .guru-hero,
+  .guru-dashboard .table-section {
+    border-radius: 18px !important;
+    padding: 16px !important;
+  }
+
+  .guru-dashboard .dashboard-card {
+    min-height: 132px !important;
+    padding: 18px !important;
+  }
+
+  .guru-dashboard .table-toolbar {
+    margin-bottom: 14px !important;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .sidebar-overlay {
+    display: block !important;
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    background: rgba(15, 23, 42, 0.45);
+    transition: opacity 0.28s ease, visibility 0.28s ease !important;
+  }
+
+  body.sidebar-open .sidebar-overlay {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+/* =========================================================
+   FINAL FIX: tombol aksi mobile tidak terpotong
+   Base: versi smooth guru, tanpa style creative polish.
+========================================================= */
+.table-responsive {
+  overflow-x: auto !important;
+  overflow-y: visible !important;
+  padding-bottom: 8px;
+}
+
+.has-sticky-action th:last-child,
+.has-sticky-action td:last-child,
+.action-sticky-cell {
+  min-width: 128px !important;
+  width: 128px !important;
+  max-width: 128px !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  overflow: visible !important;
+}
+
+.action-table {
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  flex-wrap: nowrap !important;
+  overflow: visible !important;
+}
+
+.action-table .btn,
+.action-table form .btn {
+  flex: 0 0 38px !important;
+  width: 38px !important;
+  min-width: 38px !important;
+  height: 38px !important;
+  min-height: 38px !important;
+  padding: 0 !important;
+}
+
+.action-table form {
+  flex: 0 0 auto !important;
+}
+
+/* Khusus tabel siswa di dalam dropdown kelas agar area tombol aksi tetap utuh */
+.siswa-dropdown-row .table-responsive {
+  padding-right: 0 !important;
+}
+
+.siswa-dropdown-row .has-sticky-action {
+  min-width: 980px !important;
+}
+
+.siswa-dropdown-row .action-sticky-cell {
+  min-width: 132px !important;
+  width: 132px !important;
+  max-width: 132px !important;
+}
+
+@media (max-width: 768px) {
+  .table-responsive {
+    max-width: 100% !important;
+  }
+
+  .has-sticky-action {
+    min-width: 920px !important;
+  }
+
+  .has-sticky-action th:last-child,
+  .has-sticky-action td:last-child,
+  .action-sticky-cell {
+    min-width: 126px !important;
+    width: 126px !important;
+    max-width: 126px !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+
+  .siswa-dropdown-row .has-sticky-action {
+    min-width: 960px !important;
+  }
+
+  .siswa-dropdown-row .action-sticky-cell {
+    min-width: 128px !important;
+    width: 128px !important;
+    max-width: 128px !important;
+  }
+
+  .action-table {
+    gap: 7px !important;
+  }
+
+  .action-table .btn,
+  .action-table form .btn {
+    flex-basis: 38px !important;
+    width: 38px !important;
+    min-width: 38px !important;
+    height: 38px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .has-sticky-action th:last-child,
+  .has-sticky-action td:last-child,
+  .action-sticky-cell {
+    min-width: 122px !important;
+    width: 122px !important;
+    max-width: 122px !important;
+    padding-left: 7px !important;
+    padding-right: 7px !important;
+  }
+
+  .siswa-dropdown-row .action-sticky-cell {
+    min-width: 126px !important;
+    width: 126px !important;
+    max-width: 126px !important;
+  }
+
+  .action-table .btn,
+  .action-table form .btn {
+    flex-basis: 36px !important;
+    width: 36px !important;
+    min-width: 36px !important;
+    height: 36px !important;
+  }
+}
+
+/* =========================================================
+   FINAL FIX: kolom Aksi normal di laptop, sticky di mobile
+   Catatan: blok ini sengaja ringan dan tidak memuat creative polish.
+========================================================= */
+
+/* Desktop/laptop: kolom aksi kembali normal agar tidak terlihat memisah */
+@media (min-width: 769px) {
+  .has-sticky-action {
+    width: 100% !important;
+    min-width: 100% !important;
+  }
+
+  .has-sticky-action th:last-child,
+  .has-sticky-action td:last-child,
+  .has-sticky-action .action-sticky-cell {
+    position: static !important;
+    right: auto !important;
+    z-index: auto !important;
+    box-shadow: none !important;
+    min-width: 100px !important;
+    width: 100px !important;
+    max-width: 110px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  .has-sticky-action thead th:last-child {
+    background: #f8fafc !important;
+  }
+
+  .has-sticky-action tbody td.action-sticky-cell {
+    background: transparent !important;
+  }
+
+  .has-sticky-action .action-table {
+    width: auto !important;
+    justify-content: center !important;
+  }
+}
+
+/* Mobile: tabel kelas dibuat mengikuti lebar layar agar sticky Aksi bekerja di viewport */
+@media (max-width: 768px) {
+  .table-responsive {
+    position: relative !important;
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  #table-kelas-siswa {
+    width: 100% !important;
+    min-width: 100% !important;
+    table-layout: auto !important;
+  }
+
+  #table-kelas-siswa > thead > tr > th:nth-child(1),
+  #table-kelas-siswa > tbody > tr.kelas-row > td:nth-child(1) {
+    width: 44px !important;
+  }
+
+  #table-kelas-siswa > thead > tr > th:nth-child(2),
+  #table-kelas-siswa > tbody > tr.kelas-row > td:nth-child(2) {
+    width: 42% !important;
+  }
+
+  #table-kelas-siswa > thead > tr > th:nth-child(3),
+  #table-kelas-siswa > tbody > tr.kelas-row > td:nth-child(3) {
+    width: 38% !important;
+  }
+
+  #table-kelas-siswa > thead > tr > th:nth-child(4),
+  #table-kelas-siswa > tbody > tr.kelas-row > td:nth-child(4) {
+    display: none !important;
+  }
+
+  .siswa-dropdown-row > td {
+    padding: 12px 0 10px 0 !important;
+  }
+
+  .siswa-dropdown-row .table-responsive {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-bottom: 10px !important;
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+  }
+
+  .has-sticky-action,
+  .siswa-dropdown-row .has-sticky-action {
+    width: 960px !important;
+    min-width: 960px !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+  }
+
+  .has-sticky-action th:last-child,
+  .has-sticky-action td:last-child,
+  .has-sticky-action .action-sticky-cell {
+    position: sticky !important;
+    right: 0 !important;
+    z-index: 20 !important;
+    min-width: 118px !important;
+    width: 118px !important;
+    max-width: 118px !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    background: #ffffff !important;
+    box-shadow: -8px 0 14px rgba(15, 23, 42, 0.08) !important;
+    overflow: visible !important;
+  }
+
+  .has-sticky-action thead th:last-child {
+    z-index: 25 !important;
+    background: #f8fafc !important;
+  }
+
+  .has-sticky-action .action-table {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 7px !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
+  }
+
+  .has-sticky-action .action-table .btn,
+  .has-sticky-action .action-table form .btn {
+    flex: 0 0 36px !important;
+    width: 36px !important;
+    min-width: 36px !important;
+    height: 36px !important;
+    min-height: 36px !important;
+    padding: 0 !important;
+  }
+
+  .has-sticky-action .action-table form {
+    flex: 0 0 auto !important;
+    margin: 0 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .has-sticky-action,
+  .siswa-dropdown-row .has-sticky-action {
+    width: 900px !important;
+    min-width: 900px !important;
+  }
+
+  .has-sticky-action th:last-child,
+  .has-sticky-action td:last-child,
+  .has-sticky-action .action-sticky-cell {
+    min-width: 112px !important;
+    width: 112px !important;
+    max-width: 112px !important;
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+  }
+
+  .has-sticky-action .action-table {
+    gap: 6px !important;
+  }
+
+  .has-sticky-action .action-table .btn,
+  .has-sticky-action .action-table form .btn {
+    flex-basis: 34px !important;
+    width: 34px !important;
+    min-width: 34px !important;
+    height: 34px !important;
+    min-height: 34px !important;
+  }
+}
+
+/* =========================================================
+   FINAL FIX KHUSUS DATA SISWA MOBILE
+   Tujuan: tombol Aksi pada tabel siswa di dalam dropdown kelas
+   tetap ter-pin di kanan seperti tabel Data Guru.
+   Catatan: tidak memuat style creative polish.
+========================================================= */
+@media (max-width: 768px) {
+  /* Cegah tabel kelas melebar karena tabel siswa di dalam dropdown */
+  #table-kelas-siswa {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    table-layout: fixed !important;
+  }
+
+  #table-kelas-siswa > thead > tr > th:nth-child(1),
+  #table-kelas-siswa > tbody > tr.kelas-row > td:nth-child(1) {
+    width: 46px !important;
+  }
+
+  #table-kelas-siswa > thead > tr > th:nth-child(2),
+  #table-kelas-siswa > tbody > tr.kelas-row > td:nth-child(2) {
+    width: 42% !important;
+  }
+
+  #table-kelas-siswa > thead > tr > th:nth-child(3),
+  #table-kelas-siswa > tbody > tr.kelas-row > td:nth-child(3) {
+    width: auto !important;
+  }
+
+  #table-kelas-siswa > thead > tr > th:nth-child(4),
+  #table-kelas-siswa > tbody > tr.kelas-row > td:nth-child(4) {
+    display: none !important;
+  }
+
+  /* Trik penting: td dropdown jangan ikut membesarkan tabel induk */
+  #table-kelas-siswa > tbody > tr.siswa-dropdown-row > td {
+    width: 100% !important;
+    max-width: 0 !important;
+    min-width: 0 !important;
+    padding: 12px 0 10px 0 !important;
+    overflow: visible !important;
+  }
+
+  /* Jadikan wrapper tabel siswa sebagai scroll-container yang sebenarnya */
+  .siswa-dropdown-row .siswa-detail-scroll {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding: 0 0 10px 0 !important;
+    margin: 0 !important;
+    isolation: isolate !important;
+  }
+
+  .siswa-dropdown-row .siswa-detail-table {
+    width: 920px !important;
+    min-width: 920px !important;
+    max-width: none !important;
+    table-layout: auto !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+  }
+
+  .siswa-dropdown-row .siswa-detail-table th:last-child,
+  .siswa-dropdown-row .siswa-detail-table td:last-child,
+  .siswa-dropdown-row .siswa-detail-table td.action-sticky-cell {
+    position: sticky !important;
+    right: 0 !important;
+    left: auto !important;
+    z-index: 80 !important;
+    width: 118px !important;
+    min-width: 118px !important;
+    max-width: 118px !important;
+    padding-left: 7px !important;
+    padding-right: 7px !important;
+    background: #ffffff !important;
+    box-shadow: -10px 0 16px rgba(15, 23, 42, 0.10) !important;
+    overflow: visible !important;
+  }
+
+  .siswa-dropdown-row .siswa-detail-table thead th:last-child {
+    z-index: 100 !important;
+    background: #f8fafc !important;
+  }
+
+  .siswa-dropdown-row .siswa-detail-table tbody td.action-sticky-cell {
+    background: #ffffff !important;
+  }
+
+  .siswa-dropdown-row .siswa-detail-table .action-table {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 7px !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
+  }
+
+  .siswa-dropdown-row .siswa-detail-table .action-table .btn,
+  .siswa-dropdown-row .siswa-detail-table .action-table form .btn {
+    flex: 0 0 36px !important;
+    width: 36px !important;
+    min-width: 36px !important;
+    height: 36px !important;
+    min-height: 36px !important;
+    padding: 0 !important;
+  }
+
+  .siswa-dropdown-row .siswa-detail-table .action-table form {
+    flex: 0 0 auto !important;
+    margin: 0 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .siswa-dropdown-row .siswa-detail-table {
+    width: 880px !important;
+    min-width: 880px !important;
+  }
+
+  .siswa-dropdown-row .siswa-detail-table th:last-child,
+  .siswa-dropdown-row .siswa-detail-table td:last-child,
+  .siswa-dropdown-row .siswa-detail-table td.action-sticky-cell {
+    width: 112px !important;
+    min-width: 112px !important;
+    max-width: 112px !important;
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+  }
+
+  .siswa-dropdown-row .siswa-detail-table .action-table {
+    gap: 6px !important;
+  }
+
+  .siswa-dropdown-row .siswa-detail-table .action-table .btn,
+  .siswa-dropdown-row .siswa-detail-table .action-table form .btn {
+    flex-basis: 34px !important;
+    width: 34px !important;
+    min-width: 34px !important;
+    height: 34px !important;
+    min-height: 34px !important;
+  }
+}
+
+
+/* =========================================================
+   FINAL FIX V2: STATUS BELAJAR MURID DAN WALI
+   Memastikan teks status tetap terbaca dan tidak tertabrak
+   warna global .aktif / .nonaktif.
+========================================================= */
+.murid-status-box,
+.wali-status {
+  overflow: visible !important;
+}
+
+.murid-status-box .murid-status-value,
+.murid-status-box strong.aktif,
+.murid-status-box strong.nonaktif,
+.wali-status .wali-status-value,
+.wali-status strong.aktif,
+.wali-status strong.nonaktif {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: auto !important;
+  max-width: 100% !important;
+  min-height: 34px !important;
+  padding: 8px 14px !important;
+  border-radius: 999px !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  text-align: center !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+.murid-status-box .murid-status-value.is-good,
+.murid-status-box strong.aktif,
+.wali-status .wali-status-value.is-good,
+.wali-status strong.aktif {
+  color: #166534 !important;
+  background: #dcfce7 !important;
+  border: 1px solid #86efac !important;
+}
+
+.murid-status-box .murid-status-value.is-warning,
+.murid-status-box strong.nonaktif,
+.wali-status .wali-status-value.is-warning,
+.wali-status strong.nonaktif {
+  color: #991b1b !important;
+  background: #fee2e2 !important;
+  border: 1px solid #fecaca !important;
+}
+
+.murid-status-box.status-good,
+.wali-status.status-good {
+  background: #f7fef9 !important;
+  border: 1px solid #bbf7d0 !important;
+}
+
+.murid-status-box.status-warning,
+.wali-status.status-warning {
+  background: #fff7ed !important;
+  border: 1px solid #fed7aa !important;
+}
+
+@media (max-width: 768px) {
+  .murid-status-box .murid-status-value,
+  .murid-status-box strong.aktif,
+  .murid-status-box strong.nonaktif,
+  .wali-status .wali-status-value,
+  .wali-status strong.aktif,
+  .wali-status strong.nonaktif {
+    width: 100% !important;
+    padding: 9px 12px !important;
+  }
+}
+
+/* =========================================================
+   FINAL FIX 2026-06-24: HEADER BENAR-BENAR TER-PIN
+   Target: header yang berisi burger menu, judul, dan foto profil.
+   Catatan: layout-content sebelumnya memakai transform, sehingga position fixed
+   bisa ikut bergerak. Karena itu transform dimatikan khusus untuk wrapper utama.
+========================================================= */
+html,
+body {
+  scroll-padding-top: 120px !important;
+}
+
+.layout-content {
+  transform: none !important;
+  will-change: auto !important;
+  padding-top: 118px !important;
+}
+
+.top-header {
+  position: fixed !important;
+  top: 24px !important;
+  left: 25px !important;
+  right: 25px !important;
+  width: auto !important;
+  max-width: none !important;
+  margin-bottom: 0 !important;
+  z-index: 950 !important;
+  background: rgba(255, 255, 255, 0.98) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+body.sidebar-open .top-header {
+  left: 285px !important;
+}
+
+@media (max-width: 992px) and (min-width: 769px) {
+  .layout-content {
+    padding-top: 112px !important;
+  }
+
+  body.sidebar-open .top-header {
+    left: 265px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  html,
+  body {
+    scroll-padding-top: 92px !important;
+  }
+
+  .layout-content,
+  body.sidebar-open .layout-content {
+    padding-top: 92px !important;
+  }
+
+  .top-header,
+  body.sidebar-open .top-header {
+    top: 10px !important;
+    left: 10px !important;
+    right: 10px !important;
+    width: auto !important;
+    z-index: 950 !important;
+  }
+
+  body.sidebar-open .top-header {
+    z-index: 800 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .layout-content,
+  body.sidebar-open .layout-content {
+    padding-top: 88px !important;
+  }
+
+  .top-header,
+  body.sidebar-open .top-header {
+    top: 8px !important;
+    left: 8px !important;
+    right: 8px !important;
   }
 }

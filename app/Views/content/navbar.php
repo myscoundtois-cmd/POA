@@ -1,3 +1,9 @@
+<?php
+$fotoNavbar = session()->get('foto');
+$fotoNavbarSrc = !empty($fotoNavbar)
+    ? base_url('uploads/foto/' . $fotoNavbar)
+    : base_url('image/unpam logo.png');
+?>
 <div class="top-header">
 
     <div class="header-left">
@@ -36,8 +42,10 @@
         </div>
 
         <img
-            src="<?= base_url('uploads/foto/' . session()->get('foto')); ?>"
-            alt="Foto Profile">
+            src="<?= $fotoNavbarSrc; ?>"
+            alt="Foto Profile"
+            class="profile-avatar-img"
+            onerror="this.onerror=null;this.src='<?= base_url('image/unpam logo.png'); ?>';">
 
     </a>
 

@@ -4,7 +4,7 @@
     <?php if (session('role') === 'admin'): ?>
 
         <div class="row mt-4 g-4">
-            <div class="col-md-3">
+            <div class="col-xl-3 col-md-6">
                 <div class="dashboard-card bg1">
                     <div class="card-wave"></div>
                     <h5>Total Siswa</h5>
@@ -13,7 +13,7 @@
                 </div>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-xl-3 col-md-6">
                 <div class="dashboard-card bg2">
                     <div class="card-wave"></div>
                     <h5>Total Guru</h5>
@@ -22,7 +22,7 @@
                 </div>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-xl-3 col-md-6">
                 <div class="dashboard-card bg3">
                     <div class="card-wave"></div>
                     <h5>Total Kelas</h5>
@@ -31,7 +31,7 @@
                 </div>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-xl-3 col-md-6">
                 <div class="dashboard-card bg4">
                     <div class="card-wave"></div>
                     <h5>Total Mapel</h5>
@@ -245,7 +245,7 @@
             </div>
 
             <div class="row mt-4 g-4">
-                <div class="col-md-3">
+                <div class="col-xl-3 col-md-6">
                     <div class="dashboard-card bg1">
                         <div class="card-wave"></div>
                         <h5>Kelas yang Diajar</h5>
@@ -254,7 +254,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-xl-3 col-md-6">
                     <div class="dashboard-card bg2">
                         <div class="card-wave"></div>
                         <h5>Mapel Aktif</h5>
@@ -263,7 +263,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-xl-3 col-md-6">
                     <div class="dashboard-card bg3">
                         <div class="card-wave"></div>
                         <h5>Total Materi</h5>
@@ -272,7 +272,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-xl-3 col-md-6">
                     <div class="dashboard-card bg4">
                         <div class="card-wave"></div>
                         <h5>Perlu Perhatian</h5>
@@ -324,7 +324,7 @@
                 </div>
 
                 <div class="col-lg-7">
-                    <div class="table-section">
+                    <div class="table-section guru-mapel-card">
                         <div class="table-toolbar">
                             <div class="toolbar-left">
                                 <h5 class="mb-0">Mata Pelajaran yang Dikelola</h5>
@@ -371,7 +371,7 @@
                 </div>
             </div>
 
-            <div class="table-section mt-4">
+            <div class="table-section guru-nilai-card mt-4">
                 <div class="table-toolbar">
                     <div class="toolbar-left">
                         <h5 class="mb-0">Nilai Terbaru Siswa</h5>
@@ -610,7 +610,6 @@
         $totalMapel = count($mapelDinilai);
         $statusAkademik = $rataRata >= 75 ? 'Baik' : 'Perlu Pendampingan';
         $statusClass = $rataRata >= 75 ? 'aktif' : 'nonaktif';
-        $statusTextClass = $rataRata >= 75 ? 'wali-status-text-good' : 'wali-status-text-warning';
         $nilaiTerbaru = array_slice(array_reverse($nilaiAnak), 0, 5);
         ?>
 
@@ -625,12 +624,12 @@
 
                 <div class="wali-status <?= $statusClass === 'aktif' ? 'status-good' : 'status-warning' ?>">
                     <span>Status Akademik</span>
-                    <strong class="<?= $statusTextClass ?>"><?= esc($statusAkademik) ?></strong>
+                    <strong class="wali-status-value <?= $statusClass === 'aktif' ? 'is-good' : 'is-warning' ?>"><?= esc($statusAkademik) ?></strong>
                 </div>
             </div>
 
             <div class="row mt-4 g-4">
-                <div class="col-md-3">
+                <div class="col-xl-3 col-md-6">
                     <div class="dashboard-card bg1">
                         <div class="card-wave"></div>
                         <h5>Rata-rata Nilai</h5>
@@ -639,7 +638,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-xl-3 col-md-6">
                     <div class="dashboard-card bg2">
                         <div class="card-wave"></div>
                         <h5>Mapel Dinilai</h5>
@@ -648,7 +647,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-xl-3 col-md-6">
                     <div class="dashboard-card bg3">
                         <div class="card-wave"></div>
                         <h5>Total Penilaian</h5>
@@ -657,7 +656,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-xl-3 col-md-6">
                     <div class="dashboard-card bg4">
                         <div class="card-wave"></div>
                         <h5>Nilai Tertinggi</h5>
@@ -851,7 +850,7 @@
             }
 
             .wali-status {
-                min-width: 190px;
+                min-width: 180px;
                 border-radius: 16px;
                 padding: 16px;
                 text-align: center;
@@ -871,32 +870,36 @@
                 display: block;
                 color: #475569;
                 font-size: 13px;
-                margin-bottom: 8px;
+                margin-bottom: 6px;
             }
 
-            .wali-status strong {
-                display: inline-flex;
+            .wali-status-value,
+            .wali-status strong.aktif,
+            .wali-status strong.nonaktif {
+                display: inline-flex !important;
                 align-items: center;
                 justify-content: center;
                 min-height: 34px;
-                padding: 8px 14px;
+                padding: 8px 14px !important;
                 border-radius: 999px;
                 font-size: 14px;
-                font-weight: 800;
+                font-weight: 700;
                 line-height: 1.2;
-                white-space: nowrap;
+                background: transparent;
             }
 
-            .wali-status strong.wali-status-text-good {
-                background: #dcfce7;
+            .wali-status-value.is-good,
+            .wali-status strong.aktif {
+                color: #166534 !important;
+                background: #dcfce7 !important;
                 border: 1px solid #86efac;
-                color: #15803d;
             }
 
-            .wali-status strong.wali-status-text-warning {
-                background: #fffbeb;
-                border: 1px solid #fdba74;
-                color: #b45309;
+            .wali-status-value.is-warning,
+            .wali-status strong.nonaktif {
+                color: #991b1b !important;
+                background: #fee2e2 !important;
+                border: 1px solid #fecaca;
             }
 
             .wali-anak-card {
@@ -1037,7 +1040,6 @@
         $nilaiTerakhir = !empty($nilaiTerbaru) ? (int)($nilaiTerbaru[0]['nilai'] ?? 0) : 0;
         $statusBelajar = $rataRata >= 75 ? 'Baik' : 'Perlu Ditingkatkan';
         $statusClass = $rataRata >= 75 ? 'aktif' : 'nonaktif';
-        $statusTextClass = $rataRata >= 75 ? 'murid-status-text-good' : 'murid-status-text-warning';
         ?>
 
         <div class="murid-dashboard">
@@ -1053,7 +1055,7 @@
 
                 <div class="murid-status-box <?= $statusClass === 'aktif' ? 'status-good' : 'status-warning' ?>">
                     <span>Status Belajar</span>
-                    <strong class="<?= $statusTextClass ?>">
+                    <strong class="murid-status-value <?= $statusClass === 'aktif' ? 'is-good' : 'is-warning' ?>">
                         <?= esc($statusBelajar) ?>
                     </strong>
                 </div>
@@ -1061,7 +1063,7 @@
 
             <div class="row mt-4 g-4">
 
-                <div class="col-md-3">
+                <div class="col-xl-3 col-md-6">
                     <div class="dashboard-card bg1">
                         <div class="card-wave"></div>
                         <h5>Rata-rata Nilai</h5>
@@ -1070,7 +1072,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-xl-3 col-md-6">
                     <div class="dashboard-card bg2">
                         <div class="card-wave"></div>
                         <h5>Mapel Dinilai</h5>
@@ -1079,7 +1081,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-xl-3 col-md-6">
                     <div class="dashboard-card bg3">
                         <div class="card-wave"></div>
                         <h5>Total Penilaian</h5>
@@ -1088,7 +1090,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-xl-3 col-md-6">
                     <div class="dashboard-card bg4">
                         <div class="card-wave"></div>
                         <h5>Nilai Terbaru</h5>
@@ -1372,7 +1374,7 @@
             }
 
             .murid-status-box {
-                min-width: 190px;
+                min-width: 180px;
                 border-radius: 16px;
                 padding: 16px;
                 text-align: center;
@@ -1392,32 +1394,49 @@
                 display: block;
                 color: #475569;
                 font-size: 13px;
-                margin-bottom: 8px;
+                margin-bottom: 6px;
             }
 
-            .murid-status-box strong {
-                display: inline-flex;
+            .murid-status-value,
+            .murid-status-box strong.aktif,
+            .murid-status-box strong.nonaktif {
+                display: inline-flex !important;
                 align-items: center;
                 justify-content: center;
                 min-height: 34px;
-                padding: 8px 14px;
+                padding: 8px 14px !important;
                 border-radius: 999px;
                 font-size: 14px;
-                font-weight: 800;
+                font-weight: 700;
                 line-height: 1.2;
-                white-space: nowrap;
+                letter-spacing: 0.01em;
+                background: transparent;
             }
 
-            .murid-status-box strong.murid-status-text-good {
-                background: #dcfce7;
+            .murid-status-value.is-good,
+            .murid-status-box strong.aktif {
+                color: #166534 !important;
+                background: #dcfce7 !important;
                 border: 1px solid #86efac;
-                color: #15803d;
+                box-shadow: none !important;
             }
 
-            .murid-status-box strong.murid-status-text-warning {
-                background: #fffbeb;
-                border: 1px solid #fdba74;
-                color: #b45309;
+            .murid-status-value.is-warning,
+            .murid-status-box strong.nonaktif {
+                color: #991b1b !important;
+                background: #fee2e2 !important;
+                border: 1px solid #fecaca;
+                box-shadow: none !important;
+            }
+
+            .murid-status-box.status-good {
+                background: #f7fef9;
+                border-color: #bbf7d0;
+            }
+
+            .murid-status-box.status-warning {
+                background: #fff7ed;
+                border-color: #fed7aa;
             }
 
             .murid-profile-card,
